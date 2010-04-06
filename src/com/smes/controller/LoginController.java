@@ -12,6 +12,11 @@ import com.smes.service.UserService;
 import com.smes.view.frm.Credential;
 
 
+/**
+ * Login controller that controls the process in login.  
+ * @author Lemuel Javellana
+ *
+ */
 public class LoginController extends SimpleFormController {
 	private UserService userService;
 		
