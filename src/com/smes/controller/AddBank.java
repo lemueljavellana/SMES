@@ -42,12 +42,9 @@ public class AddBank extends SimpleFormController {
 		if (strId == null)
 			return super.formBackingObject(request);
 		int bankId = Integer.valueOf(strId);
-		//int bankId = ServletRequestUtils.getIntParameter(request, "bankId");
 		Bank bank = bankService.getBank(bankId);
 		if (bank != null)
 			return bank;
-		/*int bankId = ServletRequestUtils.getRequiredIntParameter(request, "bankId");
-		;*/
 		return super.formBackingObject(request);
 	}
 	
