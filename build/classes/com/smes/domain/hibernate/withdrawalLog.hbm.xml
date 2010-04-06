@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.smes.domain.hibernate.WithdrawalLog" table="WITHDRAWAL_LOG">
+		<id name="withdrawalLogId" column="WITHDRAWAL_LOG_ID">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="withdrawalDate">
+			<column name="WITHDRAWAL_DATE" />
+		</property>
+		<property name="amount">
+			<column name="AMOUNT" />
+		</property>
+		<property name="remarks">
+			<column name="REMARKS" />
+		</property>
+		<property name="bankId">
+			<column name="BANK_ID" />
+		</property>
+		<property name="createdBy">
+			<column name="CREATED_BY" />
+		</property>
+		<property name="createdDate">
+			<column name="CREATED_DATE" />
+		</property>
+		<property name="modifiedBy">
+			<column name="MODIFIED_BY" />
+		</property>
+		<property name="modifiedDate">
+			<column name="MODIFIED_DATE" />
+		</property>
+		<many-to-one name="bank" update="false" insert="false"
+			class="com.smes.domain.hibernate.Bank" column="BANK_ID" lazy="false"/>
+	</class>
+</hibernate-mapping>

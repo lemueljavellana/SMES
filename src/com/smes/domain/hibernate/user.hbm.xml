@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.smes.domain.hibernate.User" table="SMES_USER">
+		<id name="userId" column="USER_ID">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="userName">
+			<column name="USER_NAME"/>
+		</property>
+		<property name="password">
+			<column name="PASSWORD"/>
+		</property>
+		<property name="firstName">
+			<column name="FIRST_NAME"/>
+		</property>
+		<property name="middleName">
+			<column name="MIDDLE_NAME"/>
+		</property>
+		<property name="lastName">
+			<column name="LAST_NAME"/>
+		</property>
+		<property name="address">
+			<column name="ADDRESS"/>
+		</property>
+		<property name="contactNumber">
+			<column name="CONTACT_NUMBER"/>
+		</property>
+	</class>
+	
+</hibernate-mapping>

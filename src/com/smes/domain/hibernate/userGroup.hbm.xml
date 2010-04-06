@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.smes.domain.hibernate.UserGroup" table="User">
+		<id name="userGroupId" column="USER_GROUP_ID">
+			<generator class="assigned"></generator>
+		</id>
+		<!-- 
+		<many-to-one name="user" column="USER_ID" update="false" />
+		<many-to-one name="group" column="GROUP_ID" update="false"></many-to-one>
+		 -->
+	</class>
+</hibernate-mapping>
