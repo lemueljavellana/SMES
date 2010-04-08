@@ -9,6 +9,11 @@ import org.hibernate.criterion.Restrictions;
 import com.smes.dao.BankDao;
 import com.smes.domain.hibernate.Bank;
 
+/**
+ * Hibernate implementation for bank dao.
+ * @author Lemuel Javellana
+ *
+ */
 public class BankDaoImpl extends BaseDao<Bank> implements BankDao{
 
 	@Override

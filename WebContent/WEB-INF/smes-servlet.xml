@@ -37,7 +37,7 @@
 	
 	<bean id="bankController" class="com.smes.controller.BankController">
 		<property name="methodNameResolver" ref="bankControllerResolver"/>
-		<property name="bankDao" ref="bankDao"/>
+		<property name="bankService" ref="bankService"/>
 	</bean>
 	
 	<bean id="addBankFrm" class="com.smes.controller.AddBank">

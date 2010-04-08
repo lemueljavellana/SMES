@@ -24,23 +24,28 @@
 	<tr>
 		<td colspan="3">
 			<table>
-				<tr>
-					<th>
-						Date
-					</th>
-					<th>
-						Withdrawal
-					</th>
-					<th>
-						Deposit
-					</th>
-					<th>
-						Amount
-					</th>
-					<th>
-						Total Amount
-					</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>
+							<input type="checkbox">
+						</th>
+						<th>
+							Date
+						</th>
+						<th>
+							Withdrawal
+						</th>
+						<th>
+							Deposit
+						</th>
+						<th>
+							Amount
+						</th>
+						<th>
+							Total Amount
+						</th>
+					</tr>
+				</thead>
 			</table>
 		</td>
 	</tr>

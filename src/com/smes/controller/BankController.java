@@ -14,25 +14,11 @@ import com.smes.service.BankService;
 import com.smes.view.frm.BankFrm;
 
 public class BankController extends MultiActionController {
-	private BankDaoImpl bankDao;
 	
 	private BankService bankService;
 	
-	public BankService getBankService() {
-		return bankService;
-	}
-	
 	public void setBankService(BankService bankService) {
 		this.bankService = bankService;
-	}
-	
-	public BankDaoImpl getBankDao() {
-		return bankDao;
-	}
-
-
-	public void setBankDao(BankDaoImpl bankDao) {
-		this.bankDao = bankDao;
 	}
 
 	public ModelAndView onLoadBankList (HttpServletRequest request, HttpServletResponse response) {
@@ -44,6 +30,4 @@ public class BankController extends MultiActionController {
 		System.out.println(bankFrm);
 		return mv;
 	}
-	
-	
 }

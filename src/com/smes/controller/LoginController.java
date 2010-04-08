@@ -19,10 +19,7 @@ import com.smes.view.frm.Credential;
  */
 public class LoginController extends SimpleFormController {
 	private UserService userService;
-		
-	public UserService getUserService() {
-		return userService;
-	}
+	
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}

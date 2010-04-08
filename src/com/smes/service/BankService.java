@@ -8,10 +8,6 @@ import com.smes.domain.hibernate.Bank;
 public class BankService {
 	private BankDao bankDao;
 
-	public BankDao getBankDao() {
-		return bankDao;
-	}
-	
 	public void setBankDao(BankDao bankDao) {
 		this.bankDao = bankDao;
 	}
