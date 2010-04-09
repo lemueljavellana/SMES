@@ -52,7 +52,7 @@ public class BankTransactionService {
 					dl.getDepositDate(), dl.getRemarks(), 0, dl.getAmount(), 0));
 		for (WithdrawalLog wl : withdrawalLogs)
 			bankTransactions.add(BankTransaction.getInstanceOf(wl.getWithdrawalLogId(), bankId,
-					wl.getWithdrawalDate(), wl.getRemarks(), 0, wl.getAmount (), 0));
+					wl.getWithdrawalDate(), wl.getRemarks(), wl.getAmount(), 0, 0));
 		System.out.println(withdrawalLogs);
 		Collections.sort (bankTransactions);
 		setAvailableBalance (bankTransactions);

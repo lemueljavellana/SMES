@@ -28,13 +28,12 @@
 				<value>com/smes/domain/hibernate/user.hbm.xml</value>
 				<value>com/smes/domain/hibernate/userGroup.hbm.xml</value>
 				<value>com/smes/domain/hibernate/bank.hbm.xml</value>
-				<value>com/smes/domain/hibernate/depositLog.hbm.xml</value>
-				<!-- <value>com/smes/domain/hibernate/withdrawalLog.hbm.xml</value>
-				 -->
+				<value>com/smes/domain/hibernate/depositLog.hbm.xml</value>				
+				<value>com/smes/domain/hibernate/withdrawalLog.hbm.xml</value>
 			</list>
 		</property>
 		
-		<!-- 
+		
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -42,6 +41,7 @@
 				<prop key="hibernate.generate_statistics">true</prop>
 			</props>
 		</property>
+		<!-- 
 		<property name="eventListeners">
 			<map>
 				<entry key="merge">

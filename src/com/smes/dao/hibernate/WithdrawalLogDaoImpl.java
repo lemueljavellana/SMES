@@ -47,7 +47,7 @@ public class WithdrawalLogDaoImpl extends BaseDao<WithdrawalLog> implements With
 		DetachedCriteria criteria = 
 			DetachedCriteria.forClass(getDomainClass());
 		criteria.add(Restrictions.eq("bankId", bankId));
-		criteria.addOrder(Order.asc("depositDate"));
+		criteria.addOrder(Order.asc("withdrawalDate"));
 		return getAll(criteria);
 	}
 
