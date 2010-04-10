@@ -31,6 +31,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="/bank.htm">onLoadBankList</prop>
+				<prop key="/bankTransaction.htm">bankTransactions</prop>
 			</props>
 		</property>
 	</bean>
@@ -40,6 +41,11 @@
 		<property name="bankService" ref="bankService"/>
 	</bean>
 	
+	<bean id="bankTransactionController" class="com.smes.controller.BankTransactionController">
+		<property name="methodNameResolver" ref="bankControllerResolver"/>
+		<property name="bankTransactionServece" ref="bankTransactionService"></property>
+	</bean>
+
 	<bean id="addBankFrm" class="com.smes.controller.AddBank">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="commandName"><value>bank</value></property>
@@ -57,6 +63,7 @@
 				<prop key="/homePage.htm">homePage</prop>
 				<prop key="/bank.htm">bankController</prop>
 				<prop key="/addBank.htm">addBankFrm</prop>
+				<prop key="/bankTransaction.htm">bankTransactionController</prop>
 			</props>
 		</property>
 	</bean>

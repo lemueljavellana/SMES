@@ -1,21 +1,34 @@
-package com.smes.domain.hibernate;
+package com.smes.domain;
 
 import java.util.Date;
 
-public abstract class BaseDomain {
+/**
+ * Almost the same in base domain. I guess for object oriented and appropriate object
+ * name.
+ * @author lemuel
+ *
+ */
+public class AuditLog {
 	private int createdBy;
 	private Date createdDate;
 	private int modifiedBy;
 	private Date modifiedDate;
-	public BaseDomain (){
-		//Do nothing.
+	private AuditLog (){
+		// do nothing. Should use the getInstanceof
 	}
-	protected BaseDomain (int createdBy, Date createdDate, int modifiedBy, Date modifiedDate){
+	private AuditLog (int createdBy, Date createdDate, 
+			int modifiedBy, Date modifiedDate){
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.modifiedBy = modifiedBy;
 		this.modifiedDate = modifiedDate;
 	}
+
+	public static AuditLog getInstanceOf (int createdBy, Date createdDate, 
+			int modifiedBy, Date modifiedDate){
+		return new AuditLog(createdBy, createdDate, modifiedBy, modifiedDate);
+	}
+
 	public int getCreatedBy() {
 		return createdBy;
 	}

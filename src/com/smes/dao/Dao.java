@@ -52,4 +52,10 @@ public interface Dao <T> {
 	 * @param id The object id that will be deleted.
 	 */
 	void delete (int id);
+	
+	/**
+	 * Persist the object.
+	 * @param t the object to be persisted.
+	 */
+	void persist (T t);
 }

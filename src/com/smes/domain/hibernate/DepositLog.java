@@ -2,6 +2,8 @@ package com.smes.domain.hibernate;
 
 import java.util.Date;
 
+import com.smes.domain.AuditLog;
+
 public class DepositLog extends BaseDomain {
 	private int depositLogId;
 	private Date depositDate;
@@ -10,6 +12,24 @@ public class DepositLog extends BaseDomain {
 	private int bankId;
 	private Bank bank;
 	
+	
+	public DepositLog (){
+		// needed in hibernate.
+	}
+	private DepositLog (int depositLogId, Date depositDate,
+			String remarks, double amount, int bankId){
+		this.depositLogId = depositLogId;
+		this.depositDate = depositDate;
+		this.remarks = remarks;
+		this.amount = amount;
+		this.bankId = bankId;
+	}
+
+	public static DepositLog getInstaceOf (int depositLogId, Date depositDate,
+			String remarks, double amount, int bankId){
+		return new DepositLog(depositLogId, depositDate, remarks, amount, bankId);
+	}
+			
 	public int getDepositLogId() {
 		return depositLogId;
 	}

@@ -69,11 +69,18 @@
 	<bean id="userDao" class="com.smes.dao.hibernate.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
-	 
-	 <bean id="bankDao" class="com.smes.dao.hibernate.BankDaoImpl">
-	 	<property name="sessionFactory" ref="sessionFactory"></property>
-	 </bean>
 
+	<bean id="bankDao" class="com.smes.dao.hibernate.BankDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="depositLogDao" class="com.smes.dao.hibernate.DepositLogDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="withdrawalLogDao" class="com.smes.dao.hibernate.WithdrawalLogDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>	
+	</bean>
 	<!--
 	  - PetClinic's central data access object: Hibernate implementation.
     -->

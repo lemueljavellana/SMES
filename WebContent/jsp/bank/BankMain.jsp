@@ -52,7 +52,7 @@
 		<tr>
 			<td>
 				<table border="1">
-					<tr bgcolor="lightgray" width="50">
+					<tr bgcolor="lightgray">
 						<th>Bank Name</th>
 						<th>Bank Address</th>
 						<th>Contact Number</th>

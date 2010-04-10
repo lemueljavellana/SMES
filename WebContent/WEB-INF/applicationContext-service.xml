@@ -8,4 +8,9 @@
 	<bean	id="userService" class="com.smes.service.UserService">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
+	<bean id="bankTransactionService" class="com.smes.service.BankTransactionService">
+		<property name="depositLogDao" ref="depositLogDao"/>
+		<property name="withdrawalLogDao" ref="withdrawalLogDao"/>
+		<property name="bankDao" ref="bankDao"></property>
+	</bean>
 </beans>

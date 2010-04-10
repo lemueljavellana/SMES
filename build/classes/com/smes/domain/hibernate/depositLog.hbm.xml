@@ -7,7 +7,7 @@
 			<generator class="assigned"></generator>
 		</id>
 		<property name="depositDate">
-			<column name="WITHDRAWAL_DATE" />
+			<column name="DEPOSIT_DATE" />
 		</property>
 		<property name="amount">
 			<column name="AMOUNT" />

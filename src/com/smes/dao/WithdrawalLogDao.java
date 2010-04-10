@@ -51,4 +51,10 @@ public interface WithdrawalLogDao {
 	 * @param withdrawalLogID the withdrawalLog id.
 	 */
 	void deleteWithdrawal (int withdrawalLogID);
+	
+	/**
+	 * Persist the object.
+	 * @param withdrawalLog The object to be persisted.
+	 */
+	void persistObject (WithdrawalLog withdrawalLog);
 }

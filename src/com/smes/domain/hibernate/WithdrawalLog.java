@@ -9,6 +9,32 @@ public class WithdrawalLog extends BaseDomain {
 	private String remarks;
 	private int bankId;
 	private Bank bank;
+	public WithdrawalLog (){
+		//needed for hibernate.
+	}
+	
+	private WithdrawalLog (int withdrawalLogId, Date withdrawalDate,
+			String remarks, double amount, int bankId){
+		this.withdrawalLogId = withdrawalLogId;
+		this.withdrawalDate = withdrawalDate;
+		this.remarks = remarks;
+		this.amount = amount;
+		this.bankId = bankId;
+	}
+
+	/**
+	 * Get the instance of this class. The audit of this class has no value. If you want to get its value, persist this object.
+	 * @param withdrawalLogId The withdrawal log id.
+	 * @param withdrawalDate The withdrawal date.
+	 * @param remarks The remarks for this withdrawal.
+	 * @param amount the amount to be withdrawn
+	 * @param bankId the bank id that is associated with this withdrawal.
+	 * @return
+	 */
+	public static WithdrawalLog getInstanceOf (int withdrawalLogId, Date withdrawalDate,
+			String remarks, double amount, int bankId){
+		return new WithdrawalLog(withdrawalLogId, withdrawalDate, remarks, amount, bankId);
+	}
 	
 	public int getWithdrawalLogId() {
 		return withdrawalLogId;

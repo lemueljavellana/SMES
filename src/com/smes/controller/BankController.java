@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.smes.dao.hibernate.BankDaoImpl;
 import com.smes.domain.hibernate.Bank;
 import com.smes.service.BankService;
 import com.smes.view.frm.BankFrm;

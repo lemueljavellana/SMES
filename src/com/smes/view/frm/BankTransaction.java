@@ -4,13 +4,20 @@ import java.util.Date;
 
 public class BankTransaction implements Comparable<BankTransaction>{
 	private int bankId;
+	private int bankTransactionId;
 	private Date date;
 	private String remarks;
 	private double withdrawalAmount;
 	private double depositAmount;
 	private double availableAmount;
 	
-	public BankTransaction (int bankId, Date date, String remarks, double withdrawalAmount, double depositAmount, double availableAmount){
+	public enum BankTransactionType {
+		Deposit, Withdrawal;
+	}
+
+	private BankTransaction (int bankTransactionId, int bankId, Date date, String remarks, 
+			double withdrawalAmount, double depositAmount, double availableAmount){
+		this.bankTransactionId = bankTransactionId;
 		this.bankId = bankId;
 		this.date = date;
 		this.remarks = remarks;
@@ -18,7 +25,20 @@ public class BankTransaction implements Comparable<BankTransaction>{
 		this.depositAmount = depositAmount;
 		this.availableAmount = availableAmount;
 	}
+	
+	public static BankTransaction getInstanceOf (int bankTransactionId, int bankId, Date date, String remarks, 
+			double withdrawalAmount, double depositAmount, double availableAmount){
+		return new BankTransaction(bankTransactionId, bankId, date, remarks, 
+				withdrawalAmount, depositAmount, availableAmount);
+	}
 
+	public int getBankTransactionId() {
+		return bankTransactionId;
+	}
+
+	public void setBankTransactionId(int bankTransactionId) {
+		this.bankTransactionId = bankTransactionId;
+	}
 	public int getBankId() {
 		return bankId;
 	}
@@ -71,4 +91,9 @@ public class BankTransaction implements Comparable<BankTransaction>{
 				+ ", withdrawalAmount=" + withdrawalAmount + "]";
 	}
 	
+	public BankTransactionType getBankTransactionType (){
+		if (withdrawalAmount == 0)
+			return BankTransactionType.Deposit;
+		return BankTransactionType.Withdrawal;
+	}
 }

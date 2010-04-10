@@ -50,4 +50,10 @@ public interface DepositLogDao {
 	 */
 	void deleteDeposit (int depositLogId);
 	
+	/**
+	 * Persist the object.
+	 * @param depositLog The object to be persisted.
+	 */
+	void persistObject (DepositLog depositLog);
+	
 }
