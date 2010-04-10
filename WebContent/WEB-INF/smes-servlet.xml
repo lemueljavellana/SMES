@@ -12,7 +12,7 @@
  	<import resource="applicationContext-hibernate.xml"/>
  	<import resource="applicationContext-validator.xml"/>
 	<import resource="applicationContext-service.xml"/>
-
+<!-- 
 	<bean id="loginController" class="com.smes.controller.LoginController">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="commandName"><value>credential</value></property>
@@ -67,6 +67,15 @@
 			</props>
 		</property>
 	</bean>
+	 -->
+	<context:component-scan base-package="com.smes.controller" />
+	
+	<!-- View resolver -->
+	<bean id="viewResolver" 
+		class="org.springframework.web.servlet.view.ResourceBundleViewResolver" p:basename="views"/>
+	
+	<bean id="tilesConfigurer" 
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" p:definitions="/WEB-INF/tiles-defs.xml" />
 </beans>	
 
 

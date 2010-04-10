@@ -23,7 +23,7 @@ public class LoginController extends SimpleFormController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
