@@ -17,13 +17,13 @@
 	<tr>
 		<td>Bank Name</td>
 		<td>
-			<form:select path="bankTransactionFrom">
+			<form:select path="bankTransactionFrom.bank" >
 				<form:options items="${bankTransactionFrom.banks}" itemValue="bankId" itemLabel="bankName"/>
 			</form:select>
 		</td>
 		<td>Date From</td>
-		<td><input type="text"></input></td>
-		<td>Date To</td>
+		<td><form:input path="bankTransactionFrom.dateFrom"/></td>
+		<td><form:input path="bankTransactionFrom.dateTo"/></td>
 		<td><input type="text"></input></td>
 		<td><input type="button" value="search"></input></td>
 	</tr>
