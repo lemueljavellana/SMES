@@ -2,33 +2,31 @@ package com.smes.controller;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.smes.domain.hibernate.Bank;
 import com.smes.service.BankService;
 import com.smes.view.frm.BankFrm;
 
-@Controller
-public class BankController {
-	private static final Logger logger = Logger.getLogger(BankController.class);
-	private final BankService bankService;
+public class BankController extends MultiActionController {
 	
-	@Autowired
-	public BankController (BankService bankService){
+	private BankService bankService;
+	
+	public void setBankService(BankService bankService) {
 		this.bankService = bankService;
 	}
 
-	@RequestMapping ("/bankList.htm")
-	public ModelMap loadBankList (){
-		logger.debug("enterig loadBankList");
+	public ModelAndView onLoadBankList (HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("onloadbankList");
 		BankFrm bankFrm = new BankFrm();
 		bankFrm.setBanks(new ArrayList<Bank>(bankService.getBanks()));
+		ModelAndView mv = new ModelAndView("jsp/bank/BankMain.jsp");
+		mv.addObject("bankfrm", bankFrm);
 		System.out.println(bankFrm);
-		return new ModelMap("bankfrm", bankFrm);
+		return mv;
 	}
-	
 }

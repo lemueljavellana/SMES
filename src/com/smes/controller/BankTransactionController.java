@@ -14,17 +14,22 @@ import com.smes.domain.hibernate.Bank;
 import com.smes.service.BankTransactionService;
 import com.smes.view.frm.BankTransactionFrm;
 
-@Controller
+//@Controller
 public class BankTransactionController{
 	private static final Logger logger = Logger.getLogger(BankTransactionController.class);
 	private BankTransactionService bankTransactionServece;
 
-	@Autowired
-	public BankTransactionController (BankTransactionService bankTransactionServece){
+	//@Autowired
+/*	public BankTransactionController (BankTransactionService bankTransactionServece){
+		this.bankTransactionServece = bankTransactionServece;
+	}*/
+
+	public void setBankTransactionServece(
+			BankTransactionService bankTransactionServece) {
 		this.bankTransactionServece = bankTransactionServece;
 	}
-	
-	@RequestMapping ("/bankTransaction.htm")
+
+	//@RequestMapping ("/bankTransaction.htm")
 	public ModelMap bankTransactions (){
 		logger.log(Level.DEBUG, "Entering bankTransactions");
 		BankTransactionFrm bankTransactionFrom = new BankTransactionFrm();

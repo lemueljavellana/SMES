@@ -1,81 +1,84 @@
 package com.smes.domain.hibernate;
 
-public class User extends BaseDomain{
-
-	private int userId;
-	private String userName;
-	private String password;
+public class Customer extends BaseDomain {
+	private int customerId;
+	private int companyId;
 	private String firstName;
 	private String middleName;
 	private String lastName;
 	private String address;
 	private String contactNumber;
 	private Company company;
-	
-	public int getUserId() {
-		return userId;
+
+	public int getCustomerId() {
+		return customerId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
-	public String getUserName() {
-		return userName;
+
+	public int getCompanyId() {
+		return companyId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getMiddleName() {
 		return middleName;
 	}
+
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getContactNumber() {
 		return contactNumber;
 	}
+
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-	
-	public Company getCompany() {
-		return company;
-	}
-	
+
 	public void setCompany(Company company) {
 		this.company = company;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+
 	@Override
 	public String toString() {
-		return "User [address=" + address + ", company=" + company
-				+ ", contactNumber=" + contactNumber + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", middleName="
-				+ middleName + ", password=" + password + ", userId=" + userId
-				+ ", userName=" + userName + "]";
+		return "Customer [address=" + address + ", companyId=" + companyId
+				+ ", contactNumber=" + contactNumber + ", customerId="
+				+ customerId + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", middleName=" + middleName + "]";
 	}
-	
 }

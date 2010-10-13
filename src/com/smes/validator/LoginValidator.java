@@ -1,7 +1,6 @@
 package com.smes.validator;
 
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.smes.dao.hibernate.UserDaoImpl;
@@ -29,11 +28,14 @@ public class LoginValidator implements Validator {
 	public void validate(Object object, Errors error) {
 		Credential credential = (Credential) object;
 		User user = userDao.getUser(credential.getUserName());
+		
 		if (user == null){
 			reject(error);
 			return;
 		}
 		if (!user.getPassword().equals(credential.getPassword())) 
+			reject(error);
+		if (!user.getCompany().getCompanyName().equals(credential.getCompanyName()))
 			reject(error);
 	} 
 	

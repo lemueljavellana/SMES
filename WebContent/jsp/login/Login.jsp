@@ -24,6 +24,12 @@
 			</td>
 		</tr>
 		<tr>
+			<td>Company Name</td>
+			<td>
+				<form:input path="credential.companyName"/>
+			</td>
+		</tr>
+		<tr>
 			<td colspan="2" align="center">
                 <spring:hasBindErrors name="credential">
                 <font color="red">

@@ -30,6 +30,8 @@
 				<value>com/smes/domain/hibernate/bank.hbm.xml</value>
 				<value>com/smes/domain/hibernate/depositLog.hbm.xml</value>				
 				<value>com/smes/domain/hibernate/withdrawalLog.hbm.xml</value>
+				<value>com/smes/domain/hibernate/company.hbm.xml</value>
+				<value>com/smes/domain/hibernate/customer.hbm.xml</value>
 			</list>
 		</property>
 		

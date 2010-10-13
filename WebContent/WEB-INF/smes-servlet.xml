@@ -12,14 +12,18 @@
  	<import resource="applicationContext-hibernate.xml"/>
  	<import resource="applicationContext-validator.xml"/>
 	<import resource="applicationContext-service.xml"/>
-<!-- 
+	
 	<bean id="loginController" class="com.smes.controller.LoginController">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="commandName"><value>credential</value></property>
 		<property name="commandClass"><value>com.smes.view.frm.Credential</value></property>
 		<property name="formView"><value>jsp/login/Login.jsp</value></property>
 		<property name="validator"><ref bean="loginValidator"/></property>
-		<property name="successView"><value>homePage.htm</value></property>
+		<!-- <property name="successView"><value>homePage.htm</value></property>
+		 -->
+		<property name="successView">
+		 	<value>jsp/ca/CAHome.jsp</value>
+		 </property>
 		<property name="userService" ref="userService"></property>
 	</bean>
 	
@@ -40,12 +44,12 @@
 		<property name="methodNameResolver" ref="bankControllerResolver"/>
 		<property name="bankService" ref="bankService"/>
 	</bean>
-	
+	<!-- 
 	<bean id="bankTransactionController" class="com.smes.controller.BankTransactionController">
 		<property name="methodNameResolver" ref="bankControllerResolver"/>
-		<property name="bankTransactionServece" ref="bankTransactionService"></property>
+		<property name="bankTransactionService" ref="bankTransactionService"></property>
 	</bean>
-
+	 -->
 	<bean id="addBankFrm" class="com.smes.controller.AddBank">
 		<property name="sessionForm"><value>true</value></property>
 		<property name="commandName"><value>bank</value></property>
@@ -63,19 +67,21 @@
 				<prop key="/homePage.htm">homePage</prop>
 				<prop key="/bank.htm">bankController</prop>
 				<prop key="/addBank.htm">addBankFrm</prop>
-				<prop key="/bankTransaction.htm">bankTransactionController</prop>
+				<!-- <prop key="/bankTransaction.htm">bankTransactionController</prop> -->
 			</props>
 		</property>
 	</bean>
-	 -->
+	 <!-- 
 	<context:component-scan base-package="com.smes.controller" />
-	
+	-->
 	<!-- View resolver -->
+	<!-- 
 	<bean id="viewResolver" 
 		class="org.springframework.web.servlet.view.ResourceBundleViewResolver" p:basename="views"/>
 	
 	<bean id="tilesConfigurer" 
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" p:definitions="/WEB-INF/tiles-defs.xml" />
+		 -->
 </beans>	
 
 

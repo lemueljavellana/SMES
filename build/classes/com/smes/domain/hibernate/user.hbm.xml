@@ -27,6 +27,7 @@
 		<property name="contactNumber">
 			<column name="CONTACT_NUMBER"/>
 		</property>
+		<many-to-one name="company" update="true" insert="false"
+			class="com.smes.domain.hibernate.Company" column="COMPANY_ID" lazy="false"/>
 	</class>
-	
 </hibernate-mapping>

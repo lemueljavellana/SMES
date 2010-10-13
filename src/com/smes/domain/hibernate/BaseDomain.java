@@ -10,12 +10,14 @@ public abstract class BaseDomain {
 	public BaseDomain (){
 		//Do nothing.
 	}
+
 	protected BaseDomain (int createdBy, Date createdDate, int modifiedBy, Date modifiedDate){
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.modifiedBy = modifiedBy;
 		this.modifiedDate = modifiedDate;
 	}
+
 	public int getCreatedBy() {
 		return createdBy;
 	}
@@ -40,4 +42,11 @@ public abstract class BaseDomain {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+
+	@Override
+	public String toString() {
+		return "BaseDomain [createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", modifiedBy=" + modifiedBy
+				+ ", modifiedDate=" + modifiedDate + "]";
+	}	
 }

@@ -6,6 +6,7 @@ public class Credential {
 	private String userName;
 	private String password;
 	private User user;
+	private String companyName;
 	
 	public String getUserName() {
 		return userName;
@@ -19,6 +20,15 @@ public class Credential {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
