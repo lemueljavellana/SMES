@@ -1,6 +1,7 @@
 package com.smes.validator;
 
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.smes.dao.hibernate.UserDaoImpl;
@@ -40,7 +41,8 @@ public class LoginValidator implements Validator {
 	} 
 	
 	private void reject (Errors errors){
-		errors.rejectValue("password", "error.login.invalid-pass",
-                null, "Incorrect user name or Password.");
+		//ValidationUtils.rejectIfEmpty(errors, field, errorCode)
+		errors.rejectValue("userName", "userName.required",
+                null, "Invalid credentials");
 	}
 }

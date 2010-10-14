@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <frameset cols="15%,85%">
-	<frame src="CustomerList.jsp"/>
-	<frame src="CustomersAccount.jsp"/>
+	<frame src="/customerlist.htm"/>
+	<frame />
 </frameset>
 </html>

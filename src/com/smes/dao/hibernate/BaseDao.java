@@ -67,4 +67,7 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 		getHibernateTemplate().persist(t);
 	}
 	
+	public DetachedCriteria getCriteria (){
+		return DetachedCriteria.forClass(getDomainClass());
+	}
 }

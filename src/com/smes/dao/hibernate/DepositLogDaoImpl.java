@@ -30,10 +30,10 @@ public class DepositLogDaoImpl extends BaseDao<DepositLog> implements DepositLog
 
 	@Override
 	public Collection<DepositLog> getDeposits(Date frm, Date to) {
-		DetachedCriteria criteria = 
-			DetachedCriteria.forClass(getDomainClass());
+		DetachedCriteria criteria = getCriteria();
 		criteria.add(Restrictions.between("depositDate", frm, to));
 		criteria.addOrder(Order.asc("depositDate"));
+
 		return getAll(criteria);
 	}
 

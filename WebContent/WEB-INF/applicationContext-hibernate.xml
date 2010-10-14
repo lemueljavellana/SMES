@@ -83,6 +83,9 @@
 	<bean id="withdrawalLogDao" class="com.smes.dao.hibernate.WithdrawalLogDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>	
 	</bean>
+	<bean id="customerDao" class="com.smes.dao.hibernate.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>	
+	</bean>
 	<!--
 	  - PetClinic's central data access object: Hibernate implementation.
     -->

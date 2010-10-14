@@ -8,35 +8,39 @@
 <title>Javellana Enterprise</title>
 </head>
 <body>
-<form method="post">
+<form:form method="POST" commandName="credential">
 	<table>
 		<tr>
 			<td colspan="2" align="left" bgcolor="lightblue"><b>Log in</b></td>
 		</tr>
 		<tr>
 			<td>User name</td>
-			 <td><form:input path="credential.userName"/></td>
+			 <td><form:input path="userName"/></td>
 		</tr>
 		<tr>
 			<td>Password</td>
 			<td>
-				<form:password path="credential.password"/>
+				<form:password path="password"/>
 			</td>
 		</tr>
 		<tr>
 			<td>Company Name</td>
 			<td>
-				<form:input path="credential.companyName"/>
+				<form:input path="companyName"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
+				<font color="red">
+				<form:errors path="userName" cssClass="error"/>
+				</font>
+				<!-- 
                 <spring:hasBindErrors name="credential">
                 <font color="red">
-                <!--c:out value="${status.errorMessage}"/>-->
                 	Incorrect user name or Password
                 </font>
                 </spring:hasBindErrors>
+                 -->
            </td>
 		</tr>
 		<tr>
@@ -45,6 +49,6 @@
 			</td>
 		</tr>
 	</table>
-</form>	
+</form:form>	
 </body>
 </html>
