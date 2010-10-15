@@ -9,4 +9,8 @@
 	<bean id="addBankValidator" class="com.smes.validator.AddBankValidator">
 		<property name="bankDao" ref="bankDao"/>
 	</bean>
+	
+	<bean id="addCustomerValidator" class="com.smes.validator.ca.AddCustomerValidator">
+		<property name="customerService" ref="customerService"></property>
+	</bean>
 </beans>

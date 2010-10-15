@@ -34,6 +34,13 @@ public interface Dao <T> {
 	 * @return The objects that belongs to this dao.
 	 */
 	Collection<T> getAll (DetachedCriteria criteria);
+	
+	/**
+	 * Get objects given company id;
+	 * @param companyId The company id.
+	 * @return The objects that belong to the company.
+	 */
+	Collection<T> getAllByCompanyId (int companyId);
 	/**
 	 * Save the object.
 	 * @param t The object to be save. All object that does not have id will be

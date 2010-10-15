@@ -1,5 +1,8 @@
 package com.smes.service;
 
+import java.util.Collection;
+
+
 import com.smes.dao.CustomerDao;
 import com.smes.domain.hibernate.Customer;
 
@@ -8,10 +11,6 @@ public class CustomerService {
 	public void setCustomerDao(CustomerDao customerDao) {
 		this.customerDao = customerDao;
 	}
-
-	/*public CustomerDao getCustomerDao() {
-		return customerDao;
-	}*/
 
 	public void saveCustomer (Customer customer){
 		customerDao.save(customer);
@@ -27,5 +26,14 @@ public class CustomerService {
 
 	public void updateCustomer (Customer customer){
 		customerDao.persist(customer);
+	}
+
+	public Collection<Customer> getAllCustomers (int companyId){
+		return customerDao.getAllByCompanyId(companyId);
+	}
+	
+	public boolean uniqueCustomer (String firstName, String lastName){
+		Collection<Customer> customers = customerDao.getCustomers(firstName, lastName);
+		return customers == null || customers.size() < 1; 
 	}
 }

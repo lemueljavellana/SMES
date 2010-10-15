@@ -3,6 +3,7 @@ package com.smes.dao.hibernate;
 import java.util.Collection;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.smes.dao.Dao;
@@ -44,11 +45,19 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 		return getAll(criteria);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<T> getAll(DetachedCriteria criteria) {
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
-	
+
+	@Override
+	public Collection<T> getAllByCompanyId(int companyId) {
+		DetachedCriteria dc = getCriteria();
+		dc.add(Restrictions.eq("companyId", companyId));
+		return getAll(dc);
+	}
+
 	@Override
 	public T get(DetachedCriteria criteria) {
 		Collection<T> result = getAll(criteria);

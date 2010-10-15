@@ -15,6 +15,13 @@
 			<td><form:input path="firstName"/></td>
 		</tr>
 		<tr>
+			<td colspan="1">
+				<font color="red">
+				<form:errors path="firstName" cssClass="error"/>
+				</font>
+			</td>
+		</tr>
+		<tr>
 			<td>Middle Name</td>
 			<td><form:input path="middleName"/></td>
 		</tr>
@@ -23,8 +30,22 @@
 			<td><form:input path="lastName"/></td>
 		</tr>
 		<tr>
+			<td colspan="2">
+				<font color="red">
+				<form:errors path="lastName" cssClass="error"/>
+				</font>
+			</td>
+		</tr>
+		<tr>
 			<td>Contact Number</td>
 			<td><form:input path="contactNumber"/></td>
+		</tr>
+		<tr>
+			<td colspan="1">
+				<font color="red">
+				<form:errors path="contactNumber" cssClass="error"/>
+				</font>
+			</td>
 		</tr>
 		<tr>
 			<td>Address</td>
@@ -37,7 +58,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-				<input type="button" align="left" value="save">
+				<input type="submit" align="left" value="save">
 			</td>
 		</tr>
 	</table>

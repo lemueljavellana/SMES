@@ -17,7 +17,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>smes</servlet-name>
-		<url-pattern>*.htm</url-pattern>
+		<url-pattern>/a/*</url-pattern>
 	</servlet-mapping>
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
