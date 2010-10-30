@@ -32,6 +32,7 @@
 				<value>com/smes/domain/hibernate/withdrawalLog.hbm.xml</value>
 				<value>com/smes/domain/hibernate/company.hbm.xml</value>
 				<value>com/smes/domain/hibernate/customer.hbm.xml</value>
+				<value>com/smes/domain/hibernate/customerAccountPreference.hbm.xml</value>
 			</list>
 		</property>
 		
@@ -85,6 +86,10 @@
 	</bean>
 	<bean id="customerDao" class="com.smes.dao.hibernate.CustomerDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>	
+	</bean>
+	
+	<bean id="customerAccountPreferenceDao" class="com.smes.dao.hibernate.CustomerAccountPreferenceDaoImp">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<!--
 	  - PetClinic's central data access object: Hibernate implementation.

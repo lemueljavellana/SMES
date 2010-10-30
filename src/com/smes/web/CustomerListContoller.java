@@ -4,16 +4,18 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.smes.domain.hibernate.Customer;
 import com.smes.service.CustomerService;
-import com.smes.web.dto.CustomerListDto;
+import com.smes.web.dto.CustomerDto;
 
 @Controller
-@RequestMapping ("/customerlist")
+@RequestMapping ("/customerList")
 public class CustomerListContoller {
 
 	private CustomerService customerService;
@@ -24,13 +26,36 @@ public class CustomerListContoller {
 	}
 
 	@RequestMapping (method = RequestMethod.GET)
-	public String showCustomerFrom (ModelMap model) {
+	public String showCustomerFrom (Model model) {
 		System.out.println("show customer");
 		Collection<Customer> customers = 
 			customerService.getAllCustomers(1);
-		CustomerListDto customerListDto =
-			CustomerListDto.getInstaceof(customers);
-		model.addAttribute(customerListDto);
-		return "ca/CustomerList";
+		CustomerDto customerDto =
+			CustomerDto.getInstaceof(customers);
+		model.addAttribute(customerDto);
+		return "customerList";
+	}
+	
+	@RequestMapping (value="/{customerId}", method = RequestMethod.GET)
+	public String deleteCustomer (@PathVariable ("customerId") String customerId, 
+			Model model){
+		System.out.println("Delete customer");
+		customerService.deleteCustomer(Integer.valueOf(customerId));
+		Collection<Customer> customers = 
+			customerService.getAllCustomers(1);
+		CustomerDto customerDto =
+			CustomerDto.getInstaceof(customers);
+		model.addAttribute(customerDto);
+		return "customerListSuccess"; 
+	}
+	
+	@RequestMapping (method=RequestMethod.POST)
+	public String searchCustomer (@ModelAttribute ("customerDto")
+			CustomerDto customerDto, Model model){
+		Collection<Customer> customers = null;
+		customers = customerService.getCustomers(customerDto.getCustomerName(), 1);
+		customerDto.setCustomers(customers);
+		model.addAttribute(customerDto);
+		return "customerList";
 	}
 }

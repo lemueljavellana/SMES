@@ -67,8 +67,8 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 	}
 	
 	@Override
-	public void save(T t) {
-		getHibernateTemplate().save(t);
+	public void saveOrUpdate(T t) {
+		getHibernateTemplate().saveOrUpdate(t);
 	}
 
 	@Override

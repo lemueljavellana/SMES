@@ -58,7 +58,7 @@ public class DepositLogDaoImpl extends BaseDao<DepositLog> implements DepositLog
 
 	@Override
 	public void saveDeposit(DepositLog depositLog) {
-		save(depositLog);
+		saveOrUpdate(depositLog);
 	}
 	
 }

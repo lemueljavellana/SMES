@@ -53,6 +53,6 @@ public class BankDaoImpl extends BaseDao<Bank> implements BankDao{
 
 	@Override
 	public void saveBank(Bank bank) {
-		save(bank);
+		saveOrUpdate(bank);
 	}
 }

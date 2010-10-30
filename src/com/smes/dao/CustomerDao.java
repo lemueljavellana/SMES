@@ -14,7 +14,7 @@ public interface CustomerDao extends Dao <Customer>{
 	 * @param name customer name, either first name, middle name, last name
 	 * @return
 	 */
-	Collection<Customer> getCustomer (String name);
+	Collection<Customer> getCustomers (int companyId, String name);
 	
 	/**
 	 * Get the customer given first name and last name

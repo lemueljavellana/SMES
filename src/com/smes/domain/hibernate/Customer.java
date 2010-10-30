@@ -9,7 +9,15 @@ public class Customer extends BaseDomain {
 	private String address;
 	private String contactNumber;
 	private Company company;
+	private boolean checked;
+	
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
+	public boolean isChecked() {
+		return checked;
+	}
 	public int getCustomerId() {
 		return customerId;
 	}

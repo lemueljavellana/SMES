@@ -15,7 +15,7 @@
 			<td><form:input path="firstName"/></td>
 		</tr>
 		<tr>
-			<td colspan="1">
+			<td colspan="2">
 				<font color="red">
 				<form:errors path="firstName" cssClass="error"/>
 				</font>
@@ -41,7 +41,7 @@
 			<td><form:input path="contactNumber"/></td>
 		</tr>
 		<tr>
-			<td colspan="1">
+			<td colspan="2">
 				<font color="red">
 				<form:errors path="contactNumber" cssClass="error"/>
 				</font>

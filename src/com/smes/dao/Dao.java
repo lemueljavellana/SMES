@@ -46,7 +46,7 @@ public interface Dao <T> {
 	 * @param t The object to be save. All object that does not have id will be
 	 * inserted otherwise is updated.
 	 */
-	void save (T t);
+	void saveOrUpdate (T t);
 	
 	/**
 	 * Delete the object.

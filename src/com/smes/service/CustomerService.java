@@ -13,7 +13,7 @@ public class CustomerService {
 	}
 
 	public void saveCustomer (Customer customer){
-		customerDao.save(customer);
+		customerDao.saveOrUpdate(customer);
 	}
 
 	public Customer getCustomer (Integer customerId) {
@@ -24,6 +24,10 @@ public class CustomerService {
 		customerDao.get(customer.getCompanyId());
 	}
 
+	public void deleteCustomer (int customerId){
+		customerDao.delete(customerId);
+	}
+	
 	public void updateCustomer (Customer customer){
 		customerDao.persist(customer);
 	}
@@ -31,7 +35,11 @@ public class CustomerService {
 	public Collection<Customer> getAllCustomers (int companyId){
 		return customerDao.getAllByCompanyId(companyId);
 	}
-	
+
+	public Collection<Customer> getCustomers (String name, int companyId){
+		return customerDao.getCustomers(companyId, name);
+	}
+
 	public boolean uniqueCustomer (String firstName, String lastName){
 		Collection<Customer> customers = customerDao.getCustomers(firstName, lastName);
 		return customers == null || customers.size() < 1; 

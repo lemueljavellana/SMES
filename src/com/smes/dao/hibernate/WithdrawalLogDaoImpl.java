@@ -58,7 +58,7 @@ public class WithdrawalLogDaoImpl extends BaseDao<WithdrawalLog> implements With
 
 	@Override
 	public void saveWithdrawal(WithdrawalLog withdrawalLog) {
-		save(withdrawalLog);
+		saveOrUpdate(withdrawalLog);
 	}
 	
 }

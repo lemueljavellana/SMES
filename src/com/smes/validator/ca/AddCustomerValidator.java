@@ -19,11 +19,13 @@ public class AddCustomerValidator implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		Customer customer = (Customer)target;
-		
 		rejectIfEmpty (errors, customer.getFirstName(), "firstName", "First Name required");
 		rejectIfEmpty (errors, customer.getLastName(), "lastName", "Last Name required");
 		rejectIfEmpty (errors, customer.getContactNumber(), "contactNumber", "ContactNumber required");
-		if (!customerService.uniqueCustomer(customer.getFirstName(), customer.getLastName())){
+		
+		if (customer.getCustomerId() == 0 
+				&& !customerService.uniqueCustomer(customer.getFirstName(),
+						customer.getLastName())){
 			errors.rejectValue("lastName", null, null, "first name and last name already exist");
 		}
 	}

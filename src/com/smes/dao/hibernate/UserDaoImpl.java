@@ -38,6 +38,6 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao{
 
 	@Override
 	public void saveUser(User user) {
-		save(user);
+		saveOrUpdate(user);
 	}
 }

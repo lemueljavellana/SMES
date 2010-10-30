@@ -8,22 +8,19 @@
             <title><tiles:insertAttribute name="title" ignore="true" /></title>
     </head>
     <body>
-        <table border="1" cellpadding="2" cellspacing="2" align="center">
-            <tr>
-                <td height="30" colspan="2">
+        <table border="1" align="center" width="100%" height="100%">
+            <tr height="20%">
+                <td colspan="2" >
                     <tiles:insertAttribute name="header" />
                 </td>
             </tr>
-            <tr>
-                <td height="250">
-                    <tiles:insertAttribute name="menu" />
-                </td>
-                <td width="350">
+            <tr height="500">
+                <td >
                     <tiles:insertAttribute name="body" />
                 </td>
             </tr>
-            <tr>
-                <td height="30" colspan="2">
+            <tr height="20%">
+                <td colspan="2">
                     <tiles:insertAttribute name="footer" />
                 </td>
             </tr>

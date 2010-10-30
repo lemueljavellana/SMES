@@ -5,11 +5,52 @@
 <html>
 <script type="text/javascript">
 	function popup (link, windowName){
+		alert (link);
 		if (!window.focus)
 			return true;
 		window.open(link, windowName, 'width=275,height=300,scrollbars=yes');
 		return false;
 	}
+	
+	function editCustomer (link, windowName){
+		if (!window.focus)
+			return true;
+		var checkBoxes = document.getElementById("customerId");
+		alert (checkBoxes);
+		var id = "";
+		for (var i = 0; i < checkBoxes.length; i++){
+			var checkBox = checkBoxes[i];
+			alert (checkBox);
+			if (checkBox.checked){
+				id = checkBox.value;
+				break;
+			}
+		}
+		popup (link+"/"+id, windowName);
+		return false;
+	}
+	
+	function deleteCustomers (){
+		var frm = document.getElementById("customerForm");
+		frm.action = "customerlist/delete";
+		frm.submit ();
+	}
+
+	function searchCustomers () {
+		var frm = document.getElementById("customerForm");
+		frm.action = "customerlist/search";
+		frm.submit ();
+	}
+
+	function addCustomer () {
+		var ifrm = window.parent.document.getElementById("body");
+		ifrm.src="<c:url value="addCustomer"/>";
+	}
+
+	function editCustomer (customerId){
+		var ifrm = window.parent.document.getElementById("body");
+		ifrm.src="<c:url value="addCustomer"/>/" + customerId;
+	}	
 </script>
 <body>
 	<table>
@@ -17,40 +58,54 @@
 			<th colspan="3" align="left">Customer's List</th>
 		</tr>
 		<tr >
+			<form:form method="POST" commandName="customerDto" id="customerForm">
 			<td>
-				<input name="customer Name">
+			
+				<form:input path="customerName"/>
+				
 			</td>
 			<td colspan="2">
-				<input type="button" name="search" value="search">
+				<input type="submit" name="search" value="search">
 			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-			 	<input type="button" value="Add"
-			 		onclick="return popup ('addCustomer','Add User')">
-			 	<input type="button" value="Edit">
-			 	<input type="button" value="Delete">
+			</form:form>
+			<td>
+				<input type="button" value="Add"
+			 		onclick="addCustomer (this);">
 			</td>
 		</tr>
 	</table>
+
 	<table border="1" bordercolor="black">
 		<tr>
 			<th>
-				<input type="checkbox">
-			</th>
-			<th>
 				Customer's Name
 			</th>
+			<th>
+				Edit
+			</th>
+			<th>
+				Delete
+			</th>
+			<th>
+				Account Settings
+			</th>
 		</tr>
-		<c:forEach var="customer" items="${customerListDto.customers}">
+		<c:forEach var="customer" items="${customerDto.customers}" varStatus="status">
 		<tr>
-			<td>
-				<input type="checkbox">
+			<td><c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
 			</td>
-			<td><c:out value="${customer.firstName}"/>
-				<c:out value="${customer.lastName}"/></td>
+			<td>
+				<a onclick="editCustomer(${customer.customerId})">edit</a><br>
+			</td>
+			<td>
+				<a href="customerList/${customer.customerId}">icon</a>
+			</td>
+			<td>
+				<a href=".">icon</a>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
+
 </body>
 </html>

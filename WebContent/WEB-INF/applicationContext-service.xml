@@ -18,4 +18,8 @@
 		<property name="withdrawalLogDao" ref="withdrawalLogDao"/>
 		<property name="bankDao" ref="bankDao"></property>
 	</bean>
+	
+	<bean id="customerAccountPreferenceService" class="com.smes.service.CustomerAccountPreferenceService">
+		<property name="customerAccountPreferenceDao" ref="customerAccountPreferenceDao"></property>
+	</bean>
 </beans>
