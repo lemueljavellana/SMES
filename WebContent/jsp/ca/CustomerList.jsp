@@ -77,7 +77,7 @@
 
 	<table border="1" bordercolor="black">
 		<tr>
-			<th>
+			<th width="150">
 				Customer's Name
 			</th>
 			<th>
@@ -92,7 +92,7 @@
 		</tr>
 		<c:forEach var="customer" items="${customerDto.customers}" varStatus="status">
 		<tr>
-			<td><c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
+			<td ><c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
 			</td>
 			<td>
 				<a onclick="editCustomer(${customer.customerId})">edit</a><br>

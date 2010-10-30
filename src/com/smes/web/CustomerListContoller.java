@@ -18,7 +18,7 @@ import com.smes.web.dto.CustomerDto;
 @RequestMapping ("/customerList")
 public class CustomerListContoller {
 
-	private CustomerService customerService;
+	private final CustomerService customerService;
 	
 	@Autowired
 	public CustomerListContoller (CustomerService customerService){

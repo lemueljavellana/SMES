@@ -30,9 +30,8 @@
 		<put-attribute name="title" value="Customer's Account Home"></put-attribute>
 		<put-attribute name="body" value="/jsp/ca/CAHome.jsp"/>
 	</definition>
-	
 	<definition name="customerList" template="/jsp/ca/CustomerList.jsp"/>
-
 	<definition name="addCustomer" template="/jsp/ca/AddCustomer.jsp"/>
 	<definition name="customerListSuccess" template="/jsp/ca/Success.jsp"/>
+	<definition name="customerAccountPreferences" template="jsp/ca/preference/CustomerAccountPreference.jsp"/>
 </tiles-definitions>
