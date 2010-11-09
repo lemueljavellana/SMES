@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.smes.domain.hibernate.Account" table="ACCOUNT">
+		<id name="accountId" column="ACCOUNT_ID" >
+			<generator class="assigned" ></generator>
+		</id>
+		<property name="accountDate">
+			<column name="ACCOUNT_DATE"/>
+		</property>
+		<property name="referenceNumber">
+			<column name="REFERENCE_NUMBER"/>
+		</property>
+		<property name="description">
+			<column name="DESCRIPTION"/>
+		</property>
+		<property name="amount">
+			<column name="AMOUNT"/>
+		</property>
+		<property name="companyId" column="COMPANY_ID"/>
+		
+		<property name="accountTypeId" column="ACCOUNT_TYPE_ID"/>
+		
+		<property name="createdBy">
+			<column name="CREATED_BY" />
+		</property>
+		<property name="createdDate">
+			<column name="CREATED_DATE" />
+		</property>
+		<property name="modifiedBy">
+			<column name="MODIFIED_BY" />
+		</property>
+		<property name="modifiedDate">
+			<column name="MODIFIED_DATE" />
+		</property>
+		<many-to-one name="company" update="false" insert="false"
+			class="com.smes.domain.hibernate.Company" column="COMPANY_ID" lazy="false"/>
+		<many-to-one name="accountType" update="false" insert="false"
+			class="com.smes.domain.hibernate.AccountType" column="ACCOUNT_TYPE_ID" lazy="false"/>
+	</class>
+</hibernate-mapping>

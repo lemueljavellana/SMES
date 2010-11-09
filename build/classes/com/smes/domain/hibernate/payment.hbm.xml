@@ -2,19 +2,23 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.smes.domain.hibernate.CustomerAccountPreference" table="customer_account_preference">
-		<id name="customerAccountPreferenceId" column="CUSTOMER_ACCOUNT_PREFERENCE_ID" >
+	<class name="com.smes.domain.hibernate.Payment">
+		<id name="paymentId" column="PAYMENT_ID" >
 			<generator class="assigned" ></generator>
 		</id>
-		<property name="customerId">
-			<column name="CUSTOMER_ID"/>
+		<property name="paymentDate">
+			<column name="PAYMENT_DATE"/>
 		</property>
-		<property name="interest">
-			<column name="INTEREST"/>
+		<property name="referenceNumber">
+			<column name="REFERENCE_NUMBER"/>
 		</property>
-		<property name="maximumAmount">
-			<column name="MAXIMUM_AMOUNT"/>
+		<property name="description">
+			<column name="DESCRIPTION"/>
 		</property>
+		<property name="amount">
+			<column name="AMOUNT"/>
+		</property>
+		<property name="companyId" column="COMPANY_ID"/>
 		<property name="createdBy">
 			<column name="CREATED_BY" />
 		</property>
@@ -27,7 +31,8 @@
 		<property name="modifiedDate">
 			<column name="MODIFIED_DATE" />
 		</property>
-		<many-to-one name="customer" update="false" insert="false"
-			class="com.smes.domain.hibernate.Customer" column="CUSTOMER_ID" lazy="false"/>			 
+		<many-to-one name="company" update="false" insert="false"
+			class="com.smes.domain.hibernate.Company" column="COMPANY_ID" lazy="false"/>
+			 
 	</class>
 </hibernate-mapping>

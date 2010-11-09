@@ -50,7 +50,12 @@
 	function editCustomer (customerId){
 		var ifrm = window.parent.document.getElementById("body");
 		ifrm.src="<c:url value="addCustomer"/>/" + customerId;
-	}	
+	}
+
+	function accountPreferences (customerId) {
+		var ifrm = window.parent.document.getElementById("body");
+		ifrm.src="<c:url value="customerAcountPreferences"/>/" + customerId;
+	}
 </script>
 <body>
 	<table>
@@ -101,7 +106,7 @@
 				<a href="customerList/${customer.customerId}">icon</a>
 			</td>
 			<td>
-				<a href=".">icon</a>
+				<a onclick="accountPreferences (${customer.customerId})">icon</a>
 			</td>
 		</tr>
 		</c:forEach>

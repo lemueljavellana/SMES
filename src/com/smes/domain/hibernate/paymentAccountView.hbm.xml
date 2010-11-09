@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.smes.domain.hibernate.PaymentAccountView" table="PAYMENT_ACCOUNT_VIEW" >
+		<id name="referenceDate" column="REFERENCE_ID" >
+			<generator class="assigned" ></generator>
+		</id>
+		<property name="transactionType">
+			<column name="TRANSACTION_TYPE"/>
+		</property>
+		<property name="referenceDate">
+			<column name="REFERENCE_DATE"/>
+		</property>
+		<property name="description">
+			<column name="DESCRIPTION"/>
+		</property>
+		<property name="amount">
+			<column name="AMOUNT"/>
+		</property>
+		<property name="companyId" column="COMPANY_ID"/>
+		
+		<property name="createdBy">
+			<column name="CREATED_BY" />
+		</property>
+		<property name="createdDate">
+			<column name="CREATED_DATE" />
+		</property>
+		<property name="modifiedBy">
+			<column name="MODIFIED_BY" />
+		</property>
+		<property name="modifiedDate">
+			<column name="MODIFIED_DATE" />
+		</property>
+		<many-to-one name="company" update="false" insert="false"
+			class="com.smes.domain.hibernate.Company" column="COMPANY_ID" lazy="false"/>
+	</class>
+</hibernate-mapping>

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.smes.domain.hibernate.CustomerAccountPreference">
+	<class name="com.smes.domain.hibernate.CustomerAccountPreference" table="customer_account_preference">
 		<id name="customerAccountPreferenceId" column="CUSTOMER_ACCOUNT_PREFERENCE_ID" >
 			<generator class="assigned" ></generator>
 		</id>
@@ -11,6 +11,9 @@
 		</property>
 		<property name="interest">
 			<column name="INTEREST"/>
+		</property>
+		<property name="maximumAmount">
+			<column name="MAXIMUM_AMOUNT"/>
 		</property>
 		<property name="createdBy">
 			<column name="CREATED_BY" />

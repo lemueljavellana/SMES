@@ -22,4 +22,8 @@
 	<bean id="customerAccountPreferenceService" class="com.smes.service.CustomerAccountPreferenceService">
 		<property name="customerAccountPreferenceDao" ref="customerAccountPreferenceDao"></property>
 	</bean>
+	
+	<bean id="paymentAccountService" class="com.smes.service.PaymentAccountService">
+		<property name="paymentAccountDao" ref="paymentAccountDao"></property>
+	</bean>
 </beans>

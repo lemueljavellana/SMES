@@ -4,12 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <body></body>
-<table>
+<table border="1" width="100%">
 	<tr>
 		<td align="left">
 			<iframe id="customerList" frameborder="0" src="<c:url value="customerList"/>" height="550"></iframe>
 		</td>
-		<td>
+		<td width="100%">
 			<iframe id="body" frameborder="0" height="550"  name="body" /></iframe>
 		</td>
 	</tr>

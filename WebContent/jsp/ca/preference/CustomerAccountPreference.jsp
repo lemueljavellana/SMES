@@ -9,10 +9,16 @@
 </head>
 <body>
 <form:form method="POST" commandName="customerAccountPreference">
+	
 	<table>
 		<tr>
+			<th colspan="2">
+				Customer account preferences
+			</th>
+		</tr>
+		<tr>
 			<td>Interest</td>
-			<td><form:input path="interest"/></td>
+			<td align="right"><form:input  path="interest" /></td>
 		</tr>
 		<tr>
 			<td colspan="1">
@@ -20,7 +26,13 @@
 				<form:errors path="interest" cssClass="error"/>
 				</font>
 			</td>
-		</tr>		
+		</tr>
+		<tr>
+			<td>
+				Maximum Amount 
+			</td>
+			<td><form:input path="maximumAmount"/></td>
+		</tr>
 		<tr>
 			<td>
 				<form:hidden path="customerId"/>

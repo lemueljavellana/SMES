@@ -33,6 +33,10 @@
 				<value>com/smes/domain/hibernate/company.hbm.xml</value>
 				<value>com/smes/domain/hibernate/customer.hbm.xml</value>
 				<value>com/smes/domain/hibernate/customerAccountPreference.hbm.xml</value>
+				<value>com/smes/domain/hibernate/payment.hbm.xml</value>
+				<value>com/smes/domain/hibernate/accountType.hbm.xml</value>
+				<value>com/smes/domain/hibernate/account.hbm.xml</value>
+				<value>com/smes/domain/hibernate/paymentAccountView.hbm.xml</value>
 			</list>
 		</property>
 		
@@ -89,6 +93,10 @@
 	</bean>
 	
 	<bean id="customerAccountPreferenceDao" class="com.smes.dao.hibernate.CustomerAccountPreferenceDaoImp">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="paymentAccountDao" class="com.smes.dao.hibernate.PaymentAccountDaoIml">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<!--

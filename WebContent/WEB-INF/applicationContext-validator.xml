@@ -13,4 +13,7 @@
 	<bean id="addCustomerValidator" class="com.smes.validator.ca.AddCustomerValidator">
 		<property name="customerService" ref="customerService"></property>
 	</bean>
+	
+	<bean id="capValidator" class="com.smes.validator.ca.CAPValidator">
+	</bean>
 </beans>
