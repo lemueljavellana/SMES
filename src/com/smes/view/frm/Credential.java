@@ -1,12 +1,26 @@
 package com.smes.view.frm;
 
-import com.smes.domain.hibernate.User;
 
 public class Credential {
 	private String userName;
 	private String password;
-	private User user;
 	private String companyName;
+	private String message;
+	private int companyId;
+	private int userId;
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
 	
 	public String getUserName() {
 		return userName;
@@ -28,11 +42,20 @@ public class Credential {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
-	public User getUser() {
-		return user;
+	
+	public int getCompanyId() {
+		return companyId;
 	}
+	
+	@Override
+	public String toString() {
+		return "Credential [companyId=" + companyId + ", companyName="
+				+ companyName + ", message=" + message + ", password="
+				+ password + ", userId=" + userId + ", userName=" + userName
+				+ "]";
+	}
+	
 }

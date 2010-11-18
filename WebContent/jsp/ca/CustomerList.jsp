@@ -36,12 +36,6 @@
 		frm.submit ();
 	}
 
-	function searchCustomers () {
-		var frm = document.getElementById("customerForm");
-		frm.action = "customerlist/search";
-		frm.submit ();
-	}
-
 	function addCustomer () {
 		var ifrm = window.parent.document.getElementById("body");
 		ifrm.src="<c:url value="addCustomer"/>";
@@ -55,6 +49,11 @@
 	function accountPreferences (customerId) {
 		var ifrm = window.parent.document.getElementById("body");
 		ifrm.src="<c:url value="customerAcountPreferences"/>/" + customerId;
+	}
+
+	function accountTransaction (customerId){
+		var ifrm = window.parent.document.getElementById("body");
+		ifrm.src="<c:url value="accountTransaction"/>/" + customerId;
 	}
 </script>
 <body>
@@ -97,7 +96,7 @@
 		</tr>
 		<c:forEach var="customer" items="${customerDto.customers}" varStatus="status">
 		<tr>
-			<td ><c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
+			<td onclick="accountTransaction(${customer.customerId})"><c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
 			</td>
 			<td>
 				<a onclick="editCustomer(${customer.customerId})">edit</a><br>

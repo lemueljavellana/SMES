@@ -9,6 +9,8 @@
 		<property name="name">
 			<column name="NAME"/>
 		</property>
+		<property name="companyId" column="COMPANY_ID"/>
+
 		<property name="createdBy">
 			<column name="CREATED_BY" />
 		</property>

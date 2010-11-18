@@ -10,21 +10,9 @@
 		<put-attribute name="body" value="/jsp/tiles/body.jsp"/>
 		<put-attribute name="footer" value="/jsp/tiles/footer.jsp"/>
 	</definition>
-
-	<definition name="bankList" extends="baseLayout">
-		<put-attribute name="title" value="Bank List"/>
-		<put-attribute name="body" value="/jsp/bank/BankMain.jsp"/>
-	</definition>
-
-	<definition name="welcome" extends="baseLayout">
-		<put-attribute name="title" value="Welcome"/>
-		<put-attribute name="body" value="/jsp/welcome.jsp"/>
-	</definition>
-
-	<definition name="bankTransaction" extends="baseLayout">
-		<put-attribute name="title" value="Bank Transaction"/>
-		<put-attribute name="body" value="/jsp/bank/BankTransaction.jsp"/>
-	</definition>
+	
+	<definition name="loginPage" template="/jsp/login/Login.jsp"/>
+	<definition name="loginPageSuccecss" template="/jsp/login/Success.jsp"/>
 	<!-- customer's account home -->
 	<definition name="cah" extends="baseLayout">
 		<put-attribute name="title" value="Customer's Account Home"></put-attribute>
@@ -34,4 +22,8 @@
 	<definition name="addCustomer" template="/jsp/ca/AddCustomer.jsp"/>
 	<definition name="customerListSuccess" template="/jsp/ca/Success.jsp"/>
 	<definition name="customerAccountPreferences" template="/jsp/ca/preference/CustomerAccountPreference.jsp"/>
+	<definition name="customersAccount" template="/jsp/ca/CustomersTransaction.jsp"/>
+	<definition name="addAccountTransaction" template="/jsp/ca/AddEditAccount.jsp"/>
+	<definition name="paymentForm" template="/jsp/ca/AddEditPayment.jsp"/>
+	<definition name="addTransactionSuccess" template="/jsp/ca/AddTransactionSuccess.jsp"/>
 </tiles-definitions>

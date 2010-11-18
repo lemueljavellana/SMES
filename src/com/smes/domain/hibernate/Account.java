@@ -1,9 +1,11 @@
 package com.smes.domain.hibernate;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Account extends BaseDomain {
 	private int accountId;
+	private int customerId;
+	private Customer customer;
 	private Date accountDate;
 	private String referenceNumber;
 	private String description;
@@ -17,6 +19,18 @@ public class Account extends BaseDomain {
 	}
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
+	}
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	public Date getAccountDate() {
 		return accountDate;
@@ -72,8 +86,8 @@ public class Account extends BaseDomain {
 				+ accountId + ", accountType=" + accountType
 				+ ", accountTypeId=" + accountTypeId + ", amount=" + amount
 				+ ", company=" + company + ", companyId=" + companyId
+				+ ", customer=" + customer + ", customerId=" + customerId
 				+ ", description=" + description + ", referenceNumber="
 				+ referenceNumber + "]";
 	}
-	
 }

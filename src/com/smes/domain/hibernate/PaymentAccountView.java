@@ -9,9 +9,24 @@ public class PaymentAccountView extends BaseDomain {
 	private String refereneNumber;
 	private String description;
 	private double amount;
+	private double amountWithInterest;
 	private int companyId;
 	private Company company;
-
+	private int customerId;
+	private Customer customer;
+	
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	public int getReferenceId() {
 		return referenceId;
 	}
@@ -61,10 +76,20 @@ public class PaymentAccountView extends BaseDomain {
 		this.company = company;
 	}
 
+	public void setAmountWithInterest(double amountWithInterest) {
+		this.amountWithInterest = amountWithInterest;
+	}
+
+	public double getAmountWithInterest() {
+		return amountWithInterest;
+	}
+	
 	@Override
 	public String toString() {
-		return "PaymentAccountView [amount=" + amount + ", company=" + company
-				+ ", companyId=" + companyId + ", description=" + description
+		return "PaymentAccountView [amount=" + amount + ", amountWithInterest="
+				+ amountWithInterest + ", company=" + company + ", companyId="
+				+ companyId + ", customer=" + customer + ", customerId="
+				+ customerId + ", description=" + description
 				+ ", referenceDate=" + referenceDate + ", referenceId="
 				+ referenceId + ", refereneNumber=" + refereneNumber
 				+ ", transactionType=" + transactionType + "]";

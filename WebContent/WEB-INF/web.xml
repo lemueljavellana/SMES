@@ -3,8 +3,8 @@
 	<display-name>Javellana Enterprise System</display-name>
 
 	<welcome-file-list>
+		
 		<welcome-file>jsp/index.jsp</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<!--<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>

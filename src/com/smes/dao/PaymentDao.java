@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.smes.domain.hibernate.Payment;
 
-public interface PaymentDao<T> extends Dao<T>{
+public interface PaymentDao extends Dao<Payment>{
 	/**
 	 * Get the total payments
 	 * @param customerId The customer's id

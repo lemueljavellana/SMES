@@ -4,9 +4,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Header</title>
+<style type="text/css">
+	headerTable {
+		background-color: lightblue;
+		color: blue;
+	}
+</style>
 </head>
 <body>
-	Header
+	<table width="100%" bgcolor="lightblue" border="0">
+		<tr>
+			<td width="60%">
+				<b><font style="font-family: monospace">Hinstro</font> <i>alpha version</i></b>
+			</td>
+			<td width="40%" bgcolor="blue">
+				<table width="100%">
+					<tr>
+						<td>
+							<font color="lightblue"><b>HOME</b></font> | <font color="lightblue"><b>CUSTOMER ACCOUNT</b></font> | <font color="lightblue"><b>SETTING</b></font>
+						</td>
+						<td align="right">
+							${credential.userName}
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
 </body>
 </html>

@@ -99,6 +99,19 @@
 	<bean id="paymentAccountDao" class="com.smes.dao.hibernate.PaymentAccountDaoIml">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	
+	<bean id="accountDao" class="com.smes.dao.hibernate.AccountDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="paymentDao" class="com.smes.dao.hibernate.PaymentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="accountTypeDao" class="com.smes.dao.hibernate.AccountTypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
 	<!--
 	  - PetClinic's central data access object: Hibernate implementation.
     -->

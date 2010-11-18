@@ -3,6 +3,8 @@ package com.smes.dao.hibernate;
 import java.util.Collection;
 
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -34,6 +36,28 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao{
 		DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
 		criteria.addOrder(Order.asc("userName"));
 		return getAll(criteria);
+	}
+
+	public boolean isValidUser (String userName, String password, String companyName) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT USER_NAME, USER_ID, COMPANY_ID ")
+			.append("FROM (SELECT U.USER_NAME, U.USER_ID, C.COMPANY_ID FROM SMES_USER AS U ")
+				.append("INNER JOIN (SELECT COMPANY_ID, COMPANY_NAME FROM COMPANY) AS C ON U.COMPANY_ID = C.COMPANY_ID ")
+			.append("WHERE U.USER_NAME LIKE ?")
+			.append("AND U.PASSWORD LIKE SHA1(?) ")
+			.append("AND C.COMPANY_NAME LIKE ?) AS T");
+		Session session = null;
+		try {
+			session = getSession();
+			SQLQuery query = session.createSQLQuery(sql.toString());
+			query.setParameter(0, userName);
+			query.setParameter(1, password);
+			query.setParameter(2, companyName);
+			return query.list().size() > 0;
+		} finally {
+			if (session != null)
+				session.close();
+		}
 	}
 
 	@Override

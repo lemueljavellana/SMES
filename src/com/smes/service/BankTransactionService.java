@@ -71,7 +71,7 @@ public class BankTransactionService {
 		}
 	}
 	
-	public void saveBankTransaction (BankTransaction bankTransaction, Credential credential){
+/*	public void saveBankTransaction (BankTransaction bankTransaction, Credential credential){
 		switch (bankTransaction.getBankTransactionType()){
 			case Deposit :
 				depositLogDao.saveDeposit(convertAndProcessToDepositLog(bankTransaction, credential));
@@ -80,9 +80,9 @@ public class BankTransactionService {
 				withdrawalLogDao.saveWithdrawal(convertAndProcessToWithdrawalLog(bankTransaction, credential));
 				break;
 		}
-	}
+	}*/
 	
-	private DepositLog convertAndProcessToDepositLog (BankTransaction bt, Credential credential){
+/*	private DepositLog convertAndProcessToDepositLog (BankTransaction bt, Credential credential){
 		DepositLog dl = DepositLog.getInstaceOf(bt.getBankTransactionId(),
 				bt.getDate(), bt.getRemarks(), 
 				bt.getDepositAmount(), bt.getBankId());
@@ -96,8 +96,8 @@ public class BankTransactionService {
 		}
 		return dl;
 	}
-	
-	private WithdrawalLog convertAndProcessToWithdrawalLog (BankTransaction bt, Credential credential){
+	*/
+	/*private WithdrawalLog convertAndProcessToWithdrawalLog (BankTransaction bt, Credential credential){
 		WithdrawalLog wl = WithdrawalLog.getInstanceOf(bt.getBankTransactionId(), bt.getDate(), 
 				bt.getRemarks(), bt.getWithdrawalAmount(), bt.getBankId());
 		User user = credential.getUser();
@@ -109,5 +109,5 @@ public class BankTransactionService {
 			DomainAuditUtil.addAudit(wl, user, currentDate);
 		}
 		return wl;
-	}
+	}*/
 }

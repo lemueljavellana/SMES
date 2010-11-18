@@ -19,7 +19,7 @@
 			<column name="AMOUNT"/>
 		</property>
 		<property name="companyId" column="COMPANY_ID"/>
-		
+		<property name="customerId" column="CUSTOMER_ID"/>
 		<property name="accountTypeId" column="ACCOUNT_TYPE_ID"/>
 		
 		<property name="createdBy">
@@ -36,6 +36,8 @@
 		</property>
 		<many-to-one name="company" update="false" insert="false"
 			class="com.smes.domain.hibernate.Company" column="COMPANY_ID" lazy="false"/>
+		<many-to-one name="customer" update="false" insert="false"
+			class="com.smes.domain.hibernate.Customer" column="CUSTOMER_ID" lazy="false"/>
 		<many-to-one name="accountType" update="false" insert="false"
 			class="com.smes.domain.hibernate.AccountType" column="ACCOUNT_TYPE_ID" lazy="false"/>
 	</class>

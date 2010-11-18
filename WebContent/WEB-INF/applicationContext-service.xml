@@ -22,8 +22,18 @@
 	<bean id="customerAccountPreferenceService" class="com.smes.service.CustomerAccountPreferenceService">
 		<property name="customerAccountPreferenceDao" ref="customerAccountPreferenceDao"></property>
 	</bean>
-	
+
 	<bean id="paymentAccountService" class="com.smes.service.PaymentAccountService">
 		<property name="paymentAccountDao" ref="paymentAccountDao"></property>
+		<property name="accountDao" ref="accountDao"/>
+		<property name="paymentDao" ref="paymentDao"/>
+	</bean>
+
+	<bean id="accountService" class="com.smes.service.AccountService">
+		<property name="accountDao" ref="accountDao"></property>
+	</bean>
+	
+	<bean id="accountTypeService" class="com.smes.service.AccountTypeService">
+		<property name="accountTypeDao" ref="accountTypeDao"></property>
 	</bean>
 </beans>
