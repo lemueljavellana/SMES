@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	footer
+<div id="footer">
+	<p>Hinstro alpha version</p>
+</div>
 </body>
 </html>

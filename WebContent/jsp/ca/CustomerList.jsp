@@ -3,6 +3,7 @@
 <%@ include file="../include.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<link href="../jsp/css/style.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript">
 	function popup (link, windowName){
 		alert (link);
@@ -56,60 +57,37 @@
 		ifrm.src="<c:url value="accountTransaction"/>/" + customerId;
 	}
 </script>
-<body>
-	<table>
-		<tr>
-			<th colspan="3" align="left">Customer's List</th>
-		</tr>
-		<tr >
-			<form:form method="POST" commandName="customerDto" id="customerForm">
-			<td>
-			
-				<form:input path="customerName"/>
-				
-			</td>
-			<td colspan="2">
-				<input type="submit" name="search" value="search">
-			</td>
-			</form:form>
-			<td>
-				<input type="button" value="Add"
+<body >
+	<h3>Customer's List</h3>
+	<div>
+		<form:form method="POST" commandName="customerDto" id="customerForm">
+			<form:input path="customerName"/>
+			<input type="submit" name="search" value="search">
+			<input type="button" value="Add"
 			 		onclick="addCustomer (this);">
-			</td>
-		</tr>
+		</form:form>
+	</div>
+	<table border="1" bordercolor="black" width="100%">
+		<thead>
+			<tr>
+				<th><input type="checkbox"/></th>
+				<th >
+					Customer's Name
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="customer" items="${customerDto.customers}" varStatus="status">
+				<tr class="${status.index % 2 == 0 ? 'trEven' : 'trOdd'}">
+					<td align="center" width="5%">
+						<input type="checkbox" id="cb" name="cb" value="${customer.customerId}"/>
+					</td>
+					<td width="95%" onclick="accountTransaction(${customer.customerId})">
+						<c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
-
-	<table border="1" bordercolor="black">
-		<tr>
-			<th width="150">
-				Customer's Name
-			</th>
-			<th>
-				Edit
-			</th>
-			<th>
-				Delete
-			</th>
-			<th>
-				Account Settings
-			</th>
-		</tr>
-		<c:forEach var="customer" items="${customerDto.customers}" varStatus="status">
-		<tr>
-			<td onclick="accountTransaction(${customer.customerId})"><c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
-			</td>
-			<td>
-				<a onclick="editCustomer(${customer.customerId})">edit</a><br>
-			</td>
-			<td>
-				<a href="customerList/${customer.customerId}">icon</a>
-			</td>
-			<td>
-				<a onclick="accountPreferences (${customer.customerId})">icon</a>
-			</td>
-		</tr>
-		</c:forEach>
-	</table>
-
 </body>
 </html>

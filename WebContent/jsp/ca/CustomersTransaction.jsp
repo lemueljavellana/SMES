@@ -58,6 +58,7 @@
 </script>
 <body>
 <form:form method="POST" commandName="accountTransactionMgr" id="accountTransactionMgr">
+	
 	<table >
 		<tr align="left">
 			<td align="left">
@@ -87,29 +88,34 @@
 	</table>
 
 	<!-- TODO: Add the searching here. -->
-	<table border="1" width="100%">
-		<tr>
-			<td><input type="checkbox" id="selectAll" name="selectAll"/></td>
-			<td>Date</td>
-			<td>Reference Number</td>
-			<td>Description</td>
-			<td>Payment</td>
-			<td>Account</td>
-			<td>Interest</td>
-			<td>Running Total</td>
-		</tr>
-		<c:forEach var="transaction" items="${accountTransactionMgr.accountTrasactionDtos}">
-		<tr>
-			<td><input type="checkBox" value="${transaction.transactionType},${transaction.referenceId}"
-				id="cb" name="cb"/></td>
-			<td><c:out value="${transaction.date}"/></td>
-			<td><c:out value="${transaction.referenceNumber}"/></td>
-			<td><c:out value="${transaction.description}"/></td>
-			<td><c:out value="${transaction.payment}"/></td>
-			<td><c:out value="${transaction.account}"/></td>
-			<td><c:out value="${transaction.accountWithInterest}"/></td>
-			<td><c:out value="${transaction.runningTotal}"/></td>
-		</c:forEach>
+	<table width="100%" bordercolor="black" border="1">
+		<thead>
+			<tr>
+				<th><input type="checkbox" id="selectAll" name="selectAll"/></th>
+				<th>Date</th>
+				<th>Reference Number</th>
+				<th>Description</th>
+				<th>Payment</th>
+				<th>Account</th>
+				<th>Interest</th>
+				<th>Running Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="transaction" items="${accountTransactionMgr.accountTrasactionDtos}">
+				<tr>
+					<td><input type="checkBox" value="${transaction.transactionType},${transaction.referenceId}"
+						id="cb" name="cb"/></td>
+					<td><c:out value="${transaction.date}"/></td>
+					<td><c:out value="${transaction.referenceNumber}"/></td>
+					<td><c:out value="${transaction.description}"/></td>
+					<td><c:out value="${transaction.payment}"/></td>
+					<td><c:out value="${transaction.account}"/></td>
+					<td><c:out value="${transaction.accountWithInterest}"/></td>
+					<td><c:out value="${transaction.runningTotal}"/></td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
 </form:form>
 <table width="100%">

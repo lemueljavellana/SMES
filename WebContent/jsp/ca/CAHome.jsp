@@ -6,7 +6,7 @@
 <body></body>
 <table width="100%">
 	<tr>
-		<td align="left">
+		<td align="left" height="100%">
 			<iframe id="customerList" frameborder="0" src="<c:url value="customerList"/>" height="550"></iframe>
 		</td>
 		<td width="100%">
