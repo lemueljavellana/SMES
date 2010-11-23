@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 import com.smes.dao.CustomerDao;
+import com.smes.domain.Page;
+import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.Customer;
 
 public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
@@ -18,16 +20,17 @@ public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
 	}
 
 	@Override
-	public Collection<Customer> getCustomers(int companyId, String name) {
+	public Page<Customer> getCustomers(int companyId, String name, int pageNumber) {
 		DetachedCriteria criteria = getCriteria();
 		criteria.add(Restrictions.eq("companyId", companyId));
 		SimpleExpression fne = Restrictions.like("firstName", "%" + name + "%");
 		SimpleExpression lne = Restrictions.like("lastName", "%" + name + "%");
 		criteria.add(Restrictions.or(fne, lne));
 		criteria.addOrder(Order.asc("firstName"));
-		return getAll(criteria);
+		PageSetting ps = new PageSetting(pageNumber);
+		return getAll(companyId, ps, Order.asc("firstName"), Restrictions.or(fne, lne));
 	}
-
+	
 	@Override
 	public Collection<Customer> getCustomers(String fname, String lName) {
 		DetachedCriteria criteria = getCriteria();
@@ -36,7 +39,7 @@ public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
 		criteria.addOrder(Order.asc("firstName"));
 		return getAll(criteria);
 	}
-
+	
 	@Override
 	public Collection<Customer> getAllByCompanyId(int companyId) {
 		DetachedCriteria dc = getCriteria();
@@ -44,4 +47,12 @@ public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
 		dc.addOrder(Order.asc("firstName"));
 		return getAll(dc);
 	}
+
+	@Override
+	public Page<Customer> getCustomers(int companyId, int pageNumber) {
+		PageSetting ps = new PageSetting(pageNumber);
+		return getAll(companyId, ps, Order.asc("firstName"));
+	}
+	
+	
 }

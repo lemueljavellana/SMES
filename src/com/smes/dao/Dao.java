@@ -2,7 +2,12 @@ package com.smes.dao;
 
 import java.util.Collection;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+
+import com.smes.domain.Page;
+import com.smes.domain.PageSetting;
 
 /**
  * Defines the basic attribute of a DAO (Data Access Object).
@@ -65,4 +70,32 @@ public interface Dao <T> {
 	 * @param t the object to be persisted.
 	 */
 	void persist (T t);
+
+	/**
+	 * Get all data controlled by page. 
+	 * @param companyId company id;
+	 * @param pageSetting the page setting
+	 * @return The page result.
+	 */
+	Page<T> getAll (int companyId, PageSetting pageSetting);
+	
+	/**
+	 * Get all data controlled by page. 
+	 * @param companyId company id;
+	 * @param pageSetting the page setting
+	 * @param order set the order of the result
+	 * @return The page result.
+	 */
+	Page<T> getAll (int companyId, PageSetting pageSetting, Order order);
+	
+	/**
+	 * Get all data controlled by page
+	 * @param companyId Company id
+	 * @param pageSetting the page setting
+	 * @param order set the order of the result
+	 * @param criteria criteria
+	 * @return The page result
+	 */
+	Page<T> getAll (int companyId, PageSetting pageSetting,
+					Order order, Criterion ...criteria);
 }

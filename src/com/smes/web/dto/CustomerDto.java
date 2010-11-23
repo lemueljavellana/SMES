@@ -1,16 +1,23 @@
 package com.smes.web.dto;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
+import com.smes.domain.Page;
 import com.smes.domain.hibernate.Customer;
 
 public class CustomerDto {
 	private Collection<Customer> customers;
 	private String customerName;
 	private Customer customer;
+	private Page<Customer> page;
+	
+	public void setPage(Page<Customer> page) {
+		this.page = page;
+	}
 
+	public Page<Customer> getPage() {
+		return page;
+	}
 	public void setCustomers(Collection<Customer> customers) {
 		this.customers = customers;
 	}
@@ -27,12 +34,6 @@ public class CustomerDto {
 		return customerName;
 	}
 
-	public static CustomerDto getInstaceof (Collection<Customer> customers){
-		CustomerDto dto = new CustomerDto();
-		dto.customers = customers;
-		return dto;
-	}
-
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
@@ -40,4 +41,12 @@ public class CustomerDto {
 	public Customer getCustomer() {
 		return customer;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomerDto [customer=" + customer + ", customerName="
+				+ customerName + ", customers=" + customers + ", page=" + page
+				+ "]";
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 
 import com.smes.dao.CustomerDao;
+import com.smes.domain.Page;
 import com.smes.domain.hibernate.Customer;
 
 public class CustomerService {
@@ -36,12 +37,16 @@ public class CustomerService {
 		return customerDao.getAllByCompanyId(companyId);
 	}
 
-	public Collection<Customer> getCustomers (String name, int companyId){
-		return customerDao.getCustomers(companyId, name);
+	public Page<Customer> getCustomers (String name, int companyId, int pageNumber){
+		return customerDao.getCustomers(companyId, name, pageNumber);
 	}
 
 	public boolean uniqueCustomer (String firstName, String lastName){
 		Collection<Customer> customers = customerDao.getCustomers(firstName, lastName);
 		return customers == null || customers.size() < 1; 
+	}
+	
+	public Page<Customer> getCustomers (int companyId, int pageNumber) {
+		return customerDao.getCustomers(companyId, pageNumber);
 	}
 }

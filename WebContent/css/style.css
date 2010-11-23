@@ -332,31 +332,47 @@ hr { display: none; }
 /* table css*/
 table {
 	width: 100%;
+	border: 1;
+	border-color: black;
 	border-collapse: collapse;
 	border-right: 1px solid #F5F2EF;
 }
 
 thead th {
-	padding: 5px 0;
+	padding: 2px 0;
 	text-align: center;
 	border-top: 1px solid #F5F2EF;
 	border-left: 1px solid #F5F2EF;
-	background: #E4FAE8;
+	background: #F5F2EF;
 }
 
 tbody td {
-	padding: 3px 0;
+	padding: 2px 0;
 	border-left: 1px solid #F5F2EF;
+	color: black;
 }
 
+tfoot td {
+	padding: 2px;
+	border-top: 1px solid #F5F2EF;
+	border-left: 1px solid #F5F2EF;
+	border-bottom: 1px solid #F5F2EF;
+}
+
+/**
 tr.trEven td {
 	background-color: #FBFBFB; color: black;
 }
-
+*/
 tr.trOdd td {
 	color: black;
 }
 
+a.currentPage {
+	color: black;
+	font-style: oblique;
+	
+}
 #calendar tfoot #next {
 	text-align: right;
 }

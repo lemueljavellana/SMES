@@ -1,12 +1,18 @@
 package com.smes.dao.hibernate;
 
 import java.util.Collection;
+import java.util.List;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.smes.dao.Dao;
+import com.smes.domain.Page;
+import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.BaseDomain;
 
 /**
@@ -51,11 +57,16 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
+	
 	@Override
 	public Collection<T> getAllByCompanyId(int companyId) {
+		return getAll(getCriteriaByCompanyId(companyId));
+	}
+	
+	private DetachedCriteria getCriteriaByCompanyId(int companyId) {
 		DetachedCriteria dc = getCriteria();
 		dc.add(Restrictions.eq("companyId", companyId));
-		return getAll(dc);
+		return dc;
 	}
 
 	@Override
@@ -78,5 +89,33 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 	
 	public DetachedCriteria getCriteria (){
 		return DetachedCriteria.forClass(getDomainClass());
+	}
+	
+	@Override
+	public Page<T> getAll(int companyId, PageSetting pageSetting) {
+		// getting the data
+		return getAll(companyId, pageSetting, null);
+	}
+	
+	@Override
+	public Page<T> getAll(int companyId, PageSetting pageSetting, Order order) {	
+		return getAll(companyId, pageSetting, order, null);
+	}
+	@Override
+	public Page<T> getAll (int companyId, PageSetting pageSetting, Order order, Criterion ...criteria) {
+		DetachedCriteria dc = getCriteriaByCompanyId(companyId);
+		if (criteria != null)
+			for (Criterion c : criteria)
+				dc.add(c);
+		if (order != null)
+			dc.addOrder(order);
+		List<?> result = getHibernateTemplate().findByCriteria(dc, pageSetting.getStartResult(), pageSetting.getMaxResult());
+		dc = getCriteriaByCompanyId(companyId);
+		if (criteria != null)
+			for (Criterion c : criteria)
+				dc.add(c);
+		dc.setProjection(Projections.rowCount());
+		List<?> count = getHibernateTemplate().findByCriteria(dc);		
+		return new Page (pageSetting, result, (Integer) count.iterator().next());
 	}
 }

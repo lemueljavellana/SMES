@@ -15,4 +15,8 @@ public class PageSetting {
 	public int getMaxResult () {
 		return MAXMUM_ITEM_PAGE;
 	}
+	
+	public int getPageNumber() {
+		return pageNumber;
+	}
 }

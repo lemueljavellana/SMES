@@ -2,6 +2,7 @@ package com.smes.dao;
 
 import java.util.Collection;
 
+import com.smes.domain.Page;
 import com.smes.domain.hibernate.Customer;
 
 /**
@@ -14,7 +15,7 @@ public interface CustomerDao extends Dao <Customer>{
 	 * @param name customer name, either first name, middle name, last name
 	 * @return
 	 */
-	Collection<Customer> getCustomers (int companyId, String name);
+	Page<Customer> getCustomers (int companyId, String name, int pageNumber);
 	
 	/**
 	 * Get the customer given first name and last name
@@ -22,5 +23,7 @@ public interface CustomerDao extends Dao <Customer>{
 	 * @param lName The last name of the customer
 	 * @return The list of the customers.
 	 */
-	Collection<Customer> getCustomers (String fname, String lName);
+	Collection<Customer> getCustomers (String fname, String lName);	
+	
+	Page<Customer> getCustomers (int companyId, int pageNumber);
 }

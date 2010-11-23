@@ -3,82 +3,27 @@
 <%@ include file="../include.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link href="../jsp/css/style.css" rel="stylesheet" type="text/css" media="screen" />
-<script type="text/javascript">
-	function popup (link, windowName){
-		alert (link);
-		if (!window.focus)
-			return true;
-		window.open(link, windowName, 'width=275,height=300,scrollbars=yes');
-		return false;
-	}
-	
-	function editCustomer (link, windowName){
-		if (!window.focus)
-			return true;
-		var checkBoxes = document.getElementById("customerId");
-		alert (checkBoxes);
-		var id = "";
-		for (var i = 0; i < checkBoxes.length; i++){
-			var checkBox = checkBoxes[i];
-			alert (checkBox);
-			if (checkBox.checked){
-				id = checkBox.value;
-				break;
-			}
-		}
-		popup (link+"/"+id, windowName);
-		return false;
-	}
-	
-	function deleteCustomers (){
-		var frm = document.getElementById("customerForm");
-		frm.action = "customerlist/delete";
-		frm.submit ();
-	}
-
-	function addCustomer () {
-		var ifrm = window.parent.document.getElementById("body");
-		ifrm.src="<c:url value="addCustomer"/>";
-	}
-
-	function editCustomer (customerId){
-		var ifrm = window.parent.document.getElementById("body");
-		ifrm.src="<c:url value="addCustomer"/>/" + customerId;
-	}
-
-	function accountPreferences (customerId) {
-		var ifrm = window.parent.document.getElementById("body");
-		ifrm.src="<c:url value="customerAcountPreferences"/>/" + customerId;
-	}
-
-	function accountTransaction (customerId){
-		var ifrm = window.parent.document.getElementById("body");
-		ifrm.src="<c:url value="accountTransaction"/>/" + customerId;
-	}
-</script>
 <body >
-	<h3>Customer's List</h3>
 	<div>
-		<form:form method="POST" commandName="customerDto" id="customerForm">
-			<form:input path="customerName"/>
-			<input type="submit" name="search" value="search">
-			<input type="button" value="Add"
-			 		onclick="addCustomer (this);">
-		</form:form>
+		<input type="text" name="textSearch" id="textSearch">
+		<input type="button" name="search" value="search" onclick="searchCustomer ();">
+		<input type="button" value="Add"
+		 		onclick="addCustomer (this);">
 	</div>
-	<table border="1" bordercolor="black" width="100%">
+	<table border="1" bordercolor="black" width="100%" id="customerList">
 		<thead>
 			<tr>
+				<th>#</th>
 				<th><input type="checkbox"/></th>
-				<th >
+				<th>
 					Customer's Name
 				</th>
 			</tr>
 		</thead>
-		<tbody>
-			<c:forEach var="customer" items="${customerDto.customers}" varStatus="status">
+		<tbody >
+			<c:forEach var="customer" items="${customerDto.page.data}" varStatus="status">
 				<tr class="${status.index % 2 == 0 ? 'trEven' : 'trOdd'}">
+					<td>${status.index + 1}</td>
 					<td align="center" width="5%">
 						<input type="checkbox" id="cb" name="cb" value="${customer.customerId}"/>
 					</td>
@@ -88,6 +33,35 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">${customerDto.page.dataSize + ((customerDto.page.currentPage - 1) * customerDto.page.pageSetting.maxResult)}/${customerDto.page.totalRecords}</td>
+				<td colspan="3" align="right">
+					<c:if test="${(customerDto.page.currentPage == customerDto.page.lastPage 
+									|| customerDto.page.currentPage == customerDto.page.lastPage - 1) 
+									&& (customerDto.page.currentPage != 1 && customerDto.page.currentPage != 2)}">
+						<a href="#" onclick="goToPage (1)" class="pageNumber">1</a>
+						<a href="#" onclick="goToPage (2)" class="pageNumber">2</a>
+						..
+					</c:if>
+					<c:if test="${customerDto.page.prevPage >= 1 }">
+						<a href="#" onclick="goToPage (${customerDto.page.prevPage})" class="pageNumber"><c:out value="${customerDto.page.prevPage}"/></a>
+					</c:if>
+					<a class="currentPage"><c:out value="${customerDto.page.currentPage}"/></a>
+					<c:if test="${customerDto.page.nextPage <= customerDto.page.lastPage}">
+						<a href="#" onclick="goToPage (${customerDto.page.nextPage})" class="pageNumber"><c:out value="${customerDto.page.nextPage}"/></a>
+					</c:if>
+					<c:if test="${customerDto.page.nextPage < customerDto.page.lastPage}">
+						...
+						<c:if test="${customerDto.page.lastPage - 1 != customerDto.page.nextPage}">
+							<a href="#" class="pageNumber" onclick="goToPage (${customerDto.page.lastPage - 1})"><c:out value="${customerDto.page.lastPage - 1}"></c:out></a>
+						</c:if>
+						<a href="#" class="pageNumber" onclick="goToPage (${customerDto.page.lastPage})"><c:out value="${customerDto.page.lastPage}"></c:out></a>
+					</c:if>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </body>
+
 </html>
