@@ -8,7 +8,7 @@
 		<input type="text" name="textSearch" id="textSearch">
 		<input type="button" name="search" value="search" onclick="searchCustomer ();">
 		<input type="button" value="Add"
-		 		onclick="addCustomer (this);">
+		 		onclick="addCustomer ();">
 	</div>
 	<table border="1" bordercolor="black" width="100%" id="customerList">
 		<thead>

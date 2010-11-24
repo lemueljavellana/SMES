@@ -8,7 +8,7 @@
 <title>Add Customer</title>
 </head>
 <body>
-<form:form method="POST" commandName="customer">
+<form:form method="POST" commandName="customer" id="customer">
 	<table>
 		<tr>
 			<td>First Name</td>
@@ -58,7 +58,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-				<input type="submit" align="left" value="save">
+				<input type="button" align="left" value="save" onclick="postCustomer ();">
 			</td>
 		</tr>
 	</table>

@@ -3,6 +3,10 @@ var arrayOfClickClasses = new Array();
 var activeRow = false;
 var activeRowClickArray = new Array();
 var textValue = "";
+var contextPath = '';
+function init (context) {
+	contextPath = context;
+}
 function highlightTableRow() {
 	var tableObj = this.parentNode;
 	if (tableObj.tagName != 'TABLE')
@@ -102,6 +106,7 @@ function deleteCustomers (){
 	frm.action = "customerList/delete";
 	frm.submit ();
 }
+
 /**
 function addCustomer () {
 	var ifrm = window.parent.document.getElementById("body");
@@ -137,8 +142,13 @@ function helloError(data, ioArgs) {
     alert('Error when retrieving data from the server!');
 }
 
-function onLoad () {
-	axajCustomerList ('/JavSMES/a/customerList', 'commonCallback');
+function onLoad (context) {
+	init (context);
+	reloadCustomerList();
+}
+
+function reloadCustomerList () {
+	axajCustomerList (contextPath + '/a/customerList', 'commonCallback');
 }
 
 function axajCustomerList (thisUrl) {
@@ -150,14 +160,48 @@ function axajCustomerList (thisUrl) {
 }
 
 function goToPage (pageNumber) {
-	var url = '/JavSMES/a/customerList/page/' + pageNumber;
+	var url = contextPath+'/a/customerList/page/' + pageNumber;
 	if (textValue != "")
 		url = url + "/"+textValue;
-	axajCustomerList ('/JavSMES/a/customerList/page/' + pageNumber);
+	axajCustomerList (url);
 }
 
 function searchCustomer () {
 	var txtField = document.getElementById("textSearch");
 	textValue = txtField.value;
-	axajCustomerList ('/JavSMES/a/customerList/search/' + textValue);
+	var url = contextPath +'/a/customerList/search/' + textValue;
+	axajCustomerList (url);
+}
+
+function addCustomer (){
+	var thisUrl = contextPath+'/a/addCustomer';
+	changeAccountTransaction (thisUrl);
+}
+
+function changeAccountTransaction (thisUrl){
+	dojo.xhrGet({
+	      url: thisUrl,
+	      load: bodyCallBack,
+	      error: helloError
+	});
+}
+
+function bodyCallBack (data,ioArgs) {
+	document.getElementById("ajaxBody").innerHTML = data;
+}
+
+function postCustomer () {
+	var xhrArgs = {
+        form: dojo.byId("customer"),
+        handleAs: "text",
+        load: function(data) {
+            dojo.byId("ajaxBody").innerHTML = data;
+            reloadCustomerList ();
+        },
+        error: function(error) {
+            dojo.byId("ajaxBody").innerHTML = "Error occured while saving.";
+        }
+    };
+    //Call the asynchronous xhrPost
+	dojo.xhrPost(xhrArgs);
 }
