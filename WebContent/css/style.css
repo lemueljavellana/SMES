@@ -358,7 +358,9 @@ tfoot td {
 	border-left: 1px solid #F5F2EF;
 	border-bottom: 1px solid #F5F2EF;
 }
-
+td.number {
+	text-align: right;
+}
 /**
 tr.trEven td {
 	background-color: #FBFBFB; color: black;
@@ -401,4 +403,23 @@ a.currentPage {
 #footer a {
 	color: #B5ADA5;
 }
+/*table effects*/
+.tableRollOverEffect1{
+	background-color: #DDEECC;
+	color:#FFF;
+}
 
+.tableRowClickEffect1{
+	background-color:#9FCF70;
+	color:#FFF;
+}
+
+.tableRollOverEffect2{
+	background-color: #efefef;
+	color:#FFF;
+}
+
+.tableRowClickEffect2{
+	background-color:#d4d4d4;
+	color:#FFF;
+}

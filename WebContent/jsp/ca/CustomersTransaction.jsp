@@ -61,7 +61,7 @@
 	
 	<table >
 		<tr align="left">
-			<td align="left">
+			<td align="left" width="10%">
 				Customer's Name:
 			</td>
 			<th>
@@ -88,49 +88,79 @@
 	</table>
 
 	<!-- TODO: Add the searching here. -->
-	<table width="100%" bordercolor="black" border="1">
+	<table width="100%" bordercolor="black" border="1" id="customerAccount">
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="selectAll" name="selectAll"/></th>
-				<th>Date</th>
-				<th>Reference Number</th>
-				<th>Description</th>
-				<th>Payment</th>
-				<th>Account</th>
-				<th>Interest</th>
-				<th>Running Total</th>
+				<th width="1%">#</th>
+				<th width="1%"><input type="checkbox" id="selectAll" name="selectAll"/></th>
+				<th width="6%">Date</th>
+				<th width="8%">Reference Number</th>
+				<th width="28%">Description</th>
+				<th width="7%">Payment</th>
+				<th width="7%">Account</th>
+				<th width="7%">Interest</th>
+				<th width="7%">Running Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="transaction" items="${accountTransactionMgr.accountTrasactionDtos}">
+			<c:forEach var="transaction" items="${accountTransactionMgr.page.data}" varStatus="status">
 				<tr>
-					<td><input type="checkBox" value="${transaction.transactionType},${transaction.referenceId}"
+					<td>${status.index + 1}</td>
+					<td align="center"><input type="checkBox" value="${transaction.transactionType},${transaction.referenceId}"
 						id="cb" name="cb"/></td>
-					<td><c:out value="${transaction.date}"/></td>
-					<td><c:out value="${transaction.referenceNumber}"/></td>
-					<td><c:out value="${transaction.description}"/></td>
-					<td><c:out value="${transaction.payment}"/></td>
-					<td><c:out value="${transaction.account}"/></td>
-					<td><c:out value="${transaction.accountWithInterest}"/></td>
-					<td><c:out value="${transaction.runningTotal}"/></td>
+					<td> <c:out value="${transaction.date}"/></td>
+					<td> <c:out value="${transaction.referenceNumber}"/></td>
+					<td> <c:out value="${transaction.description}"/></td>
+					<td align="right"><c:out value="${transaction.payment}"/></td>
+					<td align="right"><c:out value="${transaction.account}"/></td>
+					<td align="right"><c:out value="${transaction.accountWithInterest}"/></td>
+					<td align="right"><c:out value="${transaction.runningTotal}"/></td>
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td>${accountTransactionMgr.page.dataSize + ((accountTransactionMgr.page.currentPage - 1) * accountTransactionMgr.page.pageSetting.maxResult)}/${accountTransactionMgr.page.totalRecords}</td>
+				<td colspan="8" align="right">
+					<c:if test="${(accountTransactionMgr.page.currentPage == accountTransactionMgr.page.lastPage 
+									|| accountTransactionMgr.page.currentPage == accountTransactionMgr.page.lastPage - 1) 
+									&& (accountTransactionMgr.page.currentPage != 1 && accountTransactionMgr.page.currentPage != 2)}">
+						<a href="#" onclick="goToPage (1)" class="pageNumber">1</a>
+						<a href="#" onclick="goToPage (2)" class="pageNumber">2</a>
+						..
+					</c:if>
+					<c:if test="${accountTransactionMgr.page.prevPage >= 1 }">
+						<a href="#" onclick="goToPage (${accountTransactionMgr.page.prevPage})" class="pageNumber"><c:out value="${accountTransactionMgr.page.prevPage}"/></a>
+					</c:if>
+					<a class="currentPage"><c:out value="${accountTransactionMgr.page.currentPage}"/></a>
+					<c:if test="${accountTransactionMgr.page.nextPage <= accountTransactionMgr.page.lastPage}">
+						<a href="#" onclick="goToPage (${accountTransactionMgr.page.nextPage})" class="pageNumber"><c:out value="${accountTransactionMgr.page.nextPage}"/></a>
+					</c:if>
+					<c:if test="${accountTransactionMgr.page.nextPage < accountTransactionMgr.page.lastPage}">
+						...
+						<c:if test="${accountTransactionMgr.page.lastPage - 1 != accountTransactionMgr.page.nextPage}">
+							<a href="#" class="pageNumber" onclick="goToPage (${accountTransactionMgr.page.lastPage - 1})"><c:out value="${accountTransactionMgr.page.lastPage - 1}"></c:out></a>
+						</c:if>
+						<a href="#" class="pageNumber" onclick="goToPage (${accountTransactionMgr.page.lastPage})"><c:out value="${accountTransactionMgr.page.lastPage}"></c:out></a>
+					</c:if>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </form:form>
 <table width="100%">
 	<tr>
 		<td align="right" >
-			<input type="button" value="Account" onclick="updateFrame('<c:url value="addAccount"/>')">
+			<input type="button" value="Account" onclick="addAccount (${accountTransactionMgr.customer.customerId});">
 			<input type="button" value="Payment" onclick="updateFrame('<c:url value="addPayment"/>')">
 			<input type="button" value="Edit" onclick="editTransaction()">
-			<input type="button" value="Delete" onclick="deleteTransaction ()">
+			<input type="button" value="Delete" >
 		</td>
 	</tr>
 </table>
-
-<iframe width="100%" height="100%" frameborder="0" id="addAccount" name="addAccount">
-</iframe>
+<div id="AddEdittransaction">
+	
+</div>
 
 </body>
 </html>

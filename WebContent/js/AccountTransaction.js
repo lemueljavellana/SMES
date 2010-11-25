@@ -4,9 +4,11 @@ var activeRow = false;
 var activeRowClickArray = new Array();
 var textValue = "";
 var contextPath = '';
+
 function init (context) {
 	contextPath = context;
 }
+
 function highlightTableRow() {
 	var tableObj = this.parentNode;
 	if (tableObj.tagName != 'TABLE')
@@ -108,10 +110,6 @@ function deleteCustomers (){
 }
 
 /**
-function addCustomer () {
-	var ifrm = window.parent.document.getElementById("body");
-	ifrm.src="<c:url value="addCustomer"/>";
-}
 
 function editCustomer (customerId){
 	var ifrm = window.parent.document.getElementById("body");
@@ -172,6 +170,10 @@ function searchCustomer () {
 	var url = contextPath +'/a/customerList/search/' + textValue;
 	axajCustomerList (url);
 }
+function showCustomerAccount (customerId) {
+	var thisUrl = contextPath+'/a/accountTransaction/' + customerId;
+	changeAccountTransaction (thisUrl);
+}
 
 function addCustomer (){
 	var thisUrl = contextPath+'/a/addCustomer';
@@ -188,6 +190,7 @@ function changeAccountTransaction (thisUrl){
 
 function bodyCallBack (data,ioArgs) {
 	document.getElementById("ajaxBody").innerHTML = data;
+	addTableRolloverEffect('customerAccount','tableRollOverEffect2','tableRowClickEffect2');
 }
 
 function postCustomer () {
@@ -204,4 +207,8 @@ function postCustomer () {
     };
     //Call the asynchronous xhrPost
 	dojo.xhrPost(xhrArgs);
+}
+
+function addAccount (customerId) {
+	alert (customerId);
 }

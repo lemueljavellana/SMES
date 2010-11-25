@@ -27,7 +27,7 @@
 					<td align="center" width="5%">
 						<input type="checkbox" id="cb" name="cb" value="${customer.customerId}"/>
 					</td>
-					<td width="95%" onclick="accountTransaction(${customer.customerId})">
+					<td width="95%" onclick="showCustomerAccount(${customer.customerId})">
 						<c:out value="${customer.firstName}"/> <c:out value="${customer.lastName}"/>
 					</td>
 				</tr>

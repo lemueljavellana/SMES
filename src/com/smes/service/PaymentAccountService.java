@@ -1,14 +1,17 @@
 package com.smes.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.smes.dao.AccountDao;
 import com.smes.dao.PaymentAccountDao;
 import com.smes.dao.PaymentDao;
+import com.smes.domain.Page;
 import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.Account;
 import com.smes.domain.hibernate.AccountTransaction;
 import com.smes.domain.hibernate.Payment;
+import com.smes.web.dto.AccountTransactionDto;
 
 public class PaymentAccountService {
 	private PaymentAccountDao paymentAccountDao;
@@ -35,9 +38,13 @@ public class PaymentAccountService {
 		return paymentAccountDao;
 	}
 	
-	public Collection<AccountTransaction> getTransactions (int companyId, int customerId, int currentPage) {
+	public Page<AccountTransactionDto> getTransactions (int companyId, int customerId, int currentPage) {
 		PageSetting pageSetting = new PageSetting(currentPage);
-		return paymentAccountDao.getAccountsTransactions(customerId, pageSetting);
+		Page<AccountTransaction> page = paymentAccountDao.getAccountsTransactions(customerId, pageSetting);
+		Collection<AccountTransactionDto> atds = new ArrayList<AccountTransactionDto>(page.getData().size());
+		for (AccountTransaction at : page.getData())
+			atds.add(AccountTransactionDto.getInstance(at));
+		return new Page<AccountTransactionDto> (page.getPageSetting(), atds, page.getTotalRecords());
 	}
 	
 	public void saveAccount (Account account){

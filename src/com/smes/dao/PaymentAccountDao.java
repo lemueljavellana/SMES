@@ -1,7 +1,7 @@
 package com.smes.dao;
 
-import java.util.Collection;
 
+import com.smes.domain.Page;
 import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.AccountTransaction;
 
@@ -12,7 +12,7 @@ public interface PaymentAccountDao extends Dao <AccountTransaction> {
 	 * @param pageSetting The page settings
 	 * @return The list of transactions
 	 */
-	Collection<AccountTransaction> getAccountsTransactions (int customerId, PageSetting pageSetting);
+	Page<AccountTransaction> getAccountsTransactions (int customerId, PageSetting pageSetting);
 	
 	/**
 	 * Get the starting total of give the page number

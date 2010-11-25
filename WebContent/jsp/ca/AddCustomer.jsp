@@ -9,13 +9,14 @@
 </head>
 <body>
 <form:form method="POST" commandName="customer" id="customer">
-	<table>
-		<tr>
-			<td>First Name</td>
+	<h3>Add/Edit Customer</h3>
+	<table border="0">
+		<tr >
+			<td width="10%" >First Name</td>
 			<td><form:input path="firstName"/></td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td align="right">
 				<font color="red">
 				<form:errors path="firstName" cssClass="error"/>
 				</font>
@@ -30,8 +31,8 @@
 			<td><form:input path="lastName"/></td>
 		</tr>
 		<tr>
-			<td colspan="2">
-				<font color="red">
+			<td align="right">
+				<font color="red" >
 				<form:errors path="lastName" cssClass="error"/>
 				</font>
 			</td>
@@ -41,7 +42,7 @@
 			<td><form:input path="contactNumber"/></td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td align="left" colspan="2">
 				<font color="red">
 				<form:errors path="contactNumber" cssClass="error"/>
 				</font>
@@ -49,7 +50,7 @@
 		</tr>
 		<tr>
 			<td>Address</td>
-			<td><form:input path="address"/></td>
+			<td><form:input path="address" size="100"/></td>
 		</tr>
 		<tr>
 			<td>
@@ -57,7 +58,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="right">
+			<td align="left">
+			</td>
+			<td align="left">
 				<input type="button" align="left" value="save" onclick="postCustomer ();">
 			</td>
 		</tr>

@@ -9,6 +9,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import com.smes.dao.PaymentAccountDao;
+import com.smes.domain.Page;
 import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.AccountTransaction;
 
@@ -22,41 +23,54 @@ public class PaymentAccountDaoIml extends BaseDao<AccountTransaction>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<AccountTransaction> getAccountsTransactions(int customerId, 
+	public Page<AccountTransaction> getAccountsTransactions(int customerId, 
 			PageSetting pageSetting) {
 		StringBuffer queryString = new StringBuffer();
+		StringBuffer fromQuery = new StringBuffer ();
 		queryString.append("SELECT X1.REFERENCE_ID, X1.TRANSACTION_TYPE, X1.REFERENCE_DATE, X1.REFERENCE_NUMBER,")
 		.append("X1.DESCRIPTION, X1.AMOUNT, X1.AMOUNT_WITH_INTEREST, SUM(X2.AMOUNT_WITH_INTEREST) AS RUNNING_TOTAL,")
-		.append("X1.COMPANY_ID, X1.CUSTOMER_ID, X1.CREATED_BY, X1.CREATED_DATE, X1.MODIFIED_BY, X1.MODIFIED_DATE ")
-		.append("FROM (select 	concat(REFERENCE_ID, TRANSACTION_TYPE) AS REF_ID, REFERENCE_ID, TRANSACTION_TYPE,")
+		.append("X1.COMPANY_ID, X1.CUSTOMER_ID, X1.CREATED_BY, X1.CREATED_DATE, X1.MODIFIED_BY, X1.MODIFIED_DATE ");
+		
+		fromQuery.append("FROM (select 	concat(REFERENCE_ID, TRANSACTION_TYPE) AS REF_ID, REFERENCE_ID, TRANSACTION_TYPE,")
 				.append("REFERENCE_DATE, REFERENCE_NUMBER, DESCRIPTION, AMOUNT,")
 				.append("AMOUNT + (WITH_INTEREST * AMOUNT * DAILY_INTEREST * DATEDIFf(NOW(), REFERENCE_DATE)) AS AMOUNT_WITH_INTEREST,")
 				.append("COMPANY_ID, A.CUSTOMER_ID, CREATED_BY, CREATED_DATE, MODIFIED_BY, MODIFIED_DATE ")
-			.append("from payment_account_view AS A ")
-				.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from customer_account_preference) AS P ")
+			.append("from PAYMENT_ACCOUNT_VIEW AS A ")
+				.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_ACCOUNT_PREFERENCE) AS P ")
 				.append("ON A.CUSTOMER_ID = P.CUSTOMER_ID ")
 				.append("AND A.CUSTOMER_ID=").append(customerId).append(") AS X1 ")
 			.append("INNER JOIN (select 	concat(REFERENCE_ID, TRANSACTION_TYPE) AS REF_ID, AMOUNT,")
 						.append("AMOUNT + (WITH_INTEREST * AMOUNT * DAILY_INTEREST * DATEDIFf(NOW(), REFERENCE_DATE)) AS AMOUNT_WITH_INTEREST, REFERENCE_DATE ")
-					.append("from payment_account_view AS T " )
-		.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from customer_account_preference) AS P ")
+					.append("from PAYMENT_ACCOUNT_VIEW AS T " )
+		.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_ACCOUNT_PREFERENCE) AS P ")
 		.append("ON T.CUSTOMER_ID = P.CUSTOMER_ID ")
 		.append("AND T.CUSTOMER_ID=").append(customerId).append(") AS X2 ")	
 			.append("on X1.REFERENCE_DATE >= X2.REFERENCE_DATE ")
 		.append("WHERE X1.CUSTOMER_ID=").append(customerId).append(" ")
 		.append("GROUP BY X1.REF_ID ")
-		.append("ORDER BY X1.REFERENCE_DATE ")
-		.append("LIMIT ").append(pageSetting.getStartResult()).append(",").append(pageSetting.getMaxResult());
+		.append("ORDER BY X1.REFERENCE_DATE ");
+		queryString.append(fromQuery);
+		queryString.append("LIMIT ").append(pageSetting.getStartResult()).append(",").append(pageSetting.getMaxResult());
+		String countSql = "SELECT count(*) as TOTAL_COUNT " + fromQuery;
+		
 		Session session = null;
+		Collection<AccountTransaction> ats = null;
+		int totalRecords = 0;
 		try {
 			session = getSession();
 			SQLQuery query = session.createSQLQuery(queryString.toString());
 			List<Object[]> queryResult = query.list();
-			return convert(queryResult);
+			ats = convert(queryResult);
+			query = session.createSQLQuery(countSql);
+			List<?> count = query.list();
+			
+			if (count.size() > 0)
+				totalRecords = Integer.valueOf(count.get(count.size()-1).toString());
 		} finally {
 			if (session != null)
 				session.close();	
 		}
+		return new Page<AccountTransaction>(pageSetting, ats, totalRecords);
 	}
 
 	private Collection<AccountTransaction> convert (List<Object[]> queryResult) {

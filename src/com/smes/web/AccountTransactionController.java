@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.smes.domain.Page;
 import com.smes.domain.hibernate.Account;
 import com.smes.domain.hibernate.AccountTransaction;
 import com.smes.domain.hibernate.AccountType;
@@ -25,6 +28,7 @@ import com.smes.domain.hibernate.Payment;
 import com.smes.service.AccountTypeService;
 import com.smes.service.CustomerService;
 import com.smes.service.PaymentAccountService;
+import com.smes.view.frm.Credential;
 import com.smes.web.dto.AccountTransactionDto;
 import com.smes.web.dto.AccountTransactionMgr;
 
@@ -54,17 +58,16 @@ public class AccountTransactionController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String showTransactions(
-			@PathVariable("customerId") String customerId, Model model) {
+			@PathVariable("customerId") String customerId, Model model, HttpSession currentSession) {
 		System.out.println("show transactions");
+		Credential c =
+			CredentialHandler.getCredential(currentSession);
 		Customer customer = customerService.getCustomer(Integer
 				.valueOf(customerId));
-		Collection<AccountTransaction> ats = paymentAccountService
-				.getTransactions(1, customer.getCustomerId(), 0);
-		Collection<AccountTransactionDto> acDto = new ArrayList<AccountTransactionDto>();
-		for (AccountTransaction at : ats)
-			acDto.add(AccountTransactionDto.getInstance(at));
+		Page<AccountTransactionDto> page = paymentAccountService
+				.getTransactions(c.getCompanyId(), customer.getCustomerId(), 0);
 		AccountTransactionMgr mgr = new AccountTransactionMgr();
-		mgr.setAccountTrasactionDtos(acDto);
+		mgr.setPage(page);
 		mgr.setCustomer(customer);
 		model.addAttribute(mgr);
 		return "customersAccount";

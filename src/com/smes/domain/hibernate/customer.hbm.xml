@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.smes.domain.hibernate.Customer">
+	<class name="com.smes.domain.hibernate.Customer" table="CUSTOMER">
 		<id name="customerId" column="CUSTOMER_ID" >
 			<generator class="assigned" ></generator>
 		</id>
