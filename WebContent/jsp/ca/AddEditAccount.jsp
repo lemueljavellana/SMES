@@ -13,6 +13,14 @@ Account
 	<table>
 		<tr>
 			<form:hidden path="customerId"/>
+			<td>Type</td>
+			<td><form:select path="accountTypeId">
+				<form:options items="${accountTypes}" itemLabel="name" itemValue="accountTypeId"/>
+			</form:select>
+			</td>
+		</tr>
+		<tr>
+			
 			<td>Date</td>
 			<td><form:input path="accountDate"/></td>
 		</tr>
@@ -22,10 +30,6 @@ Account
 				<form:errors path="accountDate" cssClass="error"/>
 				</font>
 			</td>
-		</tr>
-		<tr>
-			<td>Type</td>
-			<td><form:input path="accountTypeId"/></td>
 		</tr>
 		<tr>
 			<td>Reference Number</td>
@@ -59,7 +63,7 @@ Account
 			</td>
 		</tr>
 	</table>
-	<input type="submit" name="save" value="save">
+	<input type="button" name="save" value="save" onclick="saveAccount (${account.customerId});">
 </form:form>
 </body>
 </html>

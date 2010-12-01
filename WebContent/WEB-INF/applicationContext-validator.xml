@@ -16,4 +16,6 @@
 	
 	<bean id="capValidator" class="com.smes.validator.ca.CAPValidator">
 	</bean>
+	<bean id="addAccountValidator" class="com.smes.validator.ca.AddAccountValidator">
+	</bean>
 </beans>

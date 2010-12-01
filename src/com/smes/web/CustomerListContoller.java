@@ -1,6 +1,5 @@
 package com.smes.web;
 
-import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
 

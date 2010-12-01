@@ -209,6 +209,37 @@ function postCustomer () {
 	dojo.xhrPost(xhrArgs);
 }
 
-function addAccount (customerId) {
+function saveAccount (customerId) {
 	alert (customerId);
+	var xhrArgs = {
+		form : dojo.byId("account"),
+		handleAs : "text",
+		load : function(data) {
+			dojo.byId("AddEdittransaction").innerHTML = data;
+			alert (customerId);
+			showCustomerAccount (customerId);
+		},
+		error : function(error) {
+			dojo.byId("ajaxBody").innerHTML = "Error occured while saving.";
+		}
+	};
+	// Call the asynchronous xhrPost
+	dojo.xhrPost(xhrArgs);
+}
+
+function addAccount (customerId) {
+	var thisUrl = contextPath+"/a/accountTransaction/"+customerId+"/addAccount";
+	showTransactionForm(thisUrl);
+}
+
+function showTransactionForm (thisUrl) {
+	dojo.xhrGet({
+	      url: thisUrl,
+	      load: function (data) {
+	    	  		dojo.byId("AddEdittransaction").innerHTML = data;
+	      		},
+	      error: function (data, ioArgs){
+	    	  		dojo.byId("AddEdittransaction").innerHTML = "unknown error";
+	      		}
+	});
 }

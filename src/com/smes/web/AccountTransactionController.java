@@ -1,7 +1,6 @@
 package com.smes.web;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.smes.domain.Page;
 import com.smes.domain.hibernate.Account;
-import com.smes.domain.hibernate.AccountTransaction;
 import com.smes.domain.hibernate.AccountType;
 import com.smes.domain.hibernate.Customer;
 import com.smes.domain.hibernate.Payment;
 import com.smes.service.AccountTypeService;
 import com.smes.service.CustomerService;
 import com.smes.service.PaymentAccountService;
+import com.smes.validator.ca.AddAccountValidator;
 import com.smes.view.frm.Credential;
 import com.smes.web.dto.AccountTransactionDto;
 import com.smes.web.dto.AccountTransactionMgr;
@@ -38,14 +38,16 @@ public class AccountTransactionController {
 	private final PaymentAccountService paymentAccountService;
 	private final CustomerService customerService;
 	private final AccountTypeService accountTypeService;
-
+	private final AddAccountValidator accountValidator;
 	@Autowired
-	public AccountTransactionController(
-			PaymentAccountService paymentAccountService,
-			CustomerService customerService, AccountTypeService accountTypeService) {
+	public AccountTransactionController( PaymentAccountService paymentAccountService,
+			CustomerService customerService,
+			AccountTypeService accountTypeService,
+			AddAccountValidator validator) {
 		this.paymentAccountService = paymentAccountService;
 		this.customerService = customerService;
 		this.accountTypeService = accountTypeService;
+		this.accountValidator = validator;
 	}
 
 	@InitBinder
@@ -89,29 +91,40 @@ public class AccountTransactionController {
 	public String saveEditAccountTransaction(
 			@PathVariable("customerId") String customerId,
 			@PathVariable("accountId") String accountId,
-			@ModelAttribute("account") Account account, Model model) {
+			@ModelAttribute("account") Account account, Model model,
+			HttpSession session, BindingResult result) {
 		System.out.println("save edit account transaction");
-		return saveAccount(customerId, account, model);
+		return saveAccount(customerId, account, model, session, result);
 	}
 
 	@RequestMapping(value = "/addAccount", method = RequestMethod.GET)
 	public String showAccountTransaction( @PathVariable("customerId") String customerId,
-			Model model) {
+			Model model, HttpSession session) {
 		System.out.println("showAccountTransaction");
 		Account account = new Account();
 		account.setCustomerId(Integer.valueOf(customerId));
-		Collection<AccountType> accountTypes = accountTypeService.getAccountTypes(1);
+		Credential c =
+			CredentialHandler.getCredential(session);
+		Collection<AccountType> accountTypes =
+			accountTypeService.getAccountTypes(c.getCompanyId());
 		model.addAttribute(account);
+		model.addAttribute("accountTypes", accountTypes);
 		return "addAccountTransaction";
 	}
 
 	@RequestMapping(value = "/addAccount", method = RequestMethod.POST)
 	public String saveAccount(@PathVariable("customerId") String customerId,
-			@ModelAttribute("account") Account account, Model model) {
+			@ModelAttribute("account") Account account, Model model,
+			HttpSession session, BindingResult result) {
 		System.out.println("saveAccount");
+		Credential c =
+			CredentialHandler.getCredential(session);
 		// to set the H:s
+		accountValidator.validate(account, result);
+		if (result.hasErrors())
+			return "addAccountTransaction";
 		account.setAccountDate(includeTime(account.getAccountDate()));
-		account.setCompanyId(1);
+		account.setCompanyId(c.getCompanyId());
 		AuditUtil.addAudit(account);
 		paymentAccountService.saveAccount(account);
 		model.addAttribute("customerId", account.getCustomerId());
