@@ -8,53 +8,61 @@
 <title>Add Customer</title>
 </head>
 <body>
-<form:form method="POST" commandName="customer" id="customer">
+<form:form method="POST" commandName="customerForm" id="customer">
 	<h3>Add/Edit Customer</h3>
 	<table border="0">
 		<tr >
 			<td width="10%" >First Name</td>
-			<td><form:input path="firstName"/></td>
+			<td><form:input path="customer.firstName"/></td>
 		</tr>
 		<tr>
 			<td align="right">
 				<font color="red">
-				<form:errors path="firstName" cssClass="error"/>
+				<form:errors path="customer.firstName" cssClass="error"/>
 				</font>
 			</td>
 		</tr>
 		<tr>
 			<td>Middle Name</td>
-			<td><form:input path="middleName"/></td>
+			<td><form:input path="customer.middleName"/></td>
 		</tr>
 		<tr>
 			<td>Last Name</td>
-			<td><form:input path="lastName"/></td>
+			<td><form:input path="customer.lastName"/></td>
 		</tr>
 		<tr>
 			<td align="right">
 				<font color="red" >
-				<form:errors path="lastName" cssClass="error"/>
+				<form:errors path="customer.lastName" cssClass="error"/>
 				</font>
 			</td>
 		</tr>
 		<tr>
 			<td>Contact Number</td>
-			<td><form:input path="contactNumber"/></td>
+			<td><form:input path="customer.contactNumber"/></td>
 		</tr>
 		<tr>
 			<td align="left" colspan="2">
 				<font color="red">
-				<form:errors path="contactNumber" cssClass="error"/>
+				<form:errors path="customer.contactNumber" cssClass="error"/>
 				</font>
 			</td>
 		</tr>
 		<tr>
 			<td>Address</td>
-			<td><form:input path="address" size="100"/></td>
+			<td><form:input path="customer.address" size="100"/></td>
+		</tr>
+		<tr>
+			<td>Interest</td>
+			<td><form:input path="customerAccountPreference.interest" /></td>
+		</tr>
+		<tr>
+			<td>Maximum Amount</td>
+			<td><form:input path="customerAccountPreference.maximumAmount"/></td>
 		</tr>
 		<tr>
 			<td>
-				<form:hidden path="customerId"/>
+				<form:hidden path="customer.customerId"/>
 			</td>
 		</tr>
 		<tr>

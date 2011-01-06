@@ -22,10 +22,9 @@ public class AddCustomerValidator implements Validator{
 		rejectIfEmpty (errors, customer.getFirstName(), "firstName", "First Name required");
 		rejectIfEmpty (errors, customer.getLastName(), "lastName", "Last Name required");
 		rejectIfEmpty (errors, customer.getContactNumber(), "contactNumber", "ContactNumber required");
-		
 		if (customer.getCustomerId() == 0 
 				&& !customerService.uniqueCustomer(customer.getFirstName(),
-						customer.getLastName())){
+						customer.getLastName(), customer.getCompanyId())){
 			errors.rejectValue("lastName", null, null, "first name and last name already exist");
 		}
 	}

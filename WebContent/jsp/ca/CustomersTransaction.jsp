@@ -152,8 +152,8 @@
 	<tr>
 		<td align="right" >
 			<input type="button" value="Account" onclick="addAccount (${accountTransactionMgr.customer.customerId});">
-			<input type="button" value="Payment" onclick="updateFrame('<c:url value="addPayment"/>')">
-			<input type="button" value="Edit" onclick="editTransaction()">
+			<input type="button" value="Payment" onclick="addPayment (${accountTransactionMgr.customer.customerId});">
+			<input type="button" value="Edit" onclick="editTransaction();">
 			<input type="button" value="Delete" >
 		</td>
 	</tr>

@@ -13,7 +13,7 @@ Payment
 	<table>
 		<tr>
 			<form:hidden path="customerId"/>
-			<td>Date</td>
+			<td width="150">Date</td>
 			<td><form:input path="paymentDate"/></td>
 		</tr>
 		<tr>
@@ -55,7 +55,7 @@ Payment
 			</td>
 		</tr>
 	</table>
-	<input type="submit" name="save" value="save">
+	<input type="button" name="save" value="save" onclick="savePayment(${payment.customerId});">
 </form:form>
 </body>
 </html>

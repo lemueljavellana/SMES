@@ -1,8 +1,5 @@
 package com.smes.dao.hibernate;
 
-import java.util.Collection;
-import java.util.Date;
-
 import com.smes.dao.AccountDao;
 import com.smes.domain.hibernate.Account;
 

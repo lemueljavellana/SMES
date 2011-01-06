@@ -177,7 +177,11 @@ function showCustomerAccount (customerId) {
 
 function addCustomer (){
 	var thisUrl = contextPath+'/a/addCustomer';
-	changeAccountTransaction (thisUrl);
+	dojo.xhrGet({
+	      url: thisUrl,
+	      load: addCustomerCallBack,
+	      error: helloError
+	});
 }
 
 function changeAccountTransaction (thisUrl){
@@ -191,6 +195,10 @@ function changeAccountTransaction (thisUrl){
 function bodyCallBack (data,ioArgs) {
 	document.getElementById("ajaxBody").innerHTML = data;
 	addTableRolloverEffect('customerAccount','tableRollOverEffect2','tableRowClickEffect2');
+}
+
+function addCustomerCallBack (data, ioArgs) {
+	document.getElementById("ajaxBody").innerHTML = data;
 }
 
 function postCustomer () {
@@ -210,13 +218,11 @@ function postCustomer () {
 }
 
 function saveAccount (customerId) {
-	alert (customerId);
 	var xhrArgs = {
 		form : dojo.byId("account"),
 		handleAs : "text",
 		load : function(data) {
 			dojo.byId("AddEdittransaction").innerHTML = data;
-			alert (customerId);
 			showCustomerAccount (customerId);
 		},
 		error : function(error) {
@@ -232,6 +238,30 @@ function addAccount (customerId) {
 	showTransactionForm(thisUrl);
 }
 
+function addPayment (customerId){
+	var thisUrl = contextPath+"/a/accountTransaction/"+customerId+"/addPayment";
+	showTransactionForm(thisUrl);
+}
+
+function savePayment (customerId){
+	postTransaction(customerId, "payment");
+}
+
+function postTransaction (customerId, divId){
+	var xhrArgs = {
+		form : dojo.byId(divId),
+		handleAs : "text",
+		load : function(data) {
+			dojo.byId("AddEdittransaction").innerHTML = data;
+			showCustomerAccount (customerId);
+		},
+		error : function(error) {
+			dojo.byId("ajaxBody").innerHTML = "Error occured while saving.";
+		}
+	};
+	// Call the asynchronous xhrPost
+	dojo.xhrPost(xhrArgs);
+}
 function showTransactionForm (thisUrl) {
 	dojo.xhrGet({
 	      url: thisUrl,

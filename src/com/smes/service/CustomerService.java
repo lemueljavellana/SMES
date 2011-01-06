@@ -20,7 +20,11 @@ public class CustomerService {
 	public Customer getCustomer (Integer customerId) {
 		return customerDao.get(customerId);
 	}
-
+	
+	public Customer getCustomer (String fName, String lName, int companyId) {
+		return customerDao.getCustomers(fName, lName, companyId).iterator().next();
+	}
+	
 	public void deleteCustomer (Customer customer){
 		customerDao.get(customer.getCompanyId());
 	}
@@ -41,8 +45,8 @@ public class CustomerService {
 		return customerDao.getCustomers(companyId, name, pageNumber);
 	}
 
-	public boolean uniqueCustomer (String firstName, String lastName){
-		Collection<Customer> customers = customerDao.getCustomers(firstName, lastName);
+	public boolean uniqueCustomer (String firstName, String lastName, int companyId){
+		Collection<Customer> customers = customerDao.getCustomers(firstName, lastName, companyId);
 		return customers == null || customers.size() < 1; 
 	}
 	

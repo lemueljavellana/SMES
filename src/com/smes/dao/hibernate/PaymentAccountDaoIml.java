@@ -44,7 +44,7 @@ public class PaymentAccountDaoIml extends BaseDao<AccountTransaction>
 					.append("from PAYMENT_ACCOUNT_VIEW AS T " )
 		.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_ACCOUNT_PREFERENCE) AS P ")
 		.append("ON T.CUSTOMER_ID = P.CUSTOMER_ID ")
-		.append("AND T.CUSTOMER_ID=").append(customerId).append(") AS X2 ")	
+		.append("AND T.CUSTOMER_ID=").append(customerId).append(") AS X2 ")
 			.append("on X1.REFERENCE_DATE >= X2.REFERENCE_DATE ")
 		.append("WHERE X1.CUSTOMER_ID=").append(customerId).append(" ")
 		.append("GROUP BY X1.REF_ID ")

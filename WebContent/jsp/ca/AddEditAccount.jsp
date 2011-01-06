@@ -13,7 +13,7 @@ Account
 	<table>
 		<tr>
 			<form:hidden path="customerId"/>
-			<td>Type</td>
+			<td width="150">Type</td>
 			<td><form:select path="accountTypeId">
 				<form:options items="${accountTypes}" itemLabel="name" itemValue="accountTypeId"/>
 			</form:select>
@@ -28,6 +28,18 @@ Account
 			<td colspan="2">
 				<font color="red">
 				<form:errors path="accountDate" cssClass="error"/>
+				</font>
+			</td>
+		</tr>
+		<tr>
+			
+			<td>Due Date</td>
+			<td><form:input path="dueDate"/></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<font color="red">
+				<form:errors path="dueDate" cssClass="error"/>
 				</font>
 			</td>
 		</tr>

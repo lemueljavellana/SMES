@@ -32,10 +32,11 @@ public class CustomerDaoImpl extends BaseDao<Customer> implements CustomerDao {
 	}
 	
 	@Override
-	public Collection<Customer> getCustomers(String fname, String lName) {
+	public Collection<Customer> getCustomers(String fname, String lName, int companyId) {
 		DetachedCriteria criteria = getCriteria();
 		criteria.add(Restrictions.like("firstName", fname));
 		criteria.add(Restrictions.like("lastName", lName));
+		criteria.add(Restrictions.like("companyId", companyId));
 		criteria.addOrder(Order.asc("firstName"));
 		return getAll(criteria);
 	}

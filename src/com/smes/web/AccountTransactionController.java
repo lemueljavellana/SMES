@@ -66,8 +66,9 @@ public class AccountTransactionController {
 			CredentialHandler.getCredential(currentSession);
 		Customer customer = customerService.getCustomer(Integer
 				.valueOf(customerId));
-		Page<AccountTransactionDto> page = paymentAccountService
-				.getTransactions(c.getCompanyId(), customer.getCustomerId(), 0);
+		Page<AccountTransactionDto> page =
+			paymentAccountService.getTransactions(c.getCompanyId(),
+					customer.getCustomerId(), 0);
 		AccountTransactionMgr mgr = new AccountTransactionMgr();
 		mgr.setPage(page);
 		mgr.setCustomer(customer);
@@ -91,10 +92,10 @@ public class AccountTransactionController {
 	public String saveEditAccountTransaction(
 			@PathVariable("customerId") String customerId,
 			@PathVariable("accountId") String accountId,
-			@ModelAttribute("account") Account account, Model model,
-			HttpSession session, BindingResult result) {
+			@ModelAttribute("account") Account account, BindingResult result, Model model,
+			HttpSession session) {
 		System.out.println("save edit account transaction");
-		return saveAccount(customerId, account, model, session, result);
+		return saveAccount(customerId, account, result, model, session);
 	}
 
 	@RequestMapping(value = "/addAccount", method = RequestMethod.GET)
@@ -114,8 +115,8 @@ public class AccountTransactionController {
 
 	@RequestMapping(value = "/addAccount", method = RequestMethod.POST)
 	public String saveAccount(@PathVariable("customerId") String customerId,
-			@ModelAttribute("account") Account account, Model model,
-			HttpSession session, BindingResult result) {
+			@ModelAttribute("account") Account account,  BindingResult result, Model model,
+			HttpSession session) {
 		System.out.println("saveAccount");
 		Credential c =
 			CredentialHandler.getCredential(session);
@@ -125,7 +126,7 @@ public class AccountTransactionController {
 			return "addAccountTransaction";
 		account.setAccountDate(includeTime(account.getAccountDate()));
 		account.setCompanyId(c.getCompanyId());
-		AuditUtil.addAudit(account);
+		AuditUtil.addAudit(account, c);
 		paymentAccountService.saveAccount(account);
 		model.addAttribute("customerId", account.getCustomerId());
 		return "addTransactionSuccess";
@@ -146,10 +147,12 @@ public class AccountTransactionController {
 
 	@RequestMapping(value = "/addPayment", method = RequestMethod.POST)
 	public String savePaymentForm(@PathVariable("customerId") String customerId,
-			@ModelAttribute("payment") Payment payment, Model model) {
-		payment.setCompanyId(1);
+			@ModelAttribute("payment") Payment payment, Model model, HttpSession session) {
+		Credential c =
+			CredentialHandler.getCredential(session);
+		payment.setCompanyId(c.getCompanyId());
 		payment.setPaymentDate(includeTime(payment.getPaymentDate()));
-		AuditUtil.addAudit(payment);
+		AuditUtil.addAudit(payment, c);
 		paymentAccountService.savePayment(payment);
 		model.addAttribute(payment);
 		model.addAttribute("customerId", payment.getCustomerId());
@@ -166,8 +169,8 @@ public class AccountTransactionController {
 	@RequestMapping (value = "/editPayment/{paymentId}", method = RequestMethod.POST)
 	public String saveEditedPayment (@PathVariable ("customerId") String customerId, 
 			@PathVariable ("paymentId") String paymentId, 
-			@ModelAttribute ("payment") Payment payment, Model model){
-		return savePaymentForm(customerId, payment, model);
+			@ModelAttribute ("payment") Payment payment, Model model, HttpSession session){
+		return savePaymentForm(customerId, payment, model, session);
 	}
 
 	@RequestMapping (value = "/deleteTransaction/{tag}", method = RequestMethod.GET)

@@ -7,6 +7,7 @@ public class Account extends BaseDomain {
 	private int customerId;
 	private Customer customer;
 	private Date accountDate;
+	private Date dueDate;
 	private String referenceNumber;
 	private String description;
 	private int companyId;
@@ -14,6 +15,7 @@ public class Account extends BaseDomain {
 	private int accountTypeId;
 	private AccountType accountType;
 	private double amount;
+
 	public int getAccountId() {
 		return accountId;
 	}
@@ -37,6 +39,12 @@ public class Account extends BaseDomain {
 	}
 	public void setAccountDate(Date accountDate) {
 		this.accountDate = accountDate;
+	}
+	public Date getDueDate() {
+		return dueDate;
+	}
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
 	}
 	public String getReferenceNumber() {
 		return referenceNumber;

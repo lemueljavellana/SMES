@@ -9,6 +9,9 @@
 		<property name="accountDate">
 			<column name="ACCOUNT_DATE"/>
 		</property>
+		<property name="dueDate">
+			<column name="DUE_DATE"></column>
+		</property>
 		<property name="referenceNumber">
 			<column name="REFERENCE_NUMBER"/>
 		</property>
