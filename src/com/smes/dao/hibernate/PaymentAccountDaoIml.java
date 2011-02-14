@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -11,20 +12,23 @@ import org.hibernate.Session;
 import com.smes.dao.PaymentAccountDao;
 import com.smes.domain.Page;
 import com.smes.domain.PageSetting;
-import com.smes.domain.hibernate.AccountTransaction;
+import com.smes.domain.hibernate.AccountTransaction_toBeDeleted;
+import com.smes.util.PropertyFileConstant;
 
-public class PaymentAccountDaoIml extends BaseDao<AccountTransaction> 
+public class PaymentAccountDaoIml extends BaseDao<AccountTransaction_toBeDeleted> 
 	implements PaymentAccountDao {
 
 	@Override
-	protected Class<AccountTransaction> getDomainClass() {
-		return AccountTransaction.class;
+	protected Class<AccountTransaction_toBeDeleted> getDomainClass() {
+		return AccountTransaction_toBeDeleted.class;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<AccountTransaction> getAccountsTransactions(int customerId, 
+	public Page<AccountTransaction_toBeDeleted> getAccountsTransactions(int customerId, 
 			PageSetting pageSetting) {
+		//Properties p = PropertiesUtil.getProperty(PropertiesFile.ACCOUNT_PROP);
+		ResourceBundle rb = ResourceBundle.getBundle(PropertyFileConstant.ACCOUNT_PROP);
 		StringBuffer queryString = new StringBuffer();
 		StringBuffer fromQuery = new StringBuffer ();
 		queryString.append("SELECT X1.REFERENCE_ID, X1.TRANSACTION_TYPE, X1.REFERENCE_DATE, X1.REFERENCE_NUMBER,")
@@ -36,13 +40,13 @@ public class PaymentAccountDaoIml extends BaseDao<AccountTransaction>
 				.append("AMOUNT + (WITH_INTEREST * AMOUNT * DAILY_INTEREST * DATEDIFf(NOW(), REFERENCE_DATE)) AS AMOUNT_WITH_INTEREST,")
 				.append("COMPANY_ID, A.CUSTOMER_ID, CREATED_BY, CREATED_DATE, MODIFIED_BY, MODIFIED_DATE ")
 			.append("from PAYMENT_ACCOUNT_VIEW AS A ")
-				.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_ACCOUNT_PREFERENCE) AS P ")
+				.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_PREF) AS P ")
 				.append("ON A.CUSTOMER_ID = P.CUSTOMER_ID ")
 				.append("AND A.CUSTOMER_ID=").append(customerId).append(") AS X1 ")
 			.append("INNER JOIN (select 	concat(REFERENCE_ID, TRANSACTION_TYPE) AS REF_ID, AMOUNT,")
 						.append("AMOUNT + (WITH_INTEREST * AMOUNT * DAILY_INTEREST * DATEDIFf(NOW(), REFERENCE_DATE)) AS AMOUNT_WITH_INTEREST, REFERENCE_DATE ")
 					.append("from PAYMENT_ACCOUNT_VIEW AS T " )
-		.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_ACCOUNT_PREFERENCE) AS P ")
+		.append("INNER JOIN (select CUSTOMER_ID, INTEREST, (((INTEREST/100) *12) / 365.25) AS DAILY_INTEREST from CUSTOMER_PREF) AS P ")
 		.append("ON T.CUSTOMER_ID = P.CUSTOMER_ID ")
 		.append("AND T.CUSTOMER_ID=").append(customerId).append(") AS X2 ")
 			.append("on X1.REFERENCE_DATE >= X2.REFERENCE_DATE ")
@@ -54,7 +58,7 @@ public class PaymentAccountDaoIml extends BaseDao<AccountTransaction>
 		String countSql = "SELECT count(*) as TOTAL_COUNT " + fromQuery;
 		
 		Session session = null;
-		Collection<AccountTransaction> ats = null;
+		Collection<AccountTransaction_toBeDeleted> ats = null;
 		int totalRecords = 0;
 		try {
 			session = getSession();
@@ -70,13 +74,13 @@ public class PaymentAccountDaoIml extends BaseDao<AccountTransaction>
 			if (session != null)
 				session.close();	
 		}
-		return new Page<AccountTransaction>(pageSetting, ats, totalRecords);
+		return new Page<AccountTransaction_toBeDeleted>(pageSetting, ats, totalRecords);
 	}
 
-	private Collection<AccountTransaction> convert (List<Object[]> queryResult) {
-		Collection<AccountTransaction> ret = new ArrayList<AccountTransaction>();
+	private Collection<AccountTransaction_toBeDeleted> convert (List<Object[]> queryResult) {
+		Collection<AccountTransaction_toBeDeleted> ret = new ArrayList<AccountTransaction_toBeDeleted>();
 		for (Object[] row : queryResult){
-			AccountTransaction at = new AccountTransaction();
+			AccountTransaction_toBeDeleted at = new AccountTransaction_toBeDeleted();
 			at.setReferenceId((Integer)row[0]);
 			at.setTransactionType(row[1].toString());
 			at.setReferenceDate((Date) row[2]);

@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.smes.domain.hibernate.CustomerAccountPreference" table="CUSTOMER_ACCOUNT_PREFERENCE">
-		<id name="customerAccountPreferenceId" column="CUSTOMER_ACCOUNT_PREFERENCE_ID" >
+	<class name="com.smes.domain.hibernate.CustomerAccountPreference" table="CUSTOMER_PREF">
+		<id name="customerAccountPreferenceId" column="CUSTOMER_PREF_ID" >
 			<generator class="assigned" ></generator>
 		</id>
 		<property name="customerId">

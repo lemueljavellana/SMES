@@ -3,6 +3,8 @@ package com.smes.dao.hibernate;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -117,5 +119,49 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 		dc.setProjection(Projections.rowCount());
 		List<?> count = getHibernateTemplate().findByCriteria(dc);		
 		return new Page (pageSetting, result, (Integer) count.iterator().next());
+	}
+	
+	public <A> List<A> test () { 
+		return null;
+	}
+	
+	public <A> Page<A> getAllAsPage (String selectField, String sqlBody,
+			PageSetting pageSetting, QueryResultHandler<A> handler) {
+		String sqlWithLimit = selectField + " " + sqlBody + " " + "LIMIT ?,?";
+		String sqlCount = "SELECT count(*) as TOTAL_COUNT " + sqlBody;
+		List<A> result = null;
+		Session session = null;
+		int totalRecords = 0;
+		try {
+			session = getSession();
+			SQLQuery query = session.createSQLQuery(sqlWithLimit);
+			int lastIndex = handler.setParamater(query) + 1;
+			query.setParameter(lastIndex++, pageSetting.getStartResult());
+			query.setParameter(lastIndex, pageSetting.getMaxResult());
+			List<Object[]> queryResult = query.list();
+			result = handler.convert(queryResult);
+			query = session.createSQLQuery(sqlCount);
+			handler.setParamater(query);
+			List<?> count = query.list();
+			if (count.size() > 0)
+				totalRecords = Integer.valueOf(count.get(count.size()-1).toString());
+		} finally {
+			session.close();
+		}
+		return new Page<A> (pageSetting,  result, totalRecords);
+	}
+	
+	public interface QueryResultHandler<A> {
+		/**
+		 * Convert the necessary list of Query result the the desired object
+		 */
+		List<A> convert (List<Object[]> queryResult);
+		
+		/**
+		 * Set the parameter of the query.
+		 * @param query The {@link SQLQuery}
+		 * @return the last index in the set parameter.
+		 */
+		int setParamater (SQLQuery query);
 	}
 }

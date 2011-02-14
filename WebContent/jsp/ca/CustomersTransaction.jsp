@@ -93,28 +93,29 @@
 			<tr>
 				<th width="1%">#</th>
 				<th width="1%"><input type="checkbox" id="selectAll" name="selectAll"/></th>
-				<th width="6%">Date</th>
+				<th width="7%">Date</th>
+				<th width="7%">Due Date</th>
 				<th width="8%">Reference Number</th>
-				<th width="28%">Description</th>
-				<th width="7%">Payment</th>
-				<th width="7%">Account</th>
-				<th width="7%">Interest</th>
-				<th width="7%">Running Total</th>
+				<th width="28%%">Description</th>
+				<th width="12%">Amount</th>
+				<th width="12%">Interest Earned</th>
+				<Th width="12%">Total</Th>
+				<th width="12%">Running Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="transaction" items="${accountTransactionMgr.page.data}" varStatus="status">
+			<c:forEach var="account" items="${accountTransactionMgr.page.data}" varStatus="status">
 				<tr>
 					<td>${status.index + 1}</td>
-					<td align="center"><input type="checkBox" value="${transaction.transactionType},${transaction.referenceId}"
-						id="cb" name="cb"/></td>
-					<td> <c:out value="${transaction.date}"/></td>
-					<td> <c:out value="${transaction.referenceNumber}"/></td>
-					<td> <c:out value="${transaction.description}"/></td>
-					<td align="right"><c:out value="${transaction.payment}"/></td>
-					<td align="right"><c:out value="${transaction.account}"/></td>
-					<td align="right"><c:out value="${transaction.accountWithInterest}"/></td>
-					<td align="right"><c:out value="${transaction.runningTotal}"/></td>
+					<td align="center"><input type="checkBox" value="${account.accountId}" id="cb" name="cb"/></td>
+					<td> <c:out value="${account.formattedAccountDate}"/></td>
+					<td> <c:out value="${account.formattedDueDate}"/></td>
+					<td> <c:out value="${account.referenceNumber}"/></td>
+					<td align="right"><c:out value="${account.description}"/></td>
+					<td align="right"><c:out value="${account.formattedAmount}"/></td>
+					<td align="right"><c:out value="${account.formattedEarnedInterest}"/></td>
+					<td align="right"><c:out value="${account.formattedTotalAmount}"/></td>
+					<td align="right"><c:out value="${account.formattedRunningTotal}"/></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -21,15 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.smes.domain.Page;
 import com.smes.domain.hibernate.Account;
+import com.smes.domain.hibernate.AccountTransaction;
 import com.smes.domain.hibernate.AccountType;
 import com.smes.domain.hibernate.Customer;
 import com.smes.domain.hibernate.Payment;
+import com.smes.service.AccountService;
 import com.smes.service.AccountTypeService;
 import com.smes.service.CustomerService;
 import com.smes.service.PaymentAccountService;
 import com.smes.validator.ca.AddAccountValidator;
 import com.smes.view.frm.Credential;
-import com.smes.web.dto.AccountTransactionDto;
 import com.smes.web.dto.AccountTransactionMgr;
 
 @Controller
@@ -39,15 +40,19 @@ public class AccountTransactionController {
 	private final CustomerService customerService;
 	private final AccountTypeService accountTypeService;
 	private final AddAccountValidator accountValidator;
+	private final AccountService accountService;
+	
 	@Autowired
 	public AccountTransactionController( PaymentAccountService paymentAccountService,
 			CustomerService customerService,
 			AccountTypeService accountTypeService,
+			AccountService accountService,
 			AddAccountValidator validator) {
 		this.paymentAccountService = paymentAccountService;
 		this.customerService = customerService;
 		this.accountTypeService = accountTypeService;
 		this.accountValidator = validator;
+		this.accountService = accountService;
 	}
 
 	@InitBinder
@@ -59,16 +64,14 @@ public class AccountTransactionController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showTransactions(
-			@PathVariable("customerId") String customerId, Model model, HttpSession currentSession) {
+	public String showTransactions(@PathVariable("customerId") String customerId, Model model, HttpSession currentSession) {
 		System.out.println("show transactions");
 		Credential c =
 			CredentialHandler.getCredential(currentSession);
 		Customer customer = customerService.getCustomer(Integer
 				.valueOf(customerId));
-		Page<AccountTransactionDto> page =
-			paymentAccountService.getTransactions(c.getCompanyId(),
-					customer.getCustomerId(), 0);
+
+		Page<AccountTransaction> page = accountService.getUnpaidTransaction(customer.getCustomerId(), 0);
 		AccountTransactionMgr mgr = new AccountTransactionMgr();
 		mgr.setPage(page);
 		mgr.setCustomer(customer);

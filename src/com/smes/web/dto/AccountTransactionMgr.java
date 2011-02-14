@@ -4,11 +4,12 @@ import java.util.Collection;
 
 import com.smes.domain.Page;
 import com.smes.domain.hibernate.Account;
+import com.smes.domain.hibernate.AccountTransaction;
 import com.smes.domain.hibernate.AccountType;
 import com.smes.domain.hibernate.Customer;
 
 public class AccountTransactionMgr {
-	private Page<AccountTransactionDto> page;
+	private Page<AccountTransaction> page;
 	private Customer customer;
 	private Account account;
 	private Collection<AccountType> accountTypes;
@@ -33,10 +34,10 @@ public class AccountTransactionMgr {
 	public void setAccountTypes(Collection<AccountType> accountTypes) {
 		this.accountTypes = accountTypes;
 	}
-	public Page<AccountTransactionDto> getPage() {
+	public Page<AccountTransaction> getPage() {
 		return page;
 	}
-	public void setPage(Page<AccountTransactionDto> page) {
+	public void setPage(Page<AccountTransaction> page) {
 		this.page = page;
 	}
 

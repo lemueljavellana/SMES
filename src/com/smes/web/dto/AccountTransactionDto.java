@@ -1,6 +1,6 @@
 package com.smes.web.dto;
 
-import com.smes.domain.hibernate.AccountTransaction;
+import com.smes.domain.hibernate.AccountTransaction_toBeDeleted;
 
 public class AccountTransactionDto {
 	private int referenceId;
@@ -12,7 +12,7 @@ public class AccountTransactionDto {
 	private String account;
 	private String accountWithInterest;
 	private String runningTotal;
-	public static AccountTransactionDto getInstance (AccountTransaction at){
+	public static AccountTransactionDto getInstance (AccountTransaction_toBeDeleted at){
 		AccountTransactionDto dto = new AccountTransactionDto();
 		dto.referenceId = at.getReferenceId();
 		dto.transactionType = String.valueOf(at.getTransactionType());

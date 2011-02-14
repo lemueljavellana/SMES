@@ -14,7 +14,7 @@ public class PaymentAccountView extends BaseDomain {
 	private Company company;
 	private int customerId;
 	private Customer customer;
-	
+
 	public int getCustomerId() {
 		return customerId;
 	}

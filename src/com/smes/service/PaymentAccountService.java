@@ -9,7 +9,7 @@ import com.smes.dao.PaymentDao;
 import com.smes.domain.Page;
 import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.Account;
-import com.smes.domain.hibernate.AccountTransaction;
+import com.smes.domain.hibernate.AccountTransaction_toBeDeleted;
 import com.smes.domain.hibernate.Payment;
 import com.smes.web.dto.AccountTransactionDto;
 
@@ -40,9 +40,9 @@ public class PaymentAccountService {
 	
 	public Page<AccountTransactionDto> getTransactions (int companyId, int customerId, int currentPage) {
 		PageSetting pageSetting = new PageSetting(currentPage);
-		Page<AccountTransaction> page = paymentAccountDao.getAccountsTransactions(customerId, pageSetting);
+		Page<AccountTransaction_toBeDeleted> page = paymentAccountDao.getAccountsTransactions(customerId, pageSetting);
 		Collection<AccountTransactionDto> atds = new ArrayList<AccountTransactionDto>(page.getData().size());
-		for (AccountTransaction at : page.getData())
+		for (AccountTransaction_toBeDeleted at : page.getData())
 			atds.add(AccountTransactionDto.getInstance(at));
 		return new Page<AccountTransactionDto> (page.getPageSetting(), atds, page.getTotalRecords());
 	}

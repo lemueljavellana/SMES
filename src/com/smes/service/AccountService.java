@@ -1,7 +1,10 @@
 package com.smes.service;
 
 import com.smes.dao.AccountDao;
+import com.smes.domain.Page;
+import com.smes.domain.PageSetting;
 import com.smes.domain.hibernate.Account;
+import com.smes.domain.hibernate.AccountTransaction;
 
 public class AccountService {
 	private AccountDao accountDao;
@@ -20,5 +23,10 @@ public class AccountService {
 	
 	public void saveOrUpdate (Account account){
 		accountDao.saveOrUpdate(account);
+	}
+	
+	public Page<AccountTransaction> getUnpaidTransaction (int customerId, int currentPage) {
+		PageSetting pageSetting = new PageSetting(currentPage);
+		return accountDao.getUnpaidTransactions(customerId, pageSetting);
 	}
 }

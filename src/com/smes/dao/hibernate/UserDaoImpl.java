@@ -44,15 +44,15 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao{
 			.append("FROM (SELECT U.USER_NAME, U.USER_ID, C.COMPANY_ID FROM SMES_USER AS U ")
 				.append("INNER JOIN (SELECT COMPANY_ID, COMPANY_NAME FROM COMPANY) AS C ON U.COMPANY_ID = C.COMPANY_ID ")
 			.append("WHERE U.USER_NAME LIKE ?")
-			.append("AND U.PASSWORD LIKE SHA1(?) ")
-			.append("AND C.COMPANY_NAME LIKE ?) AS T");
+			.append("AND U.PASSWORD LIKE SHA1(?)) AS T");
+			//.append("AND C.COMPANY_NAME LIKE ?) AS T");
 		Session session = null;
 		try {
 			session = getSession();
 			SQLQuery query = session.createSQLQuery(sql.toString());
 			query.setParameter(0, userName);
 			query.setParameter(1, password);
-			query.setParameter(2, companyName);
+			//query.setParameter(2, companyName);
 			return query.list().size() > 0;
 		} finally {
 			if (session != null)
