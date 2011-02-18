@@ -77,6 +77,7 @@ function addTableRolloverEffect(tableId, whichClass, whichClassOnClick) {
 		}
 	}
 }
+
 function popup (link, windowName){
 	alert (link);
 	if (!window.focus)
@@ -85,23 +86,33 @@ function popup (link, windowName){
 	return false;
 }
 
-function editCustomer (link, windowName){
-	if (!window.focus)
-		return true;
-	var checkBoxes = document.getElementById("customerId");
-	alert (checkBoxes);
-	var id = "";
+function onClckAccountCheckbock () {
+	var checkBoxes = document.getElementsByName("cb");
+	var checkedBox = 0;
 	for (var i = 0; i < checkBoxes.length; i++){
 		var checkBox = checkBoxes[i];
-		alert (checkBox);
-		if (checkBox.checked){
-			id = checkBox.value;
-			break;
+		if (checkBox.checked) {
+			checkedBox = checkedBox + 1;
+			if (checkedBox >= 2){
+				break;
+			}
 		}
 	}
-	popup (link+"/"+id, windowName);
-	return false;
+	//Disable edit button
+	var dEb = true;
+	//Disable delete button
+	var dDb = true;
+	if (checkedBox == 1){
+		dEb = false;
+		dDb = false;
+	} else if (checkedBox > 1) {
+		dEb = true;
+		dDb = false;
+	}
+	document.getElementById("editButton").disabled = dEb;
+	document.getElementById("deleteButton").disabled=dDb;
 }
+
 
 function deleteCustomers (){
 	var frm = document.getElementById("customerForm");
@@ -109,24 +120,6 @@ function deleteCustomers (){
 	frm.submit ();
 }
 
-/**
-
-function editCustomer (customerId){
-	var ifrm = window.parent.document.getElementById("body");
-	ifrm.src="<c:url value="addCustomer"/>/" + customerId;
-}
-
-function accountPreferences (customerId) {
-	var ifrm = window.parent.document.getElementById("body");
-	ifrm.src="<c:url value="customerAcountPreferences"/>/" + customerId;
-}
-
-function accountTransaction (customerId){
-	var ifrm = window.parent.document.getElementById("body");
-	ifrm.src="<c:url value="accountTransaction"/>/" + customerId;
-}
-
-*/
 function commonCallback(data,ioArgs) {
 	document.getElementById("ajaxCustomerList").innerHTML = data;
 	addTableRolloverEffect('customerList','tableRollOverEffect1','tableRowClickEffect1');
@@ -222,8 +215,11 @@ function saveAccount (customerId) {
 		form : dojo.byId("account"),
 		handleAs : "text",
 		load : function(data) {
-			dojo.byId("AddEdittransaction").innerHTML = data;
-			showCustomerAccount (customerId);
+			if(data == "success"){
+				showCustomerAccount (customerId);
+			} else {
+				dojo.byId("AddEdittransaction").innerHTML = data;
+			}
 		},
 		error : function(error) {
 			dojo.byId("ajaxBody").innerHTML = "Error occured while saving.";
@@ -231,6 +227,28 @@ function saveAccount (customerId) {
 	};
 	// Call the asynchronous xhrPost
 	dojo.xhrPost(xhrArgs);
+}
+
+function getCheckedAccountId () {
+	var checkBoxes = document.getElementsByName("cb");
+	var id = new Array ();
+	var index = 0;
+	for (var i = 0; i < checkBoxes.length; i++){
+		var checkBox = checkBoxes[i];
+		if (checkBox.checked) {
+			id[index++] = checkBox.value;
+		}
+	}
+	return id;
+}
+
+function editAcccount (customerId) {
+	var ids = getCheckedAccountId();
+	if (ids.length > 1)
+		alert ("please check one account only");
+	var id = ids[0];
+	var thisUrl = contextPath + "/a/accountTransaction/"+customerId+"/editAccount/"+id;
+	showTransactionForm(thisUrl);
 }
 
 function addAccount (customerId) {

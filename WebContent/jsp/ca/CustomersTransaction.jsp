@@ -107,7 +107,8 @@
 			<c:forEach var="account" items="${accountTransactionMgr.page.data}" varStatus="status">
 				<tr>
 					<td>${status.index + 1}</td>
-					<td align="center"><input type="checkBox" value="${account.accountId}" id="cb" name="cb"/></td>
+					<td align="center"><input type="checkBox"
+						value="${account.accountId}" id="cb" name="cb" onclick="onClckAccountCheckbock()"/></td>
 					<td> <c:out value="${account.formattedAccountDate}"/></td>
 					<td> <c:out value="${account.formattedDueDate}"/></td>
 					<td> <c:out value="${account.referenceNumber}"/></td>
@@ -154,8 +155,10 @@
 		<td align="right" >
 			<input type="button" value="Account" onclick="addAccount (${accountTransactionMgr.customer.customerId});">
 			<input type="button" value="Payment" onclick="addPayment (${accountTransactionMgr.customer.customerId});">
-			<input type="button" value="Edit" onclick="editTransaction();">
-			<input type="button" value="Delete" >
+			<input type="button" value="Edit" id="editButton" name="editButton"
+					onclick="editAcccount(${accountTransactionMgr.customer.customerId})" disabled="disabled">
+			<input type="button" value="Delete"
+					id="deleteButton" name="deleteButton" disabled="disabled">
 		</td>
 	</tr>
 </table>

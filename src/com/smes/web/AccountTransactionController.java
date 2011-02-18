@@ -1,5 +1,6 @@
 package com.smes.web;
 
+import java.beans.PropertyEditor;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -59,8 +60,9 @@ public class AccountTransactionController {
 	public void initBindier(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		dateFormat.setLenient(false);
+		binder.setRequiredFields("accountDate");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, false));
+				dateFormat, true));
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -82,12 +84,15 @@ public class AccountTransactionController {
 	@RequestMapping(value = "/editAccount/{accountId}", method = RequestMethod.GET)
 	public String editAccountTransaction(
 			@PathVariable("customerId") String customerId,
-			@PathVariable("accountId") String accountId, Model model) {
+			@PathVariable("accountId") String accountId, Model model, HttpSession session) {
 		System.out.println("edit account transaction");
+		Credential c =
+			CredentialHandler.getCredential(session);
 		Account account = paymentAccountService.getAccount(Integer
 				.valueOf(accountId));
 		account.setCustomerId(Integer.valueOf(customerId));
 		model.addAttribute(account);
+		setAccountType(c, model);
 		return "addAccountTransaction";
 	}
 
@@ -101,6 +106,12 @@ public class AccountTransactionController {
 		return saveAccount(customerId, account, result, model, session);
 	}
 
+	private void setAccountType (Credential c, Model model) {
+		Collection<AccountType> accountTypes =
+			accountTypeService.getAccountTypes(c.getCompanyId());
+		model.addAttribute("accountTypes", accountTypes);
+	}
+	
 	@RequestMapping(value = "/addAccount", method = RequestMethod.GET)
 	public String showAccountTransaction( @PathVariable("customerId") String customerId,
 			Model model, HttpSession session) {
@@ -109,10 +120,8 @@ public class AccountTransactionController {
 		account.setCustomerId(Integer.valueOf(customerId));
 		Credential c =
 			CredentialHandler.getCredential(session);
-		Collection<AccountType> accountTypes =
-			accountTypeService.getAccountTypes(c.getCompanyId());
 		model.addAttribute(account);
-		model.addAttribute("accountTypes", accountTypes);
+		setAccountType(c, model);
 		return "addAccountTransaction";
 	}
 
@@ -125,8 +134,10 @@ public class AccountTransactionController {
 			CredentialHandler.getCredential(session);
 		// to set the H:s
 		accountValidator.validate(account, result);
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+			setAccountType(c, model);
 			return "addAccountTransaction";
+		}
 		account.setAccountDate(includeTime(account.getAccountDate()));
 		account.setCompanyId(c.getCompanyId());
 		AuditUtil.addAudit(account, c);

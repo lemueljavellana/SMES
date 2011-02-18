@@ -43,7 +43,7 @@ public class AddEditAccountController {
 	
 	@InitBinder
 	public void initBinder (WebDataBinder binder){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
 		dateFormat.setLenient(false);
 		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
 		binder.registerCustomEditor(Date.class, editor);

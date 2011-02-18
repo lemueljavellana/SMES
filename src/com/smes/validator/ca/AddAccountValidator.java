@@ -14,14 +14,15 @@ public class AddAccountValidator implements Validator {
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		ValidationUtils.rejectIfEmpty(errors, "accountDate", "accountDate");
-		ValidationUtils.rejectIfEmpty(errors, "referenceNumber", "referenceNumber");
-		ValidationUtils.rejectIfEmpty(errors, "amount", "amount");
 		Account account = (Account) obj;
-		
 		if (account.getAccountDate() == null) {
 			errors.rejectValue("accountDate", null,
 					null, "Account date is required");
+		}
+		
+		if (account.getDueDate() == null) {
+			errors.rejectValue("dueDate", null,
+					null, "Due date is required");
 		}
 		String referenceNumber = account.getReferenceNumber();
 		if (referenceNumber == null || referenceNumber.isEmpty()){
@@ -29,8 +30,8 @@ public class AddAccountValidator implements Validator {
 					null, "Reference number is required");
 		}
 		
-		if (account.getAmount() == 0)
+		if (account.getAmount() < 1)
 			errors.rejectValue("amount", null,
-					null, "Amount is required");
+					null, "Amount can not be zero (0)");
 	}
 }

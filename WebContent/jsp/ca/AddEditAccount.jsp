@@ -21,8 +21,8 @@ Account
 		</tr>
 		<tr>
 			
-			<td>Date</td>
-			<td><form:input path="accountDate"/></td>
+			<td>Date </td>
+			<td><form:input path="accountDate" size="8"/> <i><font color="GRAY">(mm/dd/yyyy)</font></i></td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -34,7 +34,7 @@ Account
 		<tr>
 			
 			<td>Due Date</td>
-			<td><form:input path="dueDate"/></td>
+			<td><form:input path="dueDate" size="8"/><i><font color="GRAY">(mm/dd/yyyy)</font></i></td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -56,7 +56,7 @@ Account
 		</tr>
 		<tr>
 			<td>Description</td>
-			<td><form:input path="description"/></td>
+			<td><form:input path="description" size="50" /></td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -67,7 +67,14 @@ Account
 		</tr>
 		<tr>
 			<td>Amount</td>
-			<td><form:input path="amount"/></td>
+			<td><form:input path="amount" size="10" cssStyle="text-align:right"/></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<font color="red">
+				<form:errors path="amount" cssClass="error"/>
+				</font>
+			</td>
 		</tr>
 		<tr>
 			<td>
