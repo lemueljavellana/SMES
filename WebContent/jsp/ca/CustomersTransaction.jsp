@@ -157,8 +157,8 @@
 			<input type="button" value="Payment" onclick="addPayment (${accountTransactionMgr.customer.customerId});">
 			<input type="button" value="Edit" id="editButton" name="editButton"
 					onclick="editAcccount(${accountTransactionMgr.customer.customerId})" disabled="disabled">
-			<input type="button" value="Delete"
-					id="deleteButton" name="deleteButton" disabled="disabled">
+			<input type="button" value="Delete" id="deleteButton" name="deleteButton"
+					disabled="disabled" onclick="deleteAccount(${accountTransactionMgr.customer.customerId})">
 		</td>
 	</tr>
 </table>

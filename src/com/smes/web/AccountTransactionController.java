@@ -1,10 +1,11 @@
 package com.smes.web;
 
-import java.beans.PropertyEditor;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -146,6 +147,18 @@ public class AccountTransactionController {
 		return "addTransactionSuccess";
 	}
 
+	@RequestMapping (value = "/deleteAccount/{tag}", method = RequestMethod.GET)
+	public String deleteAccount (@PathVariable("customerId") String customerId,
+			@PathVariable ("tag") String tag, Model model){
+		String[] toBeDeleted = tag.split(",");
+		List<Integer> ids = new ArrayList<Integer>();
+		for (String strId : toBeDeleted){
+			ids.add(Integer.valueOf(strId));
+		}
+		accountService.deleteAccounts(ids);
+		return "addTransactionSuccess";
+	}
+	
 	@RequestMapping(value = "/addPayment", method = RequestMethod.GET)
 	public String showPaymentForm(@PathVariable("customerId") String customerId, Model model) {
 		System.out.println("show payment form");

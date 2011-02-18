@@ -242,6 +242,21 @@ function getCheckedAccountId () {
 	return id;
 }
 
+function deleteAccount (customerId) {
+	var ids = getCheckedAccountId();
+	var conCat = null;
+	for (var i=0; i < ids.length; i++) {
+		if (conCat == null)
+			conCat = ids[i];
+		else 
+			conCat = conCat + "," +ids[i];
+		
+	}
+	var thisUrl = contextPath + "/a/accountTransaction/"+customerId+"/deleteAccount/";
+	thisUrl = thisUrl + conCat;
+	reloadAfterProcess(thisUrl, customerId);
+}
+
 function editAcccount (customerId) {
 	var ids = getCheckedAccountId();
 	if (ids.length > 1)
@@ -280,6 +295,22 @@ function postTransaction (customerId, divId){
 	// Call the asynchronous xhrPost
 	dojo.xhrPost(xhrArgs);
 }
+
+function reloadAfterProcess (thisUrl, customerId) {
+	dojo.xhrGet({
+	      url: thisUrl,
+	      load: function (data) {
+	    	  		if (data == "success"){
+	    	  			showCustomerAccount (customerId);
+	      			}
+	      		},
+	      error: function (data, ioArgs){
+	    	  		dojo.byId("AddEdittransaction").innerHTML = "unknown error";
+	      		}
+	});
+}
+
+
 function showTransactionForm (thisUrl) {
 	dojo.xhrGet({
 	      url: thisUrl,

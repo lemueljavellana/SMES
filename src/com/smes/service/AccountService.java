@@ -1,5 +1,7 @@
 package com.smes.service;
 
+import java.util.List;
+
 import com.smes.dao.AccountDao;
 import com.smes.domain.Page;
 import com.smes.domain.PageSetting;
@@ -28,5 +30,11 @@ public class AccountService {
 	public Page<AccountTransaction> getUnpaidTransaction (int customerId, int currentPage) {
 		PageSetting pageSetting = new PageSetting(currentPage);
 		return accountDao.getUnpaidTransactions(customerId, pageSetting);
+	}
+	
+	public void deleteAccounts (List<Integer> accountIds){
+		for (Integer id : accountIds){
+			accountDao.delete(id);
+		}
 	}
 }
