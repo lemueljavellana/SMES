@@ -45,7 +45,7 @@ public class AccountTransactionController {
 	private final AccountService accountService;
 	
 	@Autowired
-	public AccountTransactionController( PaymentAccountService paymentAccountService,
+	public AccountTransactionController(PaymentAccountService paymentAccountService,
 			CustomerService customerService,
 			AccountTypeService accountTypeService,
 			AccountService accountService,
@@ -61,7 +61,6 @@ public class AccountTransactionController {
 	public void initBindier(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		dateFormat.setLenient(false);
-		binder.setRequiredFields("accountDate");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));
 	}

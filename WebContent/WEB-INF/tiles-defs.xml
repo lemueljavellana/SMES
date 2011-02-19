@@ -24,6 +24,10 @@
 	<definition name="customerAccountPreferences" template="/jsp/ca/preference/CustomerAccountPreference.jsp"/>
 	<definition name="customersAccount" template="/jsp/ca/CustomersTransaction.jsp"/>
 	<definition name="addAccountTransaction" template="/jsp/ca/AddEditAccount.jsp"/>
-	<definition name="paymentForm" template="/jsp/ca/AddEditPayment.jsp"/>
 	<definition name="addTransactionSuccess" template="/jsp/ca/AddTransactionSuccess.jsp"/>
+	<!-- should be removed -->
+	<definition name="paymentForm" template="/jsp/ca/AddEditPayment.jsp"/>
+	<!-- -->
+	<definition name="paymentTab" template="/jsp/ca/PaymentTab.jsp"></definition>
+
 </tiles-definitions>

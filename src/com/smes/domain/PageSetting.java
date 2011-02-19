@@ -1,19 +1,24 @@
 package com.smes.domain;
 
 public class PageSetting {
-	private static final int MAXMUM_ITEM_PAGE = 20;
+	private static final int DEFAULT_MAX_PAGE = 20;
 	private final int pageNumber;
-	
+	private final int maxPerPage;
 	public PageSetting(int page) {
+		this (page, DEFAULT_MAX_PAGE);
+	}
+	
+	public PageSetting(int page, int maxPerPage) {
 		this.pageNumber = page < 1 ? 0 : page;
+		this.maxPerPage = maxPerPage;
 	}
 
 	public int getStartResult () {
-		return pageNumber * MAXMUM_ITEM_PAGE; 
+		return pageNumber * maxPerPage; 
 	}
 	
 	public int getMaxResult () {
-		return MAXMUM_ITEM_PAGE;
+		return maxPerPage;
 	}
 	
 	public int getPageNumber() {

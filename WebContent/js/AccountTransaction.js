@@ -322,3 +322,23 @@ function showTransactionForm (thisUrl) {
 	      		}
 	});
 }
+
+function showTab (tabUrl) {
+	dojo.xhrGet({
+      url: tabUrl,
+      load: function (data) {
+    	  dojo.byId("tabContent").innerHTML = data;
+      },
+      error: function (data, ioArgs){
+    	  dojo.byId("tabContent").innerHTML = "unknown error";
+      }
+	});
+}
+
+function showPaymentTab (customerId) {
+	toBePaidAccounts = new Array();
+	var tabUrl = contextPath + "/a/"+customerId + "/payment";
+	document.getElementById("arTabHeader").class = "";
+	document.getElementById("paymentTabHeader").class = "current_page_item";
+	showTab(tabUrl);
+}

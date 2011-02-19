@@ -29,6 +29,16 @@ public class AccountService {
 	
 	public Page<AccountTransaction> getUnpaidTransaction (int customerId, int currentPage) {
 		PageSetting pageSetting = new PageSetting(currentPage);
+		return getUnpaidTransaction(customerId, pageSetting);
+	}
+	
+	public Page<AccountTransaction> getUnpaidTransaction (int customerId,
+			int currentPage, int maxPerPage) {
+		PageSetting pageSetting = new PageSetting(currentPage, maxPerPage);
+		return getUnpaidTransaction(customerId, pageSetting);
+	}
+	
+	private Page<AccountTransaction> getUnpaidTransaction (int customerId, PageSetting pageSetting){
 		return accountDao.getUnpaidTransactions(customerId, pageSetting);
 	}
 	

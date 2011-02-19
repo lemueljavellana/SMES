@@ -3,62 +3,7 @@
 <%@ include file="../include.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<script type="text/javascript">
-
-	function addAccountTransaction (){
-		var ifrm = document.getElementById("addAccount");
-		ifrm.src="${accountTransactionMgr.customer.customerId}/<c:url value="addAccount"/>";
-	}
-
-	function updateFrame (url){
-		var customerId = "${accountTransactionMgr.customer.customerId}";
-		var ifrm = document.getElementById("addAccount");
-		ifrm.src = customerId + "/"+url;
-	}
-	
-	function editTransaction (){
-		var cb = document.getElementsByName("cb");
-		for (var i =0; i < cb.length; i++) {
-			if (cb[i].checked){
-				var checked = cb[i].value;
-				var type2Id = checked.split(",");
-				var type = type2Id[0];
-				var referenceId = type2Id [1];
-				var ifrm = document.getElementById("addAccount");
-				if (type == "ACCOUNT"){
-					ifrm.src="${accountTransactionMgr.customer.customerId}/<c:url value="editAccount"/>/"+referenceId;
-				} else if (type == "PAYMENT") {
-					ifrm.src="${accountTransactionMgr.customer.customerId}/<c:url value="editPayment"/>/"+referenceId;
-				}
-			}
-		}
-	}
-
-	function deleteTransaction () {
-		var cb = document.getElementsByName("cb");
-		var tag = "";
-		for (var i =0; i < cb.length; i++) {
-			if (cb[i].checked){
-				var checked = cb[i].value;
-				var type2Id = checked.split(",");
-				var type = type2Id[0];
-				var referenceId = type2Id [1];
-				
-				if (type == "ACCOUNT"){
-					tag = tag + "A" + "," + referenceId + ":";
-				} else if (type == "PAYMENT") {
-					tag = tag + "P" + "," + referenceId + ":";
-				}
-			}
-		}
-		alert (tag);
-		var ifrm = document.getElementById("addAccount");
-		ifrm.src="${accountTransactionMgr.customer.customerId}/<c:url value="deleteTransaction"/>/"+tag;
-	}
-</script>
 <body>
-<form:form method="POST" commandName="accountTransactionMgr" id="accountTransactionMgr">
-	
 	<table >
 		<tr align="left">
 			<td align="left" width="10%">
@@ -86,7 +31,18 @@
 			</th>
 		</tr>
 	</table>
-
+	
+	<div id="tableTab">
+		<div id="menu">
+			<ul>
+				<!-- Accounts Receivable -->
+				<li id="arTabHeader" class="current_page_item"><a href="#">Accounts Receivable</a></li>
+				<li id="paymentTabHeader" onclick="showPaymentTab (${accountTransactionMgr.customer.customerId})"><a href="#">Payments</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="tabContent">
+		<form:form method="POST" commandName="accountTransactionMgr" id="accountTransactionMgr">
 	<!-- TODO: Add the searching here. -->
 	<table width="100%" bordercolor="black" border="1" id="customerAccount">
 		<thead>
@@ -149,12 +105,10 @@
 			</tr>
 		</tfoot>
 	</table>
-</form:form>
 <table width="100%">
 	<tr>
 		<td align="right" >
-			<input type="button" value="Account" onclick="addAccount (${accountTransactionMgr.customer.customerId});">
-			<input type="button" value="Payment" onclick="addPayment (${accountTransactionMgr.customer.customerId});">
+			<input type="button" value="Add" onclick="addAccount (${accountTransactionMgr.customer.customerId});">
 			<input type="button" value="Edit" id="editButton" name="editButton"
 					onclick="editAcccount(${accountTransactionMgr.customer.customerId})" disabled="disabled">
 			<input type="button" value="Delete" id="deleteButton" name="deleteButton"
@@ -162,6 +116,10 @@
 		</td>
 	</tr>
 </table>
+	
+</form:form>
+</div>
+
 <div id="AddEdittransaction">
 	
 </div>
