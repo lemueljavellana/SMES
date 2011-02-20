@@ -1,5 +1,7 @@
 package com.smes.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.smes.dao.AccountDao;
@@ -29,17 +31,23 @@ public class AccountService {
 	
 	public Page<AccountTransaction> getUnpaidTransaction (int customerId, int currentPage) {
 		PageSetting pageSetting = new PageSetting(currentPage);
-		return getUnpaidTransaction(customerId, pageSetting);
+		return getUnpaidTransaction(customerId, null, pageSetting);
 	}
 	
 	public Page<AccountTransaction> getUnpaidTransaction (int customerId,
 			int currentPage, int maxPerPage) {
 		PageSetting pageSetting = new PageSetting(currentPage, maxPerPage);
-		return getUnpaidTransaction(customerId, pageSetting);
+		return getUnpaidTransaction(customerId, null, pageSetting);
 	}
 	
-	private Page<AccountTransaction> getUnpaidTransaction (int customerId, PageSetting pageSetting){
-		return accountDao.getUnpaidTransactions(customerId, pageSetting);
+	public Page<AccountTransaction> getUnpaidTransaction (int customerId, int currentPage,
+			int maxPage, List<Integer> exclude){
+		PageSetting pageSetting = new PageSetting(currentPage, maxPage);
+		return getUnpaidTransaction(customerId, exclude, pageSetting);
+	}
+	
+	private Page<AccountTransaction> getUnpaidTransaction (int customerId, List<Integer> exclude, PageSetting pageSetting){
+		return accountDao.getUnpaidTransactions(customerId, exclude, pageSetting);
 	}
 	
 	public void deleteAccounts (List<Integer> accountIds){

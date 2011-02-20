@@ -1,7 +1,9 @@
 package com.smes.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,6 +61,25 @@ public class PaymentController {
 		Page<AccountTransaction> page =
 			accountService.getUnpaidTransaction(customer.getCustomerId(), 0, 10);
 		model.addAttribute("accounts", page);
+		model.addAttribute("customerId", customer.getCustomerId());
 		return "paymentTab";
+	}
+	
+	@RequestMapping (value="/excludeAccounts/{ids}", method = RequestMethod.GET)
+	public String excludeFromAR (@PathVariable("customerId") String customerId,
+			@PathVariable ("ids") String ids, Model model,
+			HttpSession currentSession){
+		Credential c =
+			CredentialHandler.getCredential(currentSession);
+		Customer customer = customerService.getCustomer(Integer.valueOf(customerId));
+		List<Integer> exclude = new ArrayList<Integer>(); 
+		for (String strId : ids.split(","))
+			exclude.add(Integer.valueOf(strId));
+			//Set as 10 max item per page.
+		Page<AccountTransaction> page =	
+			accountService.getUnpaidTransaction(customer.getCustomerId(), 0, 10, exclude);
+		model.addAttribute("accounts", page);
+		model.addAttribute("customerId", customer.getCustomerId());
+		return "unpaidAccountsTable";
 	}
 }

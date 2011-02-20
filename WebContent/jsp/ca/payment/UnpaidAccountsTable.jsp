@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include.jsp" %>
-
+<%@ include file="../../include.jsp" %>
 <table width="100%" bordercolor="black" border="1" id="customerAccount">
 	<thead>
 		<tr>
@@ -58,75 +57,4 @@
 			</td>
 		</tr>
 	</tfoot>
-</table>
-<!-- Button -->
-<table width="100%">
-	<tr>
-		<td align="right" >
-			<input type="button" value="Add to Payment list" onclick="addToPayment()">
-		</td>
-	</tr>
-</table>
-<!-- input type -->
-<table>
-	<tr >
-		<td width="150">Date</td>
-		<td><input type="text"></td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<font color="red">
-			<form:errors path="paymentDate" cssClass="error"/>
-			</font>
-		</td>
-	</tr>
-	<tr>
-		<td>Reference Number</td>
-		<td><input type="text"></td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<font color="red">
-			<form:errors path="referenceNumber" cssClass="error"/>
-			</font>
-		</td>
-	</tr>
-	<tr>
-		<td>Description</td>
-		<td><input type="text"></td>
-	</tr>
-	<tr>
-		<td>Amount</td>
-		<td><input type="text"></td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<font color="red">
-			<form:errors path="amount" cssClass="error"/>
-			</font>
-		</td>
-	</tr>
-</table>
-<table width="100%" bordercolor="black" border="1" id="customerAccount">
-	<thead>
-		<tr>
-			<th width="1%">#</th>
-			<th width="1%"><input type="checkbox" id="selectAll" name="selectAll"/></th>
-			<th width="7%">Date</th>
-			<th width="7%">Due Date</th>
-			<th width="8%">Reference Number</th>
-			<th width="28%%">Description</th>
-			<th width="12%">Amount</th>
-			<th width="12%">Interest Earned</th>
-		</tr>
-	</thead>
-</table>
-<!--Buttons-->
-<table width="100%">
-	<tr>
-		<td align="right" >
-			<input type="button" value="save">
-			<input type="button" value="remove" >
-		</td>
-	</tr>
 </table>

@@ -27,7 +27,7 @@
 	<definition name="addTransactionSuccess" template="/jsp/ca/AddTransactionSuccess.jsp"/>
 	<!-- should be removed -->
 	<definition name="paymentForm" template="/jsp/ca/AddEditPayment.jsp"/>
-	<!-- -->
-	<definition name="paymentTab" template="/jsp/ca/PaymentTab.jsp"></definition>
-
+	<!--payments tab -->
+	<definition name="paymentTab" template="/jsp/ca/payment/PaymentTab.jsp"></definition>
+	<definition name="unpaidAccountsTable" template="/jsp/ca/payment/UnpaidAccountsTable.jsp"></definition>
 </tiles-definitions>

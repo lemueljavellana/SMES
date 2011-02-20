@@ -11,6 +11,7 @@ public class Page<T> {
 	private final int nextPage;
 	private final int lastPage;
 	private final int prevPage;
+
 	public Page(PageSetting pageSetting, Collection<T> data, int totalRecords) {
 		this.pageSetting = pageSetting;
 		this.totalRecords = totalRecords;

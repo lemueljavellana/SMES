@@ -24,14 +24,27 @@ public class AccountDaoImpl extends BaseDao<Account>
 	
 	public Page<AccountTransaction> getUnpaidTransactions (int customerId,
 			PageSetting pageSetting) {
+		return getUnpaidTransactions(customerId, null, pageSetting);
+	}
+	@Override
+	public Page<AccountTransaction> getUnpaidTransactions(int customerId,
+			List<Integer> exclude, PageSetting pageSetting) {
 		ResourceBundle rb =
 			ResourceBundle.getBundle(PropertyFileConstant.ACCOUNT_PROP);
 		String selectSQL = rb.getString("unpaid.account.sql.select");
 		String fromSQL = rb.getString("unpaid.account.sql.from");
+		String whereSQL = rb.getString("unpaid.account.sql.where");
+		String groupSQL = rb.getString("unpaid.account.sql.group");
+		String orderSQl = rb.getString("unpaid.account.sql.order");
+		
+		if (exclude != null)
+			for (Integer id : exclude) 
+				whereSQL += " AND T1.ACCOUNT_ID !=" + id;
+
+		String from = fromSQL + " " +whereSQL + " " + groupSQL + " " + orderSQl;
 		QRHandler handler = new QRHandler(customerId);
-		return getAllAsPage(selectSQL, fromSQL, pageSetting, handler);
+		return getAllAsPage(selectSQL, from, pageSetting, handler);
 	}
-	
 	private static class QRHandler implements QueryResultHandler<AccountTransaction> {
 		private final int customerId;
 		

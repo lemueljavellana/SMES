@@ -4,6 +4,7 @@ var activeRow = false;
 var activeRowClickArray = new Array();
 var textValue = "";
 var contextPath = '';
+var toBePaidAccounts = null;
 
 function init (context) {
 	contextPath = context;
@@ -341,4 +342,38 @@ function showPaymentTab (customerId) {
 	document.getElementById("arTabHeader").class = "";
 	document.getElementById("paymentTabHeader").class = "current_page_item";
 	showTab(tabUrl);
+}
+
+function addAccountsPayment (customerId){
+	var checkedAccount = getCheckedAccountId();
+	var lastIndex = 0;
+	if (toBePaidAccounts.length != 0)
+		lastIndex = toBePaidAccounts.length;
+	for (var i=0; i < checkedAccount.length; i++ ){
+		var id = checkedAccount[i];
+		toBePaidAccounts[lastIndex++] = id;
+	}
+	var toBeExclude = null;
+	for (var i=0; i < toBePaidAccounts.length; i++){
+		var id = toBePaidAccounts[i];
+		if (toBeExclude == null)
+			toBeExclude = id;
+		else 
+			toBeExclude = toBeExclude + ","+ id;
+	}
+	var thisUrl = contextPath + "/a/"+ customerId + "/payment/excludeAccounts/" + toBeExclude;
+	alert (thisUrl);
+	updateAccountsTable(thisUrl);
+}
+
+function updateAccountsTable (thisUrl){
+	dojo.xhrGet({
+      url: thisUrl,
+      load: function (data) {
+    	  dojo.byId("paymentTop").innerHTML = data;
+      },
+      error: function (data, ioArgs){
+    	  dojo.byId("paymentTop").innerHTML = "unknown error";
+      }
+	});
 }

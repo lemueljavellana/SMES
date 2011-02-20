@@ -201,7 +201,7 @@ public class AccountTransactionController {
 
 	@RequestMapping (value = "/deleteTransaction/{tag}", method = RequestMethod.GET)
 	public String deleteTransaction (@PathVariable("customerId") String customerId,
-			@PathVariable ("tag") String tag, Model model){
+			@PathVariable ("tag") String tag, Model model) {
 		String[] toBeDeleted = tag.split(":");
 		for (String str : toBeDeleted){
 			String[] type2Id = str.split(",");
