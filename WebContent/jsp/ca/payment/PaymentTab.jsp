@@ -69,7 +69,6 @@
 	</tr>
 </table>
 <!-- input type -->
-<div id="paymentBottom">
 	<table>
 		<tr >
 			<td width="150">Date</td>
@@ -109,20 +108,25 @@
 			</td>
 		</tr>
 	</table>
-	<table width="100%" bordercolor="black" border="1" id="customerAccount">
-		<thead>
-			<tr>
-				<th width="1%">#</th>
-				<th width="1%"><input type="checkbox" id="selectAll" name="selectAll"/></th>
-				<th width="7%">Date</th>
-				<th width="7%">Due Date</th>
-				<th width="8%">Reference Number</th>
-				<th width="28%%">Description</th>
-				<th width="12%">Amount</th>
-				<th width="12%">Interest Earned</th>
-			</tr>
-		</thead>
-	</table>
+	<div id="toBePaid">
+		<table width="100%" bordercolor="black" border="1" id="toBePaidAccounts">
+			<thead>
+				<tr>
+					<th width="1%">#</th>
+					<th width="1%"><input type="checkbox" id="selectAll" name="selectAll"/></th>
+					<th width="7%">Date</th>
+					<th width="7%">Due Date</th>
+					<th width="8%">Reference Number</th>
+					<th width="28%%">Description</th>
+					<th width="12%">Amount</th>
+					<th width="12%">Interest Earned</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
 	<!--Buttons-->
 	<table width="100%">
 		<tr>
@@ -132,4 +136,3 @@
 			</td>
 		</tr>
 	</table>
-</div>

@@ -41,9 +41,9 @@ public class AccountDaoImpl extends BaseDao<Account>
 			for (Integer id : exclude) 
 				whereSQL += " AND T1.ACCOUNT_ID !=" + id;
 
-		String from = fromSQL + " " +whereSQL + " " + groupSQL + " " + orderSQl;
+		String sql = selectSQL+ " " + fromSQL + " " +whereSQL + " " + groupSQL + " " + orderSQl;
 		QRHandler handler = new QRHandler(customerId);
-		return getAllAsPage(selectSQL, from, pageSetting, handler);
+		return getAllAsPage(sql, pageSetting, handler);
 	}
 	private static class QRHandler implements QueryResultHandler<AccountTransaction> {
 		private final int customerId;

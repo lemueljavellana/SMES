@@ -1,7 +1,5 @@
 package com.smes.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.smes.dao.AccountDao;

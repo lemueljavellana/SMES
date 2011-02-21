@@ -345,7 +345,26 @@ function showPaymentTab (customerId) {
 }
 
 function addAccountsPayment (customerId){
-	var checkedAccount = getCheckedAccountId();
+	var checkBoxes = document.getElementsByName("cb");
+	var checkedAccount = new Array ();
+	alert (checkedAccount);
+	var index = 0;
+	var insertRow = 0;
+	for (var i = 0; i < checkBoxes.length; i++){
+		var checkBox = checkBoxes[i];
+		if (checkBox.checked) {
+			checkedAccount[index++] = checkBox.value;
+			var row = document.getElementById('customerAccount').rows[i];
+			//alert (row.cells[0] + "," + row.cells[1] + ","+ row.cells[2].childNodes[0].data);
+			var rowToBeInserted = document.getElementById("toBePaidAccounts").insertRow(1);
+			var itemNumber = rowToBeInserted.insertCell (0);
+			itemNumber.innerHTML = ""+insertRow++;
+			
+			var checkBoxColumn = rowToBeInserted.insertCell (1);
+			checkBoxColumn.innerHTML = "test";
+			
+		}
+	}
 	var lastIndex = 0;
 	if (toBePaidAccounts.length != 0)
 		lastIndex = toBePaidAccounts.length;
@@ -364,6 +383,7 @@ function addAccountsPayment (customerId){
 	var thisUrl = contextPath + "/a/"+ customerId + "/payment/excludeAccounts/" + toBeExclude;
 	alert (thisUrl);
 	updateAccountsTable(thisUrl);
+	
 }
 
 function updateAccountsTable (thisUrl){

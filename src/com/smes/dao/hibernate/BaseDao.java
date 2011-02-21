@@ -44,7 +44,7 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 
 	@Override
 	public T get(int id) {
-		return getHibernateTemplate().get(getDomainClass(), id);	
+		return getHibernateTemplate().get(getDomainClass(), id);
 	}
 
 	@Override
@@ -121,14 +121,9 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 		return new Page (pageSetting, result, (Integer) count.iterator().next());
 	}
 	
-	public <A> List<A> test () { 
-		return null;
-	}
-	
-	public <A> Page<A> getAllAsPage (String selectField, String sqlBody,
-			PageSetting pageSetting, QueryResultHandler<A> handler) {
-		String sqlWithLimit = selectField + " " + sqlBody + " " + "LIMIT ?,?";
-		String sqlCount = "SELECT count(*) as TOTAL_COUNT " + sqlBody;
+	public <A> Page<A> getAllAsPage (String sql, PageSetting pageSetting, QueryResultHandler<A> handler){
+		String sqlWithLimit = sql + " " + "LIMIT ?,?";
+		String sqlCount = "SELECT count(*) as TOTAL_COUNT FROM (" + sql +") as tc";
 		List<A> result = null;
 		Session session = null;
 		int totalRecords = 0;
