@@ -131,7 +131,7 @@
 	<table width="100%">
 		<tr>
 			<td align="right" >
-				<input type="button" value="save">
+				<input type="button" value="Paid">
 				<input type="button" value="remove" >
 			</td>
 		</tr>

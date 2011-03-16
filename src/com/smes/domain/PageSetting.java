@@ -1,7 +1,7 @@
 package com.smes.domain;
 
 public class PageSetting {
-	public static final int UNLIMITED_MAX_PAGE = -1;
+	public static final int NO_PAGE_CONSTRAINT = -1;
 	private static final int DEFAULT_MAX_PAGE = 20;
 	private final int pageNumber;
 	private final int maxPerPage;

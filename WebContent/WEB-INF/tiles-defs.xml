@@ -30,4 +30,5 @@
 	<!--payments tab -->
 	<definition name="paymentTab" template="/jsp/ca/payment/PaymentTab.jsp"></definition>
 	<definition name="unpaidAccountsTable" template="/jsp/ca/payment/UnpaidAccountsTable.jsp"></definition>
+	<definition name="toBePaidAccounts" template="/jsp/ca/payment/ToBePaidAccountsTable.jsp"></definition>
 </tiles-definitions>

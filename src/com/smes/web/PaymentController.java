@@ -2,6 +2,7 @@ package com.smes.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import com.smes.service.CustomerService;
 import com.smes.service.PaymentAccountService;
 import com.smes.validator.ca.AddAccountValidator;
 import com.smes.view.frm.Credential;
+import com.smes.web.dto.FormatUtil;
 
 @Controller
 @RequestMapping ("/{customerId}/payment")
@@ -53,8 +55,7 @@ public class PaymentController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String showPaymentTab (@PathVariable("customerId") String customerId, Model model,
 			HttpSession currentSession) {
-		Credential c =
-			CredentialHandler.getCredential(currentSession);
+		CredentialHandler.getCredential(currentSession);
 		Customer customer = customerService.getCustomer(Integer
 				.valueOf(customerId));
 		//Set as 10 max item per page.
@@ -69,17 +70,44 @@ public class PaymentController {
 	public String excludeFromAR (@PathVariable("customerId") String customerId,
 			@PathVariable ("ids") String ids, Model model,
 			HttpSession currentSession){
-		Credential c =
-			CredentialHandler.getCredential(currentSession);
+		CredentialHandler.getCredential(currentSession);
 		Customer customer = customerService.getCustomer(Integer.valueOf(customerId));
-		List<Integer> exclude = new ArrayList<Integer>(); 
-		for (String strId : ids.split(","))
-			exclude.add(Integer.valueOf(strId));
+		List<Integer> exclude = parseIds(ids); 
 			//Set as 10 max item per page.
 		Page<AccountTransaction> page =	
 			accountService.getUnpaidTransaction(customer.getCustomerId(), 0, 10, exclude);
 		model.addAttribute("accounts", page);
 		model.addAttribute("customerId", customer.getCustomerId());
 		return "unpaidAccountsTable";
+	}
+	
+	@RequestMapping (value="/toBePaidAccounts/{ids}", method = RequestMethod.GET)
+	public String toBePaidAccounts (@PathVariable("customerId") String customerId,
+			@PathVariable ("ids") String ids, Model model, HttpSession currentSession){
+		CredentialHandler.getCredential(currentSession);
+		Customer customer = customerService.getCustomer(Integer.valueOf(customerId));
+		List<Integer> toBePaidAccounts = parseIds(ids);
+		Page<AccountTransaction> page = accountService.getUnpaidTransactionWithIds(customer.getCustomerId(),
+				toBePaidAccounts);
+		model.addAttribute("accounts", page);
+		model.addAttribute("customerId", customer.getCustomerId());
+		//set the total amount and interest earned
+		double totalAmount = 0;
+		double totalInterestEarned = 0;
+		for (AccountTransaction at : page.getData()){
+			totalAmount += at.getTotalAmount();
+			totalInterestEarned += at.getEarnedInterest();
+		}
+		model.addAttribute("totalAmount", FormatUtil.format(totalAmount));
+		model.addAttribute("totalInterestEarned", FormatUtil.format(totalInterestEarned));
+		model.addAttribute("total", FormatUtil.format(totalInterestEarned + totalAmount));
+		return "toBePaidAccounts";
+	}
+	
+	private List<Integer> parseIds(String ids) {
+		List<Integer> exclude = new ArrayList<Integer>(); 
+		for (String strId : ids.split(","))
+			exclude.add(Integer.valueOf(strId));
+		return exclude;
 	}
 }

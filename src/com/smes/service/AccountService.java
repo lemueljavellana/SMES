@@ -48,6 +48,11 @@ public class AccountService {
 		return accountDao.getUnpaidTransactions(customerId, exclude, pageSetting);
 	}
 	
+	public Page<AccountTransaction> getUnpaidTransactionWithIds (int customerId, List<Integer> ids){
+		PageSetting pageSetting = new PageSetting(0, PageSetting.NO_PAGE_CONSTRAINT);
+		return accountDao.getUnpaidAccounts(customerId, ids, pageSetting);
+	}
+	
 	public void deleteAccounts (List<Integer> accountIds){
 		for (Integer id : accountIds){
 			accountDao.delete(id);

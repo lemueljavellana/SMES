@@ -347,22 +347,12 @@ function showPaymentTab (customerId) {
 function addAccountsPayment (customerId){
 	var checkBoxes = document.getElementsByName("cb");
 	var checkedAccount = new Array ();
-	alert (checkedAccount);
 	var index = 0;
 	var insertRow = 0;
 	for (var i = 0; i < checkBoxes.length; i++){
 		var checkBox = checkBoxes[i];
 		if (checkBox.checked) {
 			checkedAccount[index++] = checkBox.value;
-			var row = document.getElementById('customerAccount').rows[i];
-			//alert (row.cells[0] + "," + row.cells[1] + ","+ row.cells[2].childNodes[0].data);
-			var rowToBeInserted = document.getElementById("toBePaidAccounts").insertRow(1);
-			var itemNumber = rowToBeInserted.insertCell (0);
-			itemNumber.innerHTML = ""+insertRow++;
-			
-			var checkBoxColumn = rowToBeInserted.insertCell (1);
-			checkBoxColumn.innerHTML = "test";
-			
 		}
 	}
 	var lastIndex = 0;
@@ -381,19 +371,23 @@ function addAccountsPayment (customerId){
 			toBeExclude = toBeExclude + ","+ id;
 	}
 	var thisUrl = contextPath + "/a/"+ customerId + "/payment/excludeAccounts/" + toBeExclude;
-	alert (thisUrl);
-	updateAccountsTable(thisUrl);
+	updateAccountsTable(thisUrl, "paymentTop");
+	thisUrl = contextPath + "/a/"+ customerId + "/payment/toBePaidAccounts/"+toBeExclude;
+	updateAccountsTable(thisUrl, "toBePaid");
+}
+
+function removeToBePaidAccounts (customerId) {
 	
 }
 
-function updateAccountsTable (thisUrl){
+function updateAccountsTable (thisUrl, divId){
 	dojo.xhrGet({
       url: thisUrl,
       load: function (data) {
-    	  dojo.byId("paymentTop").innerHTML = data;
+    	  dojo.byId(divId).innerHTML = data;
       },
       error: function (data, ioArgs){
-    	  dojo.byId("paymentTop").innerHTML = "unknown error";
+    	  dojo.byId(divId).innerHTML = "unknown error";
       }
 	});
 }

@@ -122,17 +122,25 @@ public abstract class BaseDao<T extends BaseDomain> extends HibernateDaoSupport 
 	}
 	
 	public <A> Page<A> getAllAsPage (String sql, PageSetting pageSetting, QueryResultHandler<A> handler){
-		String sqlWithLimit = sql + " " + "LIMIT ?,?";
 		String sqlCount = "SELECT count(*) as TOTAL_COUNT FROM (" + sql +") as tc";
 		List<A> result = null;
 		Session session = null;
 		int totalRecords = 0;
 		try {
 			session = getSession();
-			SQLQuery query = session.createSQLQuery(sqlWithLimit);
+			SQLQuery query = null;
+			boolean addPaging = false;
+			if (pageSetting.getMaxResult() != PageSetting.NO_PAGE_CONSTRAINT){
+				query = session.createSQLQuery(sql +" " + "LIMIT ?,?");
+				addPaging = true;
+			} else {
+				query = session.createSQLQuery(sql);
+			}
 			int lastIndex = handler.setParamater(query) + 1;
-			query.setParameter(lastIndex++, pageSetting.getStartResult());
-			query.setParameter(lastIndex, pageSetting.getMaxResult());
+			if (addPaging){
+				query.setParameter(lastIndex++, pageSetting.getStartResult());
+				query.setParameter(lastIndex, pageSetting.getMaxResult());
+			}
 			List<Object[]> queryResult = query.list();
 			result = handler.convert(queryResult);
 			query = session.createSQLQuery(sqlCount);

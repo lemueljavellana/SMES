@@ -26,6 +26,7 @@ public class AccountDaoImpl extends BaseDao<Account>
 			PageSetting pageSetting) {
 		return getUnpaidTransactions(customerId, null, pageSetting);
 	}
+
 	@Override
 	public Page<AccountTransaction> getUnpaidTransactions(int customerId,
 			List<Integer> exclude, PageSetting pageSetting) {
@@ -35,16 +36,50 @@ public class AccountDaoImpl extends BaseDao<Account>
 		String fromSQL = rb.getString("unpaid.account.sql.from");
 		String whereSQL = rb.getString("unpaid.account.sql.where");
 		String groupSQL = rb.getString("unpaid.account.sql.group");
-		String orderSQl = rb.getString("unpaid.account.sql.order");
+		String orderSQL = rb.getString("unpaid.account.sql.order");
 		
 		if (exclude != null)
 			for (Integer id : exclude) 
 				whereSQL += " AND T1.ACCOUNT_ID !=" + id;
 
-		String sql = selectSQL+ " " + fromSQL + " " +whereSQL + " " + groupSQL + " " + orderSQl;
+		return getUnpaidTransaction(customerId, selectSQL, fromSQL,
+				whereSQL, groupSQL, orderSQL, pageSetting);
+	}
+
+	private Page<AccountTransaction> getUnpaidTransaction (int customerId, String selectSQL,
+			String fromSQL, String whereSQL, String groupSQL, String orderSQL, PageSetting pageSetting) {
+		String sql = selectSQL+ " " + fromSQL + " " +whereSQL + " " + groupSQL + " " + orderSQL;
 		QRHandler handler = new QRHandler(customerId);
 		return getAllAsPage(sql, pageSetting, handler);
 	}
+	
+	@Override
+	public Page<AccountTransaction> getUnpaidAccounts(int customerId,
+			List<Integer> ids, PageSetting pageSetting) {
+		ResourceBundle rb =
+			ResourceBundle.getBundle(PropertyFileConstant.ACCOUNT_PROP);
+		String selectSQL = rb.getString("unpaid.account.sql.select");
+		String fromSQL = rb.getString("unpaid.account.sql.from");
+		String whereSQL = rb.getString("unpaid.account.sql.where");
+		String groupSQL = rb.getString("unpaid.account.sql.group");
+		String orderSQL = rb.getString("unpaid.account.sql.order");
+		boolean createAnd = true;
+		if (ids != null) {
+			for (int id : ids) {
+				if (createAnd) {
+					whereSQL += "AND (T1.ACCOUNT_ID =" + id;
+					createAnd = false;
+				} else {
+					whereSQL += " OR T1.ACCOUNT_ID =" + id;
+				}
+			}
+			whereSQL += ")";
+		}
+			
+		return getUnpaidTransaction(customerId, selectSQL, fromSQL, whereSQL,
+				groupSQL, orderSQL, pageSetting);
+	}
+	
 	private static class QRHandler implements QueryResultHandler<AccountTransaction> {
 		private final int customerId;
 		

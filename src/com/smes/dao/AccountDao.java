@@ -26,4 +26,7 @@ public interface AccountDao extends Dao<Account>{
 	 */
 	Page<AccountTransaction> getUnpaidTransactions (int customerId, List<Integer> exclude,
 			PageSetting pageSetting);
+	
+	Page<AccountTransaction> getUnpaidAccounts (int customerId, List<Integer> ids,
+			PageSetting pageSetting);
 }
